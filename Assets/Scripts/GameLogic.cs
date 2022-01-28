@@ -29,7 +29,7 @@ public struct Board // Stores the locations of all cards and variables during a 
 public class GameLogic : MonoBehaviour
 {
 	public Board board; // Holds most board state information
-	[SerializeField] GameObject cardObj; // A reference to the prefab for the double sided card
+	PremadeCards premade; // For creating new cards with non-random values (Optionaly not random anyway)
 
 	float[] initialCoords = new float[3] { 0, 0, 0 }; // This and next two lines used to position cards
 	float verticalSpacing = 10;
@@ -37,8 +37,9 @@ public class GameLogic : MonoBehaviour
 
 	void Start()
     {
-		board = new Board();
-		board.upcomingRowFront = new Card[4]; // This may need to be rewritten later to support AI having single sided cards, or have Card remove one side on creation should it be prompted to do so !!!
+		board = new Board(); // This variable will be referenced *extensively*
+		premade = GetComponent<PremadeCards>(); // Grab this for getting cards later
+		board.upcomingRowFront = new Card[4]; // Perhaps a little messy, but it works
 		board.opponentRowFront = new Card[4];
 		board.upcomingRowBack = new Card[4];
 		board.opponentRowBack = new Card[4];
@@ -46,52 +47,23 @@ public class GameLogic : MonoBehaviour
 		board.ownedCards = new List<Card>(); // Will hold all cards the player owns. Starting cards should be set here !!!
 
 		// Testing lines below here
-		for (int ii = 0; ii < 10; ii++) // Creates random cards and puts them into your deck
+		/*for (int ii = 0; ii < 10; ii++) // Creates random cards and puts them into your deck
 		{
-			Card tempCard = Instantiate(cardObj).GetComponent<Card>();
-			tempCard.SetStats(Random.Range(0,9), Random.Range(0, 9), Random.Range(0, 9), Random.Range(0, 9));
-			tempCard.SetPos(-50, -50, -50); // Effectively hides the card from player view until we implement a hand !!!
-			board.ownedCards.Add(tempCard);
-		}
-
+			board.ownedCards.Add(premade.GetCard(Cards.Random, true)); // Generates double cards with random values, NOT a random premade card
+		}*/
+		board.ownedCards.Add(premade.GetCard(Cards.Basic1, true)); // A simple starting deck. Each win will let the player add to this deck, so the small size should be fine
+		board.ownedCards.Add(premade.GetCard(Cards.Basic2, true));
+		board.ownedCards.Add(premade.GetCard(Cards.Basic3, true));
+		board.ownedCards.Add(premade.GetCard(Cards.Basic4, true));
+		board.ownedCards.Add(premade.GetCard(Cards.Basic5, true));
 		BeginGame();
-
-		//Card tehJohnCard = Instantiate(cardObj).GetComponent<Card>();
-		//tehJohnCard.SetStats(1,2,3,4);
-		//PlaceCard(tehJohnCard, 1);
-
-		// CreateCards(); // Currently just fills the game board with cards for testing
     }
-
-    void Update()
-    {
-        
-    }
-
-	void CreateCards() // Fills the board, not intended to be used for the actual game, just debugging etc
-	{
-
-		for (int xx = 0; xx < 4; xx++)
-		{
-			board.upcomingRowFront[xx] = Instantiate(cardObj).GetComponent<Card>();
-			board.upcomingRowFront[xx].SetStats(1, 2, 4, 8);
-			board.upcomingRowFront[xx].SetPos(initialCoords[0] + xx * horisontalSpacing, initialCoords[1] + verticalSpacing * 2, initialCoords[2]);
-			board.opponentRowFront[xx] = Instantiate(cardObj).GetComponent<Card>();
-			board.opponentRowFront[xx].SetStats(3, 4, 4, 3);
-			board.opponentRowFront[xx].SetPos(initialCoords[0] + xx * horisontalSpacing, initialCoords[1] + verticalSpacing, initialCoords[2]);
-			board.playerRow[xx] = Instantiate(cardObj).GetComponent<Card>();
-			board.playerRow[xx].SetStats(xx, 2+xx, 3+xx, 4+xx);
-			board.playerRow[xx].SetPos(initialCoords[0] + xx * horisontalSpacing, initialCoords[1], initialCoords[2]);
-		}
-	}
 	public void GenerateAICards() // Called whenever the AI should create cards to play. These cards are currently completely random !!!
 	{
 		int cardNum = Random.Range(1, 3);
 		for (int ii = 0; ii < cardNum; ii++) // Creates 1-2 random cards and adds them to upcoming
 		{
-			Card tempCard = Instantiate(cardObj).GetComponent<Card>();
-			tempCard.SetStats(Random.Range(0, 10), Random.Range(0, 10), Random.Range(0, 10), Random.Range(0, 10)); // Random stats 0-9
-			PlaceCard(tempCard, Random.Range(0, 4), true); // Places on the enemy side
+			PlaceCard(premade.GetCard(Cards.Random, true), Random.Range(0, 4), true); // Places on the enemy side
 		}
 	}
 	public void BeginGame() // Set initial values, deal starting hand, and generate AI cards for first round
@@ -103,10 +75,10 @@ public class GameLogic : MonoBehaviour
 
 		board.gameHand = new List<Card>(); // Create empty hand
 		board.gameDeck = new List<Card>(board.ownedCards); // Set the deck to all owned cards
-		board.gameDeck = board.gameDeck.OrderBy(a => Random.Range(0f, 100f)).ToList(); // Randomly shuffles the deck, using random floats to reduce ties.
+		board.gameDeck = board.gameDeck.OrderBy(a => Random.Range(0f, 100f)).ToList(); // Randomly shuffles the deck, using random floats to reduce ties
 
 		// Deal starting hand
-		for (int ii = 0; ii < 4; ii++) // 4 starting cards for now
+		for (int ii = 0; ii < 3; ii++) // 3 starting cards, for now
 		{
 			if (board.gameDeck.Count > 0) // If there are cards still in the deck,
 			{
@@ -114,8 +86,11 @@ public class GameLogic : MonoBehaviour
 				board.gameDeck.RemoveAt(0); // Remove this card from the deck
 			}
 		}
-		// Generate AI cards for first round
-		GenerateAICards(); // Now seperate as is called in more than one spot
+		FreeCardGet(false); // Also deal player two free cards, possibly allowing for a "Take no free cards" challenge, but also for convenience/qol
+		FreeCardGet(false); // These cards do not count towards the "One free card per turn limit," so the player is free to draw a third on his/her first turn
+
+	   // Generate AI cards for first round
+	   GenerateAICards(); // Now seperate as is called in more than one spot
 	}
 	public void EndTurn() // Called when player ends their turn. Will preform attacking and decide if the game is over or set up for the next turn
 	{
@@ -266,15 +241,12 @@ public class GameLogic : MonoBehaviour
 		}
 		return false; // Something bad happened
 	}
-	public void FreeCardGet() // Called when player requests his/her free card of the turn
+	public void FreeCardGet(bool oneOnly = true) // Called when player requests his/her free card of the turn. If oneOnly is false, then this card is not counted as the players "one per turn" card
 	{
 		if (!board.playerTookFreeCard) // If player has not yet retrieved a free card
 		{
-			Card freeCard = Instantiate(cardObj).GetComponent<Card>(); // Create a new card (!!! Will be replaced when premade cards are stored in bulk somewhere)
-			freeCard.SetStats(0, 2, 0, 2); // Set the cards stats (Again will be done automatically later)
-			freeCard.SetPos(-50, -50, -50); // Effectively hides the card from player view until we implement a hand !!!
-			board.gameHand.Add(freeCard); // Add this card to player deck
-			board.playerTookFreeCard = true; // Player now has his/her free card
+			board.gameHand.Add(premade.GetCard(Cards.Free, true)); // Add new free card to player deck
+			board.playerTookFreeCard = oneOnly; // Player now has his/her free card, unless oneOnly is manually set to false (For giving player 2 free cards at the begining of the game)
 		}
 	}
 	public void GameEnd(bool playerWon) // Called when the game ends
