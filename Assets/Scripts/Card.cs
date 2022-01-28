@@ -38,8 +38,8 @@ public class Card : MonoBehaviour, IClickable
 	}
 	void UpdateText() // Update the statline on this card, displaying nothing for damage if it is 0
 	{
-		textFront.SetText((DamageFront == 0 ? DamageFront.ToString() : " ") + fill + HealthFront.ToString());
-		textBack.SetText((DamageFront == 0 ? DamageFront.ToString() : " ") + fill + HealthBack.ToString());
+		textFront.SetText((DamageFront != 0 ? DamageFront.ToString() : " ") + fill + HealthFront.ToString());
+		textBack.SetText((DamageFront != 0 ? DamageFront.ToString() : " ") + fill + HealthBack.ToString());
 	}
 	public int DamageFront
 	{
