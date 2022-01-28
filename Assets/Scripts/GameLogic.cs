@@ -91,8 +91,7 @@ public class GameLogic : MonoBehaviour
 		{
 			Card tempCard = Instantiate(cardObj).GetComponent<Card>();
 			tempCard.SetStats(Random.Range(0, 10), Random.Range(0, 10), Random.Range(0, 10), Random.Range(0, 10)); // Random stats 0-9
-			bool success = PlaceCard(tempCard, Random.Range(0, 4), true); // Places on the enemy side
-			ii += success ? 0 : -1; // Loop again if failed to place card
+			PlaceCard(tempCard, Random.Range(0, 4), true); // Places on the enemy side
 		}
 	}
 	public void BeginGame() // Set initial values, deal starting hand, and generate AI cards for first round
@@ -171,6 +170,7 @@ public class GameLogic : MonoBehaviour
 				{
 					board.opponentRowFront[ii] = board.upcomingRowFront[ii]; // Move that card forwards
 					board.upcomingRowFront[ii] = null; // And remove it from upcoming
+					board.upcomingRowFront[ii].SetPos(initialCoords[0] + ii * horisontalSpacing, initialCoords[1] + verticalSpacing, initialCoords[2]); // Move it to the correct location
 				}
 			}
 			// Front cards attack
