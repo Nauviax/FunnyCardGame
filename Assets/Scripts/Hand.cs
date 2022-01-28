@@ -12,12 +12,13 @@ public class Hand : MonoBehaviour
     public bool invertedScroll = false;
     public bool lookingDown = false;
     GameLogic gameLogic;
+    GameObject hand;
 
     // Start is called before the first frame update
     void Start()
     {
         gameLogic = gameObject.GetComponent<GameLogic>();
-        
+        hand = GameObject.FindWithTag("Hand");
     }
 
     public bool firstUpdate = true;
@@ -63,5 +64,18 @@ public class Hand : MonoBehaviour
         gameObject.GetComponent<CameraController>().targetRotation = Quaternion.Euler(0, 0, 0);
         gameObject.GetComponent<HandController>().targetPosition = new Vector3(15, -9, -25);
         lookingDown = false;
+    }
+
+    public void addCard(Card card) {
+        //TODO: just put code for the rune type through here, may need to add another parameter
+        card.rune = Instantiate(runeObj);
+        updateHand();
+    }
+    public void removeCard(Card card) {
+        
+        updateHand();
+    }
+    public void updateHand() {
+        //this is where jfkghnz.b
     }
 }

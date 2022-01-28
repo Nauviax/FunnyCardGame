@@ -30,6 +30,7 @@ public class GameLogic : MonoBehaviour
 {
 	public Board board; // Holds most board state information
 	PremadeCards premade; // For creating new cards with non-random values (Optionaly not random anyway)
+	Hand uiHand; //holds a reference to the Hand object that displays the hand
 
 	float[] initialCoords = new float[3] { 0, 0, 0 }; // This and next two lines used to position cards
 	float verticalSpacing = 10;
@@ -45,6 +46,9 @@ public class GameLogic : MonoBehaviour
 		board.opponentRowBack = new Card[4];
 		board.playerRow = new Card[4];
 		board.ownedCards = new List<Card>(); // Will hold all cards the player owns. Starting cards should be set here !!!
+
+		//wee woo wee woo lachlan added a line here :o
+		uiHand = gameObject.GetComponent<Hand>();
 
 		// Testing lines below here
 		/*for (int ii = 0; ii < 10; ii++) // Creates random cards and puts them into your deck
@@ -82,7 +86,7 @@ public class GameLogic : MonoBehaviour
 		{
 			if (board.gameDeck.Count > 0) // If there are cards still in the deck,
 			{
-				board.gameHand.Add(board.gameDeck[0]); // Get the next card in the deck and add it to player hand
+				addCardToHand(board.gameDeck[0]); // Get the next card in the deck and add it to player hand
 				board.gameDeck.RemoveAt(0); // Remove this card from the deck
 			}
 		}
@@ -203,7 +207,7 @@ public class GameLogic : MonoBehaviour
 		// Draw card from deck
 		if (board.gameDeck.Count > 0) // If there are cards still in the deck,
 		{
-			board.gameHand.Add(board.gameDeck[0]); // Get the next card in the deck and add it to player hand
+			addCardToHand(board.gameDeck[0]); // Get the next card in the deck and add it to player hand
 			board.gameDeck.RemoveAt(0); // Remove this card from the deck
 		}
 
@@ -235,7 +239,7 @@ public class GameLogic : MonoBehaviour
 				board.playerDust -= card.DustValue; // Subtract the cost of the card,
 				board.playerRow[location] = card; // Place the card,
 				card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1], initialCoords[2]); // Put it in the correct spot,
-				board.gameHand.Remove(card); // And remove the card from the player's hand
+				removeCardFromHand(card); // And remove the card from the player's hand
 				return true; // yay
 			}
 		}
@@ -245,12 +249,22 @@ public class GameLogic : MonoBehaviour
 	{
 		if (!board.playerTookFreeCard) // If player has not yet retrieved a free card
 		{
-			board.gameHand.Add(premade.GetCard(Cards.Free, true)); // Add new free card to player deck
+			addCardToHand(premade.GetCard(Cards.Free, true)); // Add new free card to player deck
 			board.playerTookFreeCard = oneOnly; // Player now has his/her free card, unless oneOnly is manually set to false (For giving player 2 free cards at the begining of the game)
 		}
 	}
 	public void GameEnd(bool playerWon) // Called when the game ends
 	{
 
+	}
+	//PLEASE USE THESE METHODS
+	//allows me to hook into hand modifications to integrate with ui
+	public void addCardToHand(Card card) {
+		board.gameHand.Add(card);
+		uiHand.addCard(card);
+	}
+	public void removeCardFromHand(Card card) {
+		board.gameHand.Remove(card);
+		uiHand.removeCard(card);
 	}
 }

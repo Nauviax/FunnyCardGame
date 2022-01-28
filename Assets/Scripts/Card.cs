@@ -14,6 +14,9 @@ public class Card : MonoBehaviour, IClickable
 	TextMeshPro textBack;
 	string fill = "         "; // Might make cleaner later idk
 
+	//the bit displayed in the hand
+	public GameObject rune;
+
 	public void SetStats(int damageFront, int healthFront, int damageBack, int healthBack) // May be replaced later when premade card stats can be stored in bulk
 	{
 		this.damageFront = damageFront;
