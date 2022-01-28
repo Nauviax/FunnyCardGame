@@ -30,7 +30,7 @@ public class GameLogic : MonoBehaviour
 {
 	public Board board; // Holds most board state information
 	PremadeCards premade; // For creating new cards with non-random values (Optionaly not random anyway)
-	Hand uiHand; //holds a reference to the Hand object that displays the hand
+	Hand uiHand; // Holds a reference to the Hand object that displays the hand
 
 	float[] initialCoords = new float[3] { 0, 0, 0 }; // This and next two lines used to position cards
 	float verticalSpacing = 10;
@@ -40,15 +40,13 @@ public class GameLogic : MonoBehaviour
     {
 		board = new Board(); // This variable will be referenced *extensively*
 		premade = GetComponent<PremadeCards>(); // Grab this for getting cards later
+		uiHand = gameObject.GetComponent<Hand>(); // Wee woo wee woo lachlan added a line here :o
 		board.upcomingRowFront = new Card[4]; // Perhaps a little messy, but it works
 		board.opponentRowFront = new Card[4];
 		board.upcomingRowBack = new Card[4];
 		board.opponentRowBack = new Card[4];
 		board.playerRow = new Card[4];
 		board.ownedCards = new List<Card>(); // Will hold all cards the player owns. Starting cards should be set here !!!
-
-		//wee woo wee woo lachlan added a line here :o
-		uiHand = gameObject.GetComponent<Hand>();
 
 		// Testing lines below here
 		/*for (int ii = 0; ii < 10; ii++) // Creates random cards and puts them into your deck
@@ -257,8 +255,7 @@ public class GameLogic : MonoBehaviour
 	{
 
 	}
-	//PLEASE USE THESE METHODS
-	//allows me to hook into hand modifications to integrate with ui
+	// Lachlan's hooks, use where appropriate
 	public void addCardToHand(Card card) {
 		board.gameHand.Add(card);
 		uiHand.addCard(card);

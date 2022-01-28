@@ -26,7 +26,7 @@ public enum Modifiers // Cost 5 each
 	Thorny, // Attackers take one point of damage when attacking this side
 	Musical, // Friendly cards gain one attack on this side of the board
 	Syphoning, // Gains one health after attacking, but takes one from the other side of this card
-	Guarding, // Block one attack on this card, fully, and only once. (Removes sigil after hit)
+	Guarding, // Absorbs all enemy attacks on this side, taking the damage itself instead
 	Vampiric, // When this card kills an enemy, gain two health. (This side only)
 }
 public enum Effects // Normally put on 0/0 cards, Varying cost, not recovered: < x >
@@ -42,9 +42,12 @@ public enum Effects // Normally put on 0/0 cards, Varying cost, not recovered: <
 }
 public class PremadeCards : MonoBehaviour
 {
-	[SerializeField] GameObject cardObjDouble; // A reference to the prefab for the double sided card
-	[SerializeField] GameObject cardObjSingle; // The single sided one
+	CardAssets cardAssets; // Will store references to all GameObjects for rendering cards
 
+	void Start()
+	{
+		cardAssets = gameObject.GetComponent<CardAssets>(); // Get the card assets
+	}
 	public Card GetCard(Cards template, bool isDouble) // Creates a card. Single sided cards will only use the front stats
 	{
 		// Default values of cards set first here
@@ -79,7 +82,7 @@ public class PremadeCards : MonoBehaviour
 			default: // Shouldn't happen
 				break;
 		}
-		Card newCard = Instantiate(isDouble ? cardObjDouble : cardObjSingle).GetComponent<Card>(); // Create a new card with blank values
+		Card newCard = Instantiate(isDouble ? cardAssets.CardObjDouble : cardAssets.CardObjSingle).GetComponent<Card>(); // Create a new card with blank values
 		newCard.SetStats(stats[0], stats[1], stats[2], stats[3]); // Set the cards stats
 		// Modifiers (!!! Not implemented !!!)
 		// Effects 
