@@ -170,7 +170,7 @@ public class GameLogic : MonoBehaviour
 				{
 					board.opponentRowFront[ii] = board.upcomingRowFront[ii]; // Move that card forwards
 					board.upcomingRowFront[ii] = null; // And remove it from upcoming
-					board.upcomingRowFront[ii].SetPos(initialCoords[0] + ii * horisontalSpacing, initialCoords[1] + verticalSpacing, initialCoords[2]); // Move it to the correct location
+					board.opponentRowFront[ii].SetPos(initialCoords[0] + ii * horisontalSpacing, initialCoords[1] + verticalSpacing, initialCoords[2]); // Move it to the correct location
 				}
 			}
 			// Front cards attack
