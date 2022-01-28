@@ -17,33 +17,38 @@ public class Hand : MonoBehaviour
         
     }
 
-    public bool john = true;
+    public bool firstUpdate = true;
     // Update is called once per frame
     void Update()
     {
-        if (john) {
+        if (firstUpdate) {
             cards = gameLogic.board.gameHand;
             
-            john = false;
+            firstUpdate = false;
         }
 
-        gameLogic.FreeCardGet();
-        Debug.Log(cards.Count);
+        
 
         //TODO: add alternate ways to look at hand, ie 's', down arrow
         if ((invertedScroll ? -1:1) * Input.mouseScrollDelta.y<0 && !lookingDown) {
             lookDown();
+            Debug.Log("looked down");
         }
         if ((invertedScroll ? -1 : 1) * Input.mouseScrollDelta.y > 0 && lookingDown) {
             lookUp();
+            Debug.Log("looked up");
         } 
     }
     
     public void lookDown() {
-
+        gameObject.GetComponent<CameraController>().targetPosition.position = new Vector3(18.2f, 7, -32);
+        gameObject.GetComponent<CameraController>().targetPosition.rotation = Quaternion.Euler(13, -20, 0);
+        lookingDown = true;
     }
 
     public void lookUp() {
-
+        gameObject.GetComponent<CameraController>().targetPosition.position = new Vector3(18, 10, -32);
+        gameObject.GetComponent<CameraController>().targetPosition.rotation = Quaternion.Euler(0, 0, 0);
+        lookingDown = false;
     }
 }
