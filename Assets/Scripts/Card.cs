@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro; // For editing the text
 
-public class Card : MonoBehaviour
+public class Card : MonoBehaviour, IClickable
 {
 	int damageFront;
 	int healthFront;
@@ -55,5 +55,11 @@ public class Card : MonoBehaviour
 	{
 		get { return healthBack; }
 		set { healthBack = value; UpdateText(); }
+	}
+
+	public void onClick() {
+		Debug.Log("oof owie i hath been click-ed-eth");
+		Debug.Log("Front: "+healthFront+fill+damageFront);
+		Debug.Log("Back: " + healthBack + fill + damageBack);
 	}
 }
