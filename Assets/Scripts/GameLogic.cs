@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public struct Board // Stores the locations of all cards and variables during a game, and also the players deck outside of a game
@@ -24,6 +25,7 @@ public struct Board // Stores the locations of all cards and variables during a 
 	// These are all cards the player owns. gameDeck will be set to this at the start of a game. Does not include free cards
 	public List<Card> ownedCards; // All cards owned by player, should be (Basically) read only during a game
 }
+
 public class GameLogic : MonoBehaviour
 {
 	public Board board; // Holds most board state information
@@ -42,11 +44,20 @@ public class GameLogic : MonoBehaviour
 		board.ownedCards = new List<Card>(); // Will hold all cards the player owns. Starting cards should be set here !!!
 
 		// Testing lines below here
+		for (int ii = 0; ii < 10; ii++) // Creates random cards and puts them into your deck
+		{
+			Card tempCard = Instantiate(cardObj).GetComponent<Card>();
+			tempCard.SetStats(Random.Range(0,9), Random.Range(0, 9), Random.Range(0, 9), Random.Range(0, 9));
+			tempCard.SetPos(-50, -50, -50); // Effectively hides the card from player view until we implement a hand !!!
+			board.ownedCards.Add(tempCard);
+		}
+
 		BeginGame();
 
-		Card tehJohnCard = Instantiate(cardObj).GetComponent<Card>();
-		tehJohnCard.SetStats(1,2,3,4);
-		PlaceCard(tehJohnCard, 1);
+		//Card tehJohnCard = Instantiate(cardObj).GetComponent<Card>();
+		//tehJohnCard.SetStats(1,2,3,4);
+		//PlaceCard(tehJohnCard, 1);
+
 		// CreateCards(); // Currently just fills the game board with cards for testing
     }
 
@@ -71,17 +82,39 @@ public class GameLogic : MonoBehaviour
 			board.playerRow[xx].SetPos(initialCoords[0] + xx * horisontalSpacing, initialCoords[1], initialCoords[2]);
 		}
 	}
+	public void GenerateAICards() // Called whenever the AI should create cards to play. These cards are currently completely random !!!
+	{
+		int cardNum = Random.Range(1, 3);
+		for (int ii = 0; ii < cardNum; ii++) // Creates 1-2 random cards and adds them to upcoming
+		{
+			Card tempCard = Instantiate(cardObj).GetComponent<Card>();
+			tempCard.SetStats(Random.Range(0, 10), Random.Range(0, 10), Random.Range(0, 10), Random.Range(0, 10)); // Random stats 0-9
+			bool success = PlaceCard(tempCard, Random.Range(0, 4), true); // Places on the enemy side
+			ii += success ? 0 : -1; // Loop again if failed to place card
+		}
+	}
 	public void BeginGame() // Set initial values, deal starting hand, and generate AI cards for first round
 	{
 		// Set initial values
-		board.gameDeck = new List<Card>();
-		board.gameHand = new List<Card>();
+		board.playerDust = 50; // !!! Set much lower when finished debugging
+		board.opponentDust = 50;
+		board.playerTookFreeCard = false; // Player may take a free card on his/her first turn
+
+		board.gameHand = new List<Card>(); // Create empty hand
+		board.gameDeck = new List<Card>(board.ownedCards); // Set the deck to all owned cards
+		board.gameDeck = board.gameDeck.OrderBy(a => Random.Range(0f, 100f)).ToList(); // Randomly shuffles the deck, using random floats to reduce ties.
+
 		// Deal starting hand
-		/*for (int ii = 0; ii < 4; ii++) // 4 starting cards for now
+		for (int ii = 0; ii < 4; ii++) // 4 starting cards for now
 		{
-			board.gameDeck.Add(new Card()); // Wrong line is autofill, want to take card from deck put into hand
-		}*/
+			if (board.gameDeck.Count > 0) // If there are cards still in the deck,
+			{
+				board.gameHand.Add(board.gameDeck[0]); // Get the next card in the deck and add it to player hand
+				board.gameDeck.RemoveAt(0); // Remove this card from the deck
+			}
+		}
 		// Generate AI cards for first round
+		GenerateAICards(); // Now seperate as is called in more than one spot
 	}
 	public void EndTurn() // Called when player ends their turn. Will preform attacking and decide if the game is over or set up for the next turn
 	{
@@ -185,31 +218,49 @@ public class GameLogic : MonoBehaviour
 		}
 
 		// Generate new AI cards for next turn
+		GenerateAICards();
 
 		// Set up for next turn
 		board.playerTookFreeCard = false; // Player may retrieve a new free card
+
 		// Draw card from deck
-
-
+		if (board.gameDeck.Count > 0) // If there are cards still in the deck,
+		{
+			board.gameHand.Add(board.gameDeck[0]); // Get the next card in the deck and add it to player hand
+			board.gameDeck.RemoveAt(0); // Remove this card from the deck
+		}
 
 	}
-	public bool PlaceCard(Card card, int location) // Will place the given card at a certian location on the board. Returns true if sucsessful, false if failed
+	public bool PlaceCard(Card card, int location, bool isEnemySide = false) // Will place the given card at a certian location on the board. Returns true if sucsessful, false if failed
 	{
-		if (board.playerRow[location] != null) // If location is taken, fail
+		if (isEnemySide) // Optional input determines if card should be placed on enemy side. Enemies require less checks if they can place a card, like no cost needed
 		{
-			return false;
-		}
-		if (card.DustValue > board.playerDust) // If I can't afford to place this card, and will die because of it, fail
-		{
-			return false;
-		}
-		if (board.gameHand.Contains(card)) // If I have the card in my hand, (I'ma idiot proof the fuck out of this)
-		{
-			board.playerDust -= card.DustValue; // Subtract the cost of the card,
-			board.playerRow[location] = card; // Place the card,
-			card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1], initialCoords[2]); // Put it in the correct spot,
-			board.gameHand.Remove(card); // And remove the card from the player's hand
+			if (board.upcomingRowFront[location] != null) // If location is taken, fail (!!! Uses front by default !!!)
+			{
+				return false;
+			}
+			board.upcomingRowFront[location] = card; // Place the card,
+			card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1] + verticalSpacing * 2, initialCoords[2]); // Put it in the correct spot
 			return true; // yay
+		}
+		else
+		{
+			if (board.playerRow[location] != null) // If location is taken, fail
+			{
+				return false;
+			}
+			if (card.DustValue > board.playerDust) // If I can't afford to place this card, and will die because of it, fail
+			{
+				return false;
+			}
+			if (board.gameHand.Contains(card)) // If I have the card in my hand, (I'ma idiot proof the fuck out of this)
+			{
+				board.playerDust -= card.DustValue; // Subtract the cost of the card,
+				board.playerRow[location] = card; // Place the card,
+				card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1], initialCoords[2]); // Put it in the correct spot,
+				board.gameHand.Remove(card); // And remove the card from the player's hand
+				return true; // yay
+			}
 		}
 		return false; // Something bad happened
 	}
