@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float moveSpeed = 2f;
-    public float rotateSpeed = 5f;
+    public float moveSpeed = 10f;
+    public float rotateSpeed = 90f;
     public Transform targetPosition;
     Camera camera;
 
