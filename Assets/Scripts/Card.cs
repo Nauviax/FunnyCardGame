@@ -33,14 +33,10 @@ public class Card : MonoBehaviour, IClickable
 	{
 		Destroy(gameObject); // Fucking dies
 	}
-	void Update()
+	void UpdateText() // Update the statline on this card, displaying nothing for damage if it is 0
 	{
-		
-	}
-	void UpdateText()
-	{
-		textFront.SetText(DamageFront.ToString() + fill + HealthFront.ToString());
-		textBack.SetText(DamageBack.ToString() + fill + HealthBack.ToString());
+		textFront.SetText((DamageFront == 0 ? DamageFront.ToString() : " ") + fill + HealthFront.ToString());
+		textBack.SetText((DamageFront == 0 ? DamageFront.ToString() : " ") + fill + HealthBack.ToString());
 	}
 	public int DamageFront
 	{
