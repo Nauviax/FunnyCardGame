@@ -22,6 +22,19 @@ MonoBehaviour:
   CBasic3: {fileID: 0}
   CBasic4: {fileID: 0}
   CBasic5: {fileID: 0}
+  CVenomous: {fileID: 0}
+  CFlying: {fileID: 5022844605923144078, guid: 026dcaefd4d19134f8efc079981ff3fb, type: 3}
+  CDusty: {fileID: 0}
+  CMoving: {fileID: 0}
+  CBrutish: {fileID: 0}
+  CPronged: {fileID: 0}
+  CThorny: {fileID: 0}
+  CMusical: {fileID: 0}
+  CSyphoning: {fileID: 0}
+  CGuarding: {fileID: 0}
+  CVampiric: {fileID: 0}
+  CFlyingBrute: {fileID: 0}
+  CEffect: {fileID: 0}
   MNone: {fileID: 0}
   MFree: {fileID: 0}
   MVenomous: {fileID: 0}
