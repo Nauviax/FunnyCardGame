@@ -64,7 +64,7 @@ public class Card : MonoBehaviour, IClickable
 	}
 	public int DustValue
 	{
-		get { return DustValue; }
+		get { return dustValue; }
 	}
 
 	public void onClick() {

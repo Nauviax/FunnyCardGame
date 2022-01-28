@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-struct Board // Stores the locations of all cards and variables during a game, and also the players deck outside of a game
+public struct Board // Stores the locations of all cards and variables during a game, and also the players deck outside of a game
 {
 	// Game values, not used outside of a game
 	public int playerDust; // Player currency and health during a game. Aquired when attacking the AI directly or when a player card dies. Lost when player is attacked directly or plays a card
@@ -26,7 +26,7 @@ struct Board // Stores the locations of all cards and variables during a game, a
 }
 public class GameLogic : MonoBehaviour
 {
-	Board board; // Holds most board state information
+	public Board board; // Holds most board state information
 	[SerializeField] GameObject cardObj; // A reference to the prefab for the double sided card
 
 	float[] initialCoords = new float[3] { 0, 0, 0 }; // This and next two lines used to position cards
@@ -40,8 +40,9 @@ public class GameLogic : MonoBehaviour
 		board.opponentRowFront = new Card[4];
 		board.playerRow = new Card[4];
 		board.ownedCards = new List<Card>(); // Will hold all cards the player owns. Starting cards should be set here !!!
-		
+
 		// Testing lines below here
+		BeginGame();
 
 		Card tehJohnCard = Instantiate(cardObj).GetComponent<Card>();
 		tehJohnCard.SetStats(1,2,3,4);
@@ -76,10 +77,10 @@ public class GameLogic : MonoBehaviour
 		board.gameDeck = new List<Card>();
 		board.gameHand = new List<Card>();
 		// Deal starting hand
-		for (int ii = 0; ii < 4; ii++) // 4 starting cards for now
+		/*for (int ii = 0; ii < 4; ii++) // 4 starting cards for now
 		{
 			board.gameDeck.Add(new Card()); // Wrong line is autofill, want to take card from deck put into hand
-		}
+		}*/
 		// Generate AI cards for first round
 	}
 	public void EndTurn() // Called when player ends their turn. Will preform attacking and decide if the game is over or set up for the next turn
