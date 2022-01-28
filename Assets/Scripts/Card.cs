@@ -9,23 +9,29 @@ public class Card : MonoBehaviour, IClickable
 	int healthFront;
 	int damageBack;
 	int healthBack;
+	int dustValue;
 	TextMeshPro textFront;
 	TextMeshPro textBack;
 	string fill = "         "; // Might make cleaner later idk
 
-	public void setStats(int damageFront, int healthFront, int damageBack, int healthBack)
+	public void SetStats(int damageFront, int healthFront, int damageBack, int healthBack) // May be replaced later when premade card stats can be stored in bulk
 	{
 		this.damageFront = damageFront;
 		this.healthFront = healthFront;
 		this.damageBack = damageBack;
 		this.healthBack = healthBack;
+		dustValue = damageFront * 2 + damageBack * 2 + healthFront + healthBack; // A simple formula
 		textFront = transform.GetChild(0).GetComponent<TextMeshPro>();
 		textBack = transform.GetChild(1).GetComponent<TextMeshPro>();
 		UpdateText();
 	}
-	public void setPos(float xx, float yy, float zz)
+	public void SetPos(float xx, float yy, float zz)
 	{
 		transform.position = new Vector3(xx, yy, zz);
+	}
+	public void Destroy() // Called when card runs out of health
+	{
+		Destroy(gameObject); // Fucking dies
 	}
 	void Update()
 	{
@@ -55,6 +61,10 @@ public class Card : MonoBehaviour, IClickable
 	{
 		get { return healthBack; }
 		set { healthBack = value; UpdateText(); }
+	}
+	public int DustValue
+	{
+		get { return DustValue; }
 	}
 
 	public void onClick() {
