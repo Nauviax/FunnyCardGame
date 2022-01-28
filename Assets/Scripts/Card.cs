@@ -39,8 +39,8 @@ public class Card : MonoBehaviour, IClickable
 	}
 	void UpdateText()
 	{
-		textFront.SetText(HealthFront.ToString() + fill + DamageFront.ToString());
-		textBack.SetText(HealthBack.ToString() + fill + DamageBack.ToString());
+		textFront.SetText(DamageFront.ToString() + fill + HealthFront.ToString());
+		textBack.SetText(DamageBack.ToString() + fill + HealthBack.ToString());
 	}
 	public int DamageFront
 	{
