@@ -26,16 +26,27 @@ struct Board // Stores the locations of all cards and variables during a game, a
 }
 public class GameLogic : MonoBehaviour
 {
-	Board board;
-	[SerializeField] GameObject cardObj;
-    void Start()
+	Board board; // Holds most board state information
+	[SerializeField] GameObject cardObj; // A reference to the prefab for the double sided card
+
+	float[] initialCoords = new float[3] { 0, 0, 0 }; // This and next two lines used to position cards
+	float verticalSpacing = 10;
+	float horisontalSpacing = 7;
+
+	void Start()
     {
 		board = new Board();
 		board.upcomingRowFront = new Card[4]; // This may need to be rewritten later to support AI having single sided cards, or have Card remove one side on creation should it be prompted to do so !!!
 		board.opponentRowFront = new Card[4];
 		board.playerRow = new Card[4];
 		board.ownedCards = new List<Card>(); // Will hold all cards the player owns. Starting cards should be set here !!!
-		CreateCards(); // Currently just fills the game board with cards for testing
+		
+		// Testing lines below here
+
+		Card tehJohnCard = Instantiate(cardObj).GetComponent<Card>();
+		tehJohnCard.SetStats(1,2,3,4);
+		PlaceCard(tehJohnCard, 1);
+		// CreateCards(); // Currently just fills the game board with cards for testing
     }
 
     void Update()
@@ -45,9 +56,6 @@ public class GameLogic : MonoBehaviour
 
 	void CreateCards() // Fills the board, not intended to be used for the actual game, just debugging etc
 	{
-		float[] initialCoords = new float[3] {0,0,0};
-		float verticalSpacing = 10;
-		float horisontalSpacing = 7;
 
 		for (int xx = 0; xx < 4; xx++)
 		{
@@ -183,6 +191,26 @@ public class GameLogic : MonoBehaviour
 
 
 
+	}
+	public bool PlaceCard(Card card, int location) // Will place the given card at a certian location on the board. Returns true if sucsessful, false if failed
+	{
+		if (board.playerRow[location] != null) // If location is taken, fail
+		{
+			return false;
+		}
+		if (card.DustValue > board.playerDust) // If I can't afford to place this card, and will die because of it, fail
+		{
+			return false;
+		}
+		if (board.gameHand.Contains(card)) // If I have the card in my hand, (I'ma idiot proof the fuck out of this)
+		{
+			board.playerDust -= card.DustValue; // Subtract the cost of the card,
+			board.playerRow[location] = card; // Place the card,
+			card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1], initialCoords[2]); // Put it in the correct spot,
+			board.gameHand.Remove(card); // And remove the card from the player's hand
+			return true; // yay
+		}
+		return false; // Something bad happened
 	}
 	public void FreeCardGet() // Called when player requests his/her free card of the turn
 	{
