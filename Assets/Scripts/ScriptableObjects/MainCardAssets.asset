@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e5a4dbf7b4be30498d7fc948856ba5b, type: 3}
+  m_Name: MainCardAssets
+  m_EditorClassIdentifier: 
+  CardObjDouble: {fileID: 8336702446030716482, guid: a42df796f748ee44899f321f22e9ce82, type: 3}
+  CardObjSingle: {fileID: 8336702446030716482, guid: f95fba6e132c5a54d8c7a1a72a4de055, type: 3}
+  CNone: {fileID: 0}
+  CRandom: {fileID: 0}
+  CFree: {fileID: 0}
+  CBasic1: {fileID: 5022844605923144078, guid: 8bb31c1b6b7cc494b99470858ac78a57, type: 3}
+  CBasic2: {fileID: 0}
+  CBasic3: {fileID: 0}
+  CBasic4: {fileID: 0}
+  CBasic5: {fileID: 0}
+  MNone: {fileID: 0}
+  MFree: {fileID: 0}
+  MVenomous: {fileID: 0}
+  MFlying: {fileID: 0}
+  MDusty: {fileID: 0}
+  MMovingL: {fileID: 0}
+  MMovingR: {fileID: 0}
+  MBrutish: {fileID: 0}
+  MPronged: {fileID: 0}
+  MMusical: {fileID: 0}
+  MSyphoning: {fileID: 0}
+  MGuarding: {fileID: 0}
+  MVampiric: {fileID: 0}
+  ENone: {fileID: 0}
+  EBuff: {fileID: 0}
+  EFlip: {fileID: 0}
+  ENuke: {fileID: 0}
+  EKill: {fileID: 0}
+  EDust: {fileID: 0}
+  ESkip: {fileID: 0}
+  EFind: {fileID: 0}

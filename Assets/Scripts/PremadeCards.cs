@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum Cards // 2 cost per attack point, 1 per health
 {
-	Random, // Will return a card with attack 0-2 and health 1-4 inclusive, NOT a random premade card
+	Random, // Will return a card with attack 0-2 and health 1-4 inclusive, NOT a random premade card (Use as placeholder cards, but never in final game)
 	Free, // The free card drawn from the free card pile
 	Basic1, // Basic cards have no modifiers, just interesting stat combinations. These also double as starter cards
 	Basic2,
@@ -42,42 +42,48 @@ public enum Effects // Normally put on 0/0 cards, Varying cost, not recovered: <
 }
 public class PremadeCards : MonoBehaviour
 {
-	CardAssets cardAssets; // Will store references to all GameObjects for rendering cards
-
-	void Start()
-	{
-		cardAssets = gameObject.GetComponent<CardAssets>(); // Get the card assets
-	}
+	[SerializeField] CardAssets cardAssets; // Will store references to all GameObjects for rendering cards
 	public Card GetCard(Cards template, bool isDouble) // Creates a card. Single sided cards will only use the front stats
 	{
 		// Default values of cards set first here
 		int[] stats = new int[4] {0, 0, 0, 0}; // Front attack and health, then back
 		Modifiers[] modifiers = new Modifiers[2] { Modifiers.None, Modifiers.None}; // Front modifier, then back. (Front should be default for modifiers that don't need a side, eg: Free)
 		Effects effect = Effects.None; // Preformed when card is placed; Normally paired with 0/0 statline
+		GameObject cardRune = cardAssets.CNone; // These are the runes used by the card (CardRune same front and back)
+		GameObject[] modifierRune = new GameObject[2] { cardAssets.MNone, cardAssets.MNone }; // First index for front, second for back
+		GameObject[] effectRune = new GameObject[2] { cardAssets.ENone, cardAssets.ENone };
 		// Then adjust values based on card requested:
 		switch (template) // These values are subject to change, but they'll do for now
 		{
 			case Cards.Random:
 				stats = new int[4] { Random.Range(0, 3), Random.Range(0, 3), Random.Range(1, 5), Random.Range(1, 5) };
+				cardRune = cardAssets.CNone;
 				break;
 			case Cards.Free:
 				stats = new int[4] { 0, 1, 0, 1 };
 				modifiers = new Modifiers[2] { Modifiers.Free, Modifiers.None };
+				cardRune = cardAssets.CFree;
+				modifierRune = new GameObject[] {cardAssets.MFree, cardAssets.MFree};
 				break;
 			case Cards.Basic1:
 				stats = new int[4] { 1, 3, 2, 1 };
+				cardRune = cardAssets.CBasic1;
 				break;
 			case Cards.Basic2:
 				stats = new int[4] { 2, 2, 1, 2 };
+				cardRune = cardAssets.CBasic2;
 				break;
 			case Cards.Basic3:
 				stats = new int[4] { 1, 1, 1, 2 };
+				cardRune = cardAssets.CBasic3;
 				break;
 			case Cards.Basic4:
 				stats = new int[4] { 0, 1, 1, 1 };
+				cardRune = cardAssets.CBasic4;
 				break;
 			case Cards.Basic5:
 				stats = new int[4] { 2, 1, 0, 4 };
+				cardRune = cardAssets.CBasic5;
 				break;
 			default: // Shouldn't happen
 				break;

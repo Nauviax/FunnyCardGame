@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable] // Let me see everything
-public class CardAssets : MonoBehaviour
+[CreateAssetMenu(fileName = "NewCardAssetsObject", menuName = "Cards/CardAssetsObj", order = 1)]
+public class CardAssets : ScriptableObject
 {
 	// Actual Card Prefab References
 	public GameObject CardObjDouble; // A reference to the prefab for the double sided card
 	public GameObject CardObjSingle; // The single sided one
 
 	// Card Rune References (Large symbol in the centre)
+	public GameObject CNone;
 	public GameObject CRandom;
 	public GameObject CFree;
 	public GameObject CBasic1;

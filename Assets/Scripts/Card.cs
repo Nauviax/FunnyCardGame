@@ -12,6 +12,9 @@ public class Card : MonoBehaviour, IClickable
 	int dustValue;
 	TextMeshPro textFront;
 	TextMeshPro textBack;
+	GameObject cardRune;
+	GameObject[] modifierRune = new GameObject[2]; // Single sided cards will just use front, or index 0
+	GameObject[] effectRune = new GameObject[2];
 	string fill = "         "; // Might make cleaner later idk
 
 	//the bit displayed in the hand
