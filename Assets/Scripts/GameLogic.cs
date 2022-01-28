@@ -40,6 +40,8 @@ public class GameLogic : MonoBehaviour
 		board = new Board();
 		board.upcomingRowFront = new Card[4]; // This may need to be rewritten later to support AI having single sided cards, or have Card remove one side on creation should it be prompted to do so !!!
 		board.opponentRowFront = new Card[4];
+		board.upcomingRowBack = new Card[4];
+		board.opponentRowBack = new Card[4];
 		board.playerRow = new Card[4];
 		board.ownedCards = new List<Card>(); // Will hold all cards the player owns. Starting cards should be set here !!!
 
