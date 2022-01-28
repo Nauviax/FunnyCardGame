@@ -23,7 +23,7 @@ public class Hand : MonoBehaviour
     {
         if (firstUpdate) {
             cards = gameLogic.board.gameHand;
-            
+            lookUp();
             firstUpdate = false;
         }
 
@@ -37,7 +37,15 @@ public class Hand : MonoBehaviour
         if ((invertedScroll ? -1 : 1) * Input.mouseScrollDelta.y > 0 && lookingDown) {
             lookUp();
             Debug.Log("looked up");
-        } 
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            gameLogic.PlaceCard(cards[0], 1);
+        }
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            gameLogic.EndTurn();
+        }
     }
     
     public void lookDown() {
