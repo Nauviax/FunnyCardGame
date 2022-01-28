@@ -18,6 +18,20 @@ public class CardAssets : ScriptableObject
 	public GameObject CBasic3;
 	public GameObject CBasic4;
 	public GameObject CBasic5;
+	public GameObject CVenomous;
+	public GameObject CFlying;
+	public GameObject CDusty;
+	public GameObject CMoving;
+	public GameObject CBrutish;
+	public GameObject CPronged;
+	public GameObject CThorny;
+	public GameObject CMusical;
+	public GameObject CSyphoning;
+	public GameObject CGuarding;
+	public GameObject CVampiric;
+	public GameObject CFlyingBrute;
+	// A special card rune, all effect cards will use the same card rune as they can be identified anyway by the Effect rune
+	public GameObject CEffect;
 
 	// Modifier Rune References (Medium symbol near the top/side)
 	public GameObject MNone;

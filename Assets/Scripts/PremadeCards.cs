@@ -6,15 +6,35 @@ public enum Cards // 2 cost per attack point, 1 per health
 {
 	Random, // Will return a card with attack 0-2 and health 1-4 inclusive, NOT a random premade card (Use as placeholder cards, but never in final game)
 	Free, // The free card drawn from the free card pile
-	Basic1, // Basic cards have no modifiers, just interesting stat combinations. These also double as starter cards
+	Basic1, // Basic cards have no modifiers, just interesting stat combinations. These also double as starter cards / common cards
 	Basic2,
 	Basic3,
 	Basic4,
 	Basic5,
+	Venomous,
+	Flying,
+	Dusty,
+	Moving,
+	Brutish,
+	Pronged,
+	Thorny,
+	Musical,
+	Syphoning,
+	Guarding,
+	Vampiric,
+	FlyingBrute, // This card has two modifiers. Otherwise acts the same
+	// The rest of these cards are effect cards. The statline is always 0/0 and they are planned to all have the same card rune
+	Buff,
+	Flip,
+	Nuke,
+	Kill,
+	Dust,
+	Skip,
+	Find,
 }
 public enum Modifiers // Cost 5 each
 {
-	None, // Default modifier
+	None, // Default modifier (Does not cost !!!)
 	Free, // Costs nothing to play
 	Venomous, // Instantly kill cards upon damaging them
 	Flying, // Will always attack opponent directly, over cards
