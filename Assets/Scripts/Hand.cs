@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
+    [SerializeField] GameObject runeObj;
+    //hand position is 12 0 17
+
     public List<Card> cards;
     //TODO: include this if there ever is a setting page
     public bool invertedScroll = false;
@@ -49,14 +52,16 @@ public class Hand : MonoBehaviour
     }
     
     public void lookDown() {
-        gameObject.GetComponent<CameraController>().targetPosition.position = new Vector3(18.2f, 7, -32);
-        gameObject.GetComponent<CameraController>().targetPosition.rotation = Quaternion.Euler(13, -20, 0);
+        gameObject.GetComponent<CameraController>().targetPosition = new Vector3(18.2f, 7, -32);
+        gameObject.GetComponent<CameraController>().targetRotation = Quaternion.Euler(13, -20, 0);
+        gameObject.GetComponent<HandController>().targetPosition = new Vector3(12, 0, -17);
         lookingDown = true;
     }
 
     public void lookUp() {
-        gameObject.GetComponent<CameraController>().targetPosition.position = new Vector3(18, 10, -32);
-        gameObject.GetComponent<CameraController>().targetPosition.rotation = Quaternion.Euler(0, 0, 0);
+        gameObject.GetComponent<CameraController>().targetPosition = new Vector3(18, 10, -32);
+        gameObject.GetComponent<CameraController>().targetRotation = Quaternion.Euler(0, 0, 0);
+        gameObject.GetComponent<HandController>().targetPosition = new Vector3(15, -9, -25);
         lookingDown = false;
     }
 }

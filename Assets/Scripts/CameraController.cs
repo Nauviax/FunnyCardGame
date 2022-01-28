@@ -6,21 +6,25 @@ public class CameraController : MonoBehaviour
 {
     float moveSpeed = 10f;
     float rotateSpeed = 90f;
-    public Transform targetPosition;
+    public Vector3 targetPosition;
+    public Quaternion targetRotation;
     Camera camera;
 
     // Start is called before the first frame update
     void Start()
     {
-        targetPosition = gameObject.transform;
+        
         camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+
+        targetPosition = camera.transform.position;
+        targetRotation = camera.transform.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
-        camera.transform.position = Vector3.MoveTowards(camera.transform.position, targetPosition.position, Time.deltaTime*moveSpeed);
-        camera.transform.rotation = Quaternion.RotateTowards(camera.transform.rotation, targetPosition.rotation, Time.deltaTime*rotateSpeed);
+        camera.transform.position = Vector3.MoveTowards(camera.transform.position, targetPosition, Time.deltaTime*moveSpeed);
+        camera.transform.rotation = Quaternion.RotateTowards(camera.transform.rotation, targetRotation, Time.deltaTime*rotateSpeed);
     }
 
     //looking up
