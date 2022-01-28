@@ -25,7 +25,7 @@ public class HandleScreenClick : MonoBehaviour
                 
                 if (clickable != null) {
                     clickable.onClick();
-                } else {
+                } else if (hit.collider.gameObject.transform.parent != null) {
                     //this is horrifying
                     //the reason for this is because the collider is part of a child of the card class, which contains the IClickable interface.
                     clickable = (IClickable)hit.collider.gameObject.transform.parent.gameObject.GetComponent(typeof(IClickable));
