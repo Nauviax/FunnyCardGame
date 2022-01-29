@@ -33,7 +33,7 @@ public class Hand : MonoBehaviour
     {
         if (firstUpdate) {
             cards = gameLogic.board.gameHand;
-            lookUp();
+            //lookUp(); (ClickForSTARTGAME now does this, and at the right time)
             firstUpdate = false;
         }
 
@@ -69,7 +69,7 @@ public class Hand : MonoBehaviour
 		{
 			gameLogic.BeginGame();
 		}
-        if (Input.GetKeyDown(KeyCode.F)) // Game begins here
+        if (Input.GetKeyDown(KeyCode.F)) // Gets a free card without triggering card per turn limit
         {
             gameLogic.FreeCardGet(false);
         }
