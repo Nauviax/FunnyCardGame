@@ -32,7 +32,7 @@ public class GameLogic : MonoBehaviour
 	PremadeCards premade; // For creating new cards with non-random values (Optionaly not random anyway)
 	Hand uiHand; // Holds a reference to the Hand object that displays the hand
 
-	float[] initialCoords = new float[3] { 0, 0, 0 }; // This and next two lines used to position cards
+	float[] initialCoords = new float[3] { 0, 0, 50 }; // This and next two lines used to position cards
 	float verticalSpacing = 10;
 	float horisontalSpacing = 7;
 
