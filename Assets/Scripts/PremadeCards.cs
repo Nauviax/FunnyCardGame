@@ -161,8 +161,37 @@ public class PremadeCards : MonoBehaviour
 		switch (template) // These values are subject to change, but they'll do for now
 		{
 			// Basic cards begin here
-			case Cards.Random:
-				stats = new int[4] { Random.Range(0, 3), Random.Range(1, 5), Random.Range(0, 3), Random.Range(1, 5) };
+			case Cards.Random: // Generates random, weighted stats
+				int attack = 999; // If you see this number, something went wrong
+				switch (Random.Range(0, 10)) // Weighted attack
+				{
+					case 0: case 1: case 2:
+						attack = 0;
+						break;
+					case 3: case 4: case 5: case 6: case 7:
+						attack = 1;
+						break;
+					case 8: case 9:
+						attack = 2;
+						break;
+				}
+				int health = 999; // If you see this number, something went wrong
+				switch (Random.Range(0, 10)) // Weighted health
+				{
+					case 0: case 1: case 2:
+						health = 1;
+						break;
+					case 3: case 4: case 5: case 6:
+						health = 2;
+						break;
+					case 7: case 8:
+						health = 3;
+						break;
+					case 9:
+						health = 4;
+						break;
+				}
+				stats = new int[4] { attack, health, attack, health }; // Only one side will be used
 				cardRune = cardAssets.CNone;
 				break;
 			case Cards.Free:
