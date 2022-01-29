@@ -59,6 +59,12 @@ public class GameLogic : MonoBehaviour
 		board.ownedCards.Add(premade.GetCard(Cards.Basic4, true));
 		board.ownedCards.Add(premade.GetCard(Cards.Basic5, true));
     }
+	public void GenerateRandomPlayerCard() // For testing purposes, adds a random PREMADE card to the players HAND (Not owned cards or deck)
+	{
+		Cards[] listOfCards = (Cards[])Cards.GetValues(typeof(Cards)); // Returns an array of all possible premade card enums
+		Card randomCardEnum = premade.GetCard(listOfCards[Random.Range(0, listOfCards.Length)], true); // Gets a new card based on a random enum from the list
+		AddCardToHand(randomCardEnum); // Adds the card to the players current hand
+	}
 	public void GenerateAICards() // Called whenever the AI should create cards to play. These cards are currently completely random !!!
 	{
 		int cardNum = Random.Range(1, 3);

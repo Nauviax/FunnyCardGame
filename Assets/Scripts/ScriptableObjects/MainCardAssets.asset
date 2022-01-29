@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardObjDouble: {fileID: 8336702446030716482, guid: a42df796f748ee44899f321f22e9ce82, type: 3}
   CardObjSingle: {fileID: 8336702446030716482, guid: f95fba6e132c5a54d8c7a1a72a4de055, type: 3}
-  CNone: {fileID: 0}
-  CRandom: {fileID: 0}
+  CNone: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  CRandom: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   CFree: {fileID: 5022844605923144078, guid: c93d0cffb89375c499bf9a09e48b89fe, type: 3}
   CBasic1: {fileID: 5022844605923144078, guid: e650ac2ee98023047a2c36fabe597754, type: 3}
   CBasic2: {fileID: 5022844605923144078, guid: 0af2fbd2e2010234ead65ef63b97f704, type: 3}
@@ -24,36 +24,36 @@ MonoBehaviour:
   CBasic5: {fileID: 5022844605923144078, guid: cb405c03c0ade344f9c4204d1531bdd1, type: 3}
   CVenomous: {fileID: 5022844605923144078, guid: 4b70e8f372c8ed14a82f51ac7787a25d, type: 3}
   CFlying: {fileID: 5022844605923144078, guid: 026dcaefd4d19134f8efc079981ff3fb, type: 3}
-  CDusty: {fileID: 0}
+  CDusty: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   CMoving: {fileID: 5022844605923144078, guid: 8bb31c1b6b7cc494b99470858ac78a57, type: 3}
   CBrutish: {fileID: 5022844605923144078, guid: 2b24b32e6a7e0054fbc074f52788f05a, type: 3}
-  CPronged: {fileID: 0}
+  CPronged: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   CThorny: {fileID: 5022844605923144078, guid: b9738d066072f1f4a8c9a8293aedddaf, type: 3}
-  CMusical: {fileID: 0}
+  CMusical: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   CSyphoning: {fileID: 5022844605923144078, guid: ea4019b570a3e4f46850ec62d131767f, type: 3}
   CGuarding: {fileID: 5022844605923144078, guid: d9112cac14f04724494d230d3aab660b, type: 3}
-  CVampiricMove: {fileID: 0}
+  CVampiricMove: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   CFlyingBrute: {fileID: 5022844605923144078, guid: 77aa17d16dcd7a444aaa63a044e4e557, type: 3}
-  CEffect: {fileID: 0}
-  MNone: {fileID: 0}
+  CEffect: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MNone: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   MFree: {fileID: 5022844605923144078, guid: 4c5bb6a0958830e439c95ef38c2b5db8, type: 3}
-  MVenomous: {fileID: 0}
+  MVenomous: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   MFlying: {fileID: 5022844605923144078, guid: e535fc89d5b441746a007c0985d4a541, type: 3}
-  MDusty: {fileID: 0}
+  MDusty: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   MMovingL: {fileID: 5022844605923144078, guid: 05372bfdd07cc4946be0e12abd81ebd3, type: 3}
   MMovingR: {fileID: 5022844605923144078, guid: b22a6ffb90f938445a963f75371839ae, type: 3}
-  MBrutish: {fileID: 0}
-  MPronged: {fileID: 0}
-  MThorny: {fileID: 0}
-  MMusical: {fileID: 0}
-  MSyphoning: {fileID: 0}
-  MGuarding: {fileID: 0}
-  MVampiric: {fileID: 0}
-  ENone: {fileID: 0}
-  EBuff: {fileID: 0}
-  EFlip: {fileID: 0}
-  ENuke: {fileID: 0}
-  EKill: {fileID: 0}
-  EDust: {fileID: 0}
-  ESkip: {fileID: 0}
-  EFind: {fileID: 0}
+  MBrutish: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MPronged: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MThorny: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MMusical: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MSyphoning: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MGuarding: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MVampiric: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  ENone: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  EBuff: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  EFlip: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  ENuke: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  EKill: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  EDust: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  ESkip: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  EFind: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
