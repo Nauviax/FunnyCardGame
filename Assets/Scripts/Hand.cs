@@ -34,7 +34,7 @@ public class Hand : MonoBehaviour
         
 
         //TODO: add alternate ways to look at hand, ie 's', down arrow
-        if ((invertedScroll ? -1:1) * Input.mouseScrollDelta.y<0 && !lookingDown) {
+        if ((invertedScroll ? -1:1) * Input.mouseScrollDelta.y < 0 && !lookingDown) {
             lookDown();
             Debug.Log("looked down");
         }
@@ -67,8 +67,9 @@ public class Hand : MonoBehaviour
     }
 
     public void addCard(Card card) {
-        //TODO: just put code for the rune type through here, may need to add another parameter
-        card.rune = Instantiate(runeObj);
+		//TODO: just put code for the rune type through here, may need to add another parameter
+		GameObject cardRunePrefab = card.CardRune;
+		// = Instantiate(runeObj);	// LACHLAN I BROKE YOUR SHIT !!! <--------  Each card (script) now has a reference to it's cardRune prefab, can the hand hold an instance of it? !!! LACHLAN LOOK
         updateHand();
     }
     public void removeCard(Card card) {

@@ -35,10 +35,10 @@ public enum Cards // 2 cost per attack point, 1 per health
 public enum Modifiers // Cost 5 each
 {
 	None, // Default modifier (Does not cost !!!)
-	Free, // Costs nothing to play
+	Free, // Costs nothing to play (Does not cost !!!)
 	Venomous, // Instantly kill cards upon damaging them
 	Flying, // Will always attack opponent directly, over cards
-	Dusty, // Will give 3 extra dust on death, on top of normal drops
+	Dusty, // Will give 5 extra dust on death, on top of normal drops
 	MovingL, // Moves to the left after all friendly cards have attacked
 	MovingR, // Like above, but to the right. MovingL becomes this card if blocked, and vice versa
 	Brutish, // Takes one less damage on this side, possibly taking none
@@ -63,6 +63,10 @@ public enum Effects // Normally put on 0/0 cards, Varying cost, not recovered: <
 public class PremadeCards : MonoBehaviour
 {
 	[SerializeField] CardAssets cardAssets; // Will store references to all GameObjects for rendering cards
+	public int GetCostOfEffect(Effects effect) // Returns the dust value of an effect !!!
+	{
+		return 10;
+	}
 	public Card GetCard(Cards template, bool isDouble) // Creates a card. Single sided cards will only use the front stats
 	{
 		// Default values of cards set first here
@@ -71,7 +75,7 @@ public class PremadeCards : MonoBehaviour
 		Effects effect = Effects.None; // Preformed when card is placed; Normally paired with 0/0 statline
 		GameObject cardRune = cardAssets.CNone; // These are the runes used by the card (CardRune same front and back)
 		GameObject[] modifierRune = new GameObject[2] { cardAssets.MNone, cardAssets.MNone }; // First index for front, second for back
-		GameObject[] effectRune = new GameObject[2] { cardAssets.ENone, cardAssets.ENone };
+		GameObject effectRune = cardAssets.ENone; // Effects never require a side
 		// Then adjust values based on card requested:
 		switch (template) // These values are subject to change, but they'll do for now
 		{
@@ -83,7 +87,7 @@ public class PremadeCards : MonoBehaviour
 				stats = new int[4] { 0, 1, 0, 1 };
 				modifiers = new Modifiers[2] { Modifiers.Free, Modifiers.None };
 				cardRune = cardAssets.CFree;
-				modifierRune = new GameObject[] {cardAssets.MFree, cardAssets.MFree};
+				modifierRune = new GameObject[] {cardAssets.MFree, cardAssets.MNone};
 				break;
 			case Cards.Basic1:
 				stats = new int[4] { 1, 3, 2, 1 };
@@ -105,11 +109,41 @@ public class PremadeCards : MonoBehaviour
 				stats = new int[4] { 2, 1, 0, 4 };
 				cardRune = cardAssets.CBasic5;
 				break;
+			case Cards.Venomous:
+				stats = new int[4] { 1, 2, 0, 1 };
+				modifiers = new Modifiers[2] { Modifiers.Venomous, Modifiers.None };
+				cardRune = cardAssets.CVenomous;
+				modifierRune = new GameObject[2] { cardAssets.MVenomous, cardAssets.MNone };
+				break;
+			case Cards.Flying:
+				stats = new int[4] { 1, 1, 2, 1 };
+				modifiers = new Modifiers[2] { Modifiers.Flying, Modifiers.None };
+				cardRune = cardAssets.CFlying;
+				modifierRune = new GameObject[2] { cardAssets.MFlying, cardAssets.MNone };
+				break;
+			case Cards.Dusty:
+				stats = new int[4] { 0, 2, 0, 2 };
+				modifiers = new Modifiers[2] { Modifiers.Dusty, Modifiers.None };
+				cardRune = cardAssets.CDusty;
+				modifierRune = new GameObject[2] { cardAssets.MDusty, cardAssets.MNone };
+				break;
+			case Cards.Moving:
+				stats = new int[4] { 2, 1, 1, 2 };
+				modifiers = new Modifiers[2] { Modifiers.MovingR, Modifiers.None }; // This card goes right first
+				cardRune = cardAssets.CMoving;
+				modifierRune = new GameObject[2] { cardAssets.MMovingR, cardAssets.MNone };
+				break;
+			case Cards.Brutish:
+				stats = new int[4] { 1, 4, 0, 4 };
+				modifiers = new Modifiers[2] { Modifiers.Brutish, Modifiers.None };
+				cardRune = cardAssets.CBrutish;
+				modifierRune = new GameObject[2] { cardAssets.MBrutish, cardAssets.MNone };
+				break;
 			default: // Shouldn't happen
 				break;
 		}
 		Card newCard = Instantiate(isDouble ? cardAssets.CardObjDouble : cardAssets.CardObjSingle).GetComponent<Card>(); // Create a new card with blank values
-		newCard.SetStats(stats[0], stats[1], stats[2], stats[3]); // Set the cards stats
+		newCard.SetStats(stats, modifiers, effect, cardRune, modifierRune, effectRune); // Set the cards stats, modifiers etc and runes
 		// Modifiers (!!! Not implemented !!!)
 		// Effects 
 		newCard.SetPos(-50, -50, -50); // Effectively hides the card from player view

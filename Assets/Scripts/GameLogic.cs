@@ -162,7 +162,7 @@ public class GameLogic : MonoBehaviour
 					board.playerRow[ii].HealthFront -= board.opponentRowFront[ii].DamageFront; // Deal damage to card
 					if (board.playerRow[ii].HealthFront <= 0) // If card is now dead,
 					{
-						board.playerDust += board.playerRow[ii].DustValue; // Player gets a dust refund
+						board.playerDust += board.playerRow[ii].DustValue; // Player gets a dust refund based on the cards value
 						board.playerRow[ii].Destroy(); // Destroy that card 
 						board.playerRow[ii] = null; // And remove it from the board
 					}
@@ -180,7 +180,7 @@ public class GameLogic : MonoBehaviour
 					board.playerRow[ii].HealthBack -= board.opponentRowBack[ii].DamageBack; // Deal damage to card
 					if (board.playerRow[ii].HealthBack <= 0) // If card is now dead,
 					{
-						board.playerDust += board.playerRow[ii].DustValue; // Player gets a dust refund
+						board.playerDust += board.playerRow[ii].DustValue; // Player gets a dust refund based on the cards value
 						board.playerRow[ii].Destroy(); // Destroy that card 
 						board.playerRow[ii] = null; // And remove it from the board
 					}
@@ -228,13 +228,13 @@ public class GameLogic : MonoBehaviour
 			{
 				return false;
 			}
-			if (card.DustValue > board.playerDust) // If I can't afford to place this card, and will die because of it, fail
+			if (card.DustCost > board.playerDust) // If I can't afford to place this card, and will die because of it, fail
 			{
 				return false;
 			}
 			if (board.gameHand.Contains(card)) // If I have the card in my hand, (I'ma idiot proof the fuck out of this)
 			{
-				board.playerDust -= card.DustValue; // Subtract the cost of the card,
+				board.playerDust -= card.DustCost; // Subtract the COST of the card, not the value,
 				board.playerRow[location] = card; // Place the card,
 				card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1], initialCoords[2]); // Put it in the correct spot,
 				removeCardFromHand(card); // And remove the card from the player's hand
