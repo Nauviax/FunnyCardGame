@@ -71,16 +71,16 @@ public class Hand : MonoBehaviour
     }
     
     public void lookDown() {
-        gameObject.GetComponent<CameraController>().targetPosition = new Vector3(16, 5, -27);
+        gameObject.GetComponent<CameraController>().targetPosition = new Vector3(16, 5, 37);
         gameObject.GetComponent<CameraController>().targetRotation = Quaternion.Euler(13, -20, 0);
-        gameObject.GetComponent<HandController>().targetPosition = new Vector3(12, 0, -17);
+        gameObject.GetComponent<HandController>().targetPosition = new Vector3(12, 0, 47);
         lookingDown = true;
     }
 
     public void lookUp() {
-        gameObject.GetComponent<CameraController>().targetPosition = new Vector3(18, 10, -32);
+        gameObject.GetComponent<CameraController>().targetPosition = new Vector3(18, 10, 22);
         gameObject.GetComponent<CameraController>().targetRotation = Quaternion.Euler(0, 0, 0);
-        gameObject.GetComponent<HandController>().targetPosition = new Vector3(15, -9, -25);
+        gameObject.GetComponent<HandController>().targetPosition = new Vector3(15, -9, 35);
         lookingDown = false;
     }
 
