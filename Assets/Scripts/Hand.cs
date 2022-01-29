@@ -46,7 +46,16 @@ public class Hand : MonoBehaviour
 
 
         if (Input.GetKeyDown(KeyCode.Q)) {
+            gameLogic.PlaceCard(cards[0], 0);
+        }
+        if (Input.GetKeyDown(KeyCode.W)) {
             gameLogic.PlaceCard(cards[0], 1);
+        }
+        if (Input.GetKeyDown(KeyCode.E)) {
+            gameLogic.PlaceCard(cards[0], 2);
+        }
+        if (Input.GetKeyDown(KeyCode.R)) {
+            gameLogic.PlaceCard(cards[0], 3);
         }
         if (Input.GetKeyDown(KeyCode.Return)) {
             gameLogic.EndTurn();

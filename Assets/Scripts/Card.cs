@@ -34,6 +34,7 @@ public class Card : MonoBehaviour, IClickable
 	void Update() // Blame Lachlan if this breaks
 	{
 		if (transform.parent != null) transform.position = Vector3.MoveTowards(transform.position, transform.parent.transform.TransformPoint(targetPosition), Time.deltaTime * moveSpeed);
+		else transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
 		if (cardRuneInstance != null){
 			cardRuneInstance.transform.position = transform.position;
 		}
