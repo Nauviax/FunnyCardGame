@@ -24,13 +24,14 @@ public enum Cards // 2 cost per attack point, 1 per health
 	VampiricMove, // This card has two modifiers. Otherwise acts the same
 	FlyingBrute, // Ditto
 	// The rest of these cards are effect cards. The statline is always 0/0 and they are planned to all have the same card rune
-	Buff,
-	Flip,
-	Nuke,
-	Kill,
-	Dust,
-	Skip,
-	Find,
+	// I have made the desision to NOT implement these cards in the jam, we have little time
+	//Buff,
+	//Flip,
+	//Nuke,
+	//Kill,
+	//Dust,
+	//Skip,
+	//Find,
 }
 public enum Modifiers // Cost 5 each (TEMP!!! if $$$ then I have implemented code for modifier)
 {
@@ -85,6 +86,66 @@ public class PremadeCards : MonoBehaviour
 				return 8;
 			default:
 				return 999; // Something dumb to make it obvious something wasn't set
+		}
+	}
+	public string GetModDesc(Modifiers input) // Returns a description of a modifier
+	{
+		switch (input)
+		{
+			case Modifiers.None:
+				return "No modifier rune";
+			case Modifiers.Free:
+				return "A card with this rune costs nothing to play";
+			case Modifiers.Venomous:
+				return "Instantly kill any card upon damaging them";
+			case Modifiers.Flying:
+				return "Will always attack opponent directly, over cards";
+			case Modifiers.Dusty:
+				return "Will give 5 extra dust on death, on top of normal drops";
+			case Modifiers.MovingL:
+			case Modifiers.MovingR:
+				return "Moves to the left (or right) after all friendly cards have attacked";
+			case Modifiers.Brutish:
+				return "Takes one less damage on this side, possibly taking none";
+			case Modifiers.Pronged:
+				return "Attacks to the left and right, rather than straight ahead";
+			case Modifiers.Thorny:
+				return "Attackers take one point of damage when attacking this side";
+			case Modifiers.Musical:
+				return "Friendly cards gain one attack on this side of the board";
+			case Modifiers.Syphoning:
+				return "Gains one health after attacking, but takes one from the other side of this card";
+			case Modifiers.Guarding:
+				return "Absorbs all enemy attacks on this side, taking the damage itself instead (Even if first hit would kill it)";
+			case Modifiers.Vampiric:
+				return "When this card kills an enemy, gain two health. (This side only)";
+			default:
+				return "This modifier has no description. (This is a BUG!)";
+		}
+
+	}
+	public string GetEffDesc(Effects effect) // Returns a description of an effect
+	{
+		switch (effect)
+		{
+			case Effects.None:
+				return "No effect rune";
+			case Effects.Buff:
+				return "+1 damage and health to all friendly cards on the side this card is placed on";
+			case Effects.Flip:
+				return "Placed on top of any card, will flip that card and consume this card";
+			case Effects.Nuke:
+				return "ALL cards take 1 damage on this side";
+			case Effects.Kill:
+				return "Placed on top of any card, deals 10 damage to this side of that card";
+			case Effects.Dust:
+				return "Immediatly gives the player 5 dust";
+			case Effects.Skip:
+				return "The enemy will not attack or move for one turn";
+			case Effects.Find:
+				return "Draw any card from your owned cards, including ones that are in hand or dead";
+			default:
+				return "This effect has no description. (This is a BUG!)";
 		}
 	}
 	public Card GetCard(Cards template, bool isDouble) // Creates a card. Single sided cards will only use the front stats
@@ -203,7 +264,8 @@ public class PremadeCards : MonoBehaviour
 				cardRune = cardAssets.CFlyingBrute;
 				modifierRune = new GameObject[2] { cardAssets.MFlying, cardAssets.MBrutish };
 				break;
-			// Effect cards begin here
+			// Effect cards begin here (Currently not implemented)
+			/*
 			case Cards.Buff:
 				effect = Effects.Buff;
 				cardRune = cardAssets.CEffect;
@@ -239,6 +301,7 @@ public class PremadeCards : MonoBehaviour
 				cardRune = cardAssets.CEffect;
 				effectRune = cardAssets.EFind;
 				break;
+			*/
 			default: // Shouldn't happen, will return a placeholder card (0,0,0,0 etc)
 				break;
 		}
