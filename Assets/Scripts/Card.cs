@@ -28,13 +28,13 @@ public class Card : MonoBehaviour, IClickable
 
 	void Start() // Blame Lachlan if this breaks
 	{
-		targetPosition = transform.position;
+		//TargetPosition = transform.position;
 	}
 
 	void Update() // Blame Lachlan if this breaks
 	{
-		if (transform.parent != null) transform.position = Vector3.MoveTowards(transform.position, transform.parent.transform.TransformPoint(targetPosition), Time.deltaTime * moveSpeed);
-		else transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
+		if (transform.parent != null) transform.position = Vector3.MoveTowards(transform.position, transform.parent.transform.TransformPoint(TargetPosition), Time.deltaTime * moveSpeed);
+		else transform.position = Vector3.MoveTowards(transform.position, TargetPosition, Time.deltaTime * moveSpeed);
 		if (cardRuneInstance != null){
 			cardRuneInstance.transform.position = transform.position;
 		}
@@ -59,7 +59,7 @@ public class Card : MonoBehaviour, IClickable
 	{
 		//hi it moves smoothly now
 		//transform.position = new Vector3(xx, yy, zz);
-		targetPosition = new Vector3(xx, yy, zz);
+		TargetPosition = new Vector3(xx, yy, zz);
 	}
 	public void Destroy() // Called when card runs out of health
 	{
@@ -155,7 +155,11 @@ public class Card : MonoBehaviour, IClickable
 	public Vector3 TargetPosition
 	{
 		get { return targetPosition; }
-		set { targetPosition = value; }
+		set
+		{
+			targetPosition = value;
+			//Debug.Log(value.ToString()); // Debug !!!
+		}
 	}
 	public Modifiers[] CardModifiers // If you want to change or remove a modifier, try doing so by making a public method in this card class, and also update it's runes! (eg: MovingR -> MovingL) !!!
 	{
