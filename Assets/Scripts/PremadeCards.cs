@@ -101,7 +101,7 @@ public class PremadeCards : MonoBehaviour
 		{
 			// Basic cards begin here
 			case Cards.Random:
-				stats = new int[4] { Random.Range(0, 3), Random.Range(0, 3), Random.Range(1, 5), Random.Range(1, 5) };
+				stats = new int[4] { Random.Range(0, 3), Random.Range(1, 5), Random.Range(0, 3), Random.Range(1, 5) };
 				cardRune = cardAssets.CNone;
 				break;
 			case Cards.Free:
