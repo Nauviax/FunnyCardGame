@@ -273,12 +273,34 @@ public class GameLogic : MonoBehaviour
 	}
 	void HandleMidturnEvents() // Ditto, as above
 	{
-
 		for (int ii = 0; ii < 4; ii++)
 		{
 			if (board.playerRow[ii] == null) // Skip empty spots
 			{
 				continue;
+			}
+			// Syphoning cards
+			if (board.playerRow[ii].CardModifiers[0] == Modifiers.Syphoning) // If front has modifier
+			{
+				board.playerRow[ii].HealthBack--; // Drain 1 hp from other side,
+				if (board.playerRow[ii].HealthBack <= 0) // If card is now dead,
+				{
+					board.playerDust += board.playerRow[ii].DustValue; // Player gets a dust refund
+					board.playerRow[ii].Destroy(); // Destroy that card
+					board.playerRow[ii] = null; // And remove it from the board
+				}
+				else board.playerRow[ii].HealthFront++; // Gain the drained hp
+			}
+			else if (board.playerRow[ii].CardModifiers[1] == Modifiers.Syphoning) // If back
+			{
+				board.playerRow[ii].HealthFront--; // Drain 1 hp from other side,
+				if (board.playerRow[ii].HealthFront <= 0) // If card is now dead,
+				{
+					board.playerDust += board.playerRow[ii].DustValue; // Player gets a dust refund
+					board.playerRow[ii].Destroy(); // Destroy that card
+					board.playerRow[ii] = null; // And remove it from the board
+				}
+				else board.playerRow[ii].HealthBack++; // Gain the drained hp
 			}
 			// Moving cards (There is SO MUCH repeated code here, but slightly different so I can't easily make it nicer)
 			if (board.playerRow[ii].CardModifiers[0] == Modifiers.MovingL || board.playerRow[ii].CardModifiers[1] == Modifiers.MovingL) // If a card wants to move left
@@ -346,6 +368,20 @@ public class GameLogic : MonoBehaviour
 	void HandleOpponentAttacks() // Ditto, as above
 	{
 		bool[] removeCards = new bool[2]; // First index means remove victim, second means remove the attacking card
+		Card[] guarding = new Card[2] { null, null }; // If set, all enemy cards will attack this card (One for each side)
+		
+		// Check for guarding cards
+		for (int ii = 0; ii < 4; ii++)
+		{
+			if (board.playerRow[ii].CardModifiers[0] == Modifiers.Guarding)
+			{
+				guarding[0] = board.playerRow[ii];
+			}
+			if (board.playerRow[ii].CardModifiers[1] == Modifiers.Guarding)
+			{
+				guarding[1] = board.playerRow[ii];
+			}
+		}
 		for (int ii = 0; ii < 4; ii++)
 		{
 			// Move cards down
@@ -358,10 +394,18 @@ public class GameLogic : MonoBehaviour
 					board.opponentRowFront[ii].SetPos(initialCoords[0] + ii * horisontalSpacing, initialCoords[1] + verticalSpacing, initialCoords[2]); // Move it to the correct location
 				}
 			}
+
 			// Front cards attack
 			if (board.opponentRowFront[ii] != null) // Empty spots do not attack
 			{
-				removeCards = DamageCard(board.opponentRowFront[ii], board.playerRow[ii], true, false); // I've assumed opponent cards will not have modifiers, so no pronged checks
+				if (guarding[0] == null) // Attack normally
+				{
+					removeCards = DamageCard(board.opponentRowFront[ii], board.playerRow[ii], true, false); // I've assumed opponent cards will not have modifiers, so no pronged checks
+				}
+				else // Attack specific card
+				{
+					removeCards = DamageCard(board.opponentRowFront[ii], guarding[0], true, false);
+				}
 				if (removeCards[0]) // If attacked card died,
 				{
 					board.playerRow[ii] = null;
@@ -374,7 +418,14 @@ public class GameLogic : MonoBehaviour
 			// Back cards attack
 			if (board.opponentRowBack[ii] != null) // Empty spots do not attack
 			{
-				removeCards = DamageCard(board.opponentRowBack[ii], board.playerRow[ii], false, false);
+				if (guarding[1] == null) // Attack normally
+				{
+					removeCards = DamageCard(board.opponentRowBack[ii], board.playerRow[ii], false, false); // I've assumed opponent cards will not have modifiers, so no pronged checks
+				}
+				else // Attack specific card
+				{
+					removeCards = DamageCard(board.opponentRowBack[ii], guarding[1], false, false);
+				}
 				if (removeCards[0]) // If attacked card died,
 				{
 					board.playerRow[ii] = null;
@@ -411,6 +462,16 @@ public class GameLogic : MonoBehaviour
 			}
 			if (board.gameHand.Contains(card)) // If I have the card in my hand, (I'ma idiot proof the fuck out of this)
 			{
+				if (card.CardModifiers[0] == Modifiers.Musical | card.CardModifiers[1] == Modifiers.Musical) // If this card is musical,
+				{
+					for (int ii = 0; ii < 4; ii++) // For each card
+					{
+						if (ii == location) continue; // Don't buff self
+						if (board.playerRow[ii] == null) continue; // Can't buff empty
+						if (card.CardModifiers[0] == Modifiers.Musical) board.playerRow[ii].DamageFront++; // Buff the front
+						else board.playerRow[ii].DamageBack++; // Buff the back
+					}
+				}
 				foreach (MeshRenderer mesh in card.transform.GetComponentsInChildren<MeshRenderer>()) {
 					mesh.enabled = true;
 				}

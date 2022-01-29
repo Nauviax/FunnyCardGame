@@ -33,24 +33,24 @@ public enum Cards // 2 cost per attack point, 1 per health
 	//Skip,
 	//Find,
 }
-public enum Modifiers // Cost 5 each (TEMP!!! if $$$ then I have implemented code for modifier)
+public enum Modifiers // Cost 5 each
 {
-	None, // Default modifier (Does not cost !!!)$$$
-	Free, // Costs nothing to play (Does not cost !!!)$$$
-	Venomous, // Instantly kill cards upon damaging them$$$
-	Flying, // Will always attack opponent directly, over cards$$$
-	Dusty, // Will give 5 extra dust on death, on top of normal drops (This is implemented in Card.cs, not GameLogic.cs)$$$
-	MovingL, // Moves to the left after all friendly cards have attacked$$$
-	MovingR, // Like above, but to the right. MovingL becomes this card if blocked, and vice versa$$$
-	Brutish, // Takes one less damage on this side, possibly taking none$$$
-	Pronged, // Attacks to the left and right, rather than straight ahead$$$
-	Thorny, // Attackers take one point of damage when attacking this side$$$
-	Musical, // Friendly cards gain one attack on this side of the board
+	None, // Default modifier (Does not cost !!!)
+	Free, // Costs nothing to play (Does not cost !!!)
+	Venomous, // Instantly kill cards upon damaging them
+	Flying, // Will always attack opponent directly, over cards
+	Dusty, // Will give 5 extra dust on death, on top of normal drops (This is implemented in Card.cs, not GameLogic.cs)
+	MovingL, // Moves to the left after all friendly cards have attacked
+	MovingR, // Like above, but to the right. MovingL becomes this card if blocked, and vice versa
+	Brutish, // Takes one less damage on this side, possibly taking none
+	Pronged, // Attacks to the left and right, rather than straight ahead
+	Thorny, // Attackers take one point of damage when attacking this side
+	Musical, // Other friendly cards currently played on this side permanently gain one attack
 	Syphoning, // Gains one health after attacking, but takes one from the other side of this card
-	Guarding, // Absorbs all enemy attacks on this side, taking the damage itself instead (Even if first hit would kill it, it absorbs all hits)
-	Vampiric, // When this card kills an enemy, gain two health. (This side only)$$$
+	Guarding, // Absorbs all enemy attacks on this side, taking the damage ON THIS LANE instead (If first hit kills this card, take direct damage after)
+	Vampiric, // When this card kills an enemy, gain two health. (This side only)
 }
-public enum Effects // Normally put on 0/0 cards, Varying cost, not recovered: < x >
+public enum Effects // Normally put on 0/0 cards, Varying cost, not recovered: < x > (Effects NOT implemented)
 {
 	None, // Default effect < 0 >
 	Buff, // +1 damage and health to all friendly cards on the side this card is placed on. (Default front) < 10 >
@@ -95,7 +95,7 @@ public class PremadeCards : MonoBehaviour
 			case Modifiers.None:
 				return "No modifier rune";
 			case Modifiers.Free:
-				return "A card with this rune costs nothing to play";
+				return "A card with this rune costs nothing to play, but still returns it's full value on death";
 			case Modifiers.Venomous:
 				return "Instantly kill any card upon damaging them";
 			case Modifiers.Flying:
@@ -112,11 +112,11 @@ public class PremadeCards : MonoBehaviour
 			case Modifiers.Thorny:
 				return "Attackers take one point of damage when attacking this side";
 			case Modifiers.Musical:
-				return "Friendly cards gain one attack on this side of the board";
+				return "Other friendly cards currently played on this side permanently gain one attack";
 			case Modifiers.Syphoning:
 				return "Gains one health after attacking, but takes one from the other side of this card";
 			case Modifiers.Guarding:
-				return "Absorbs all enemy attacks on this side, taking the damage itself instead (Even if first hit would kill it)";
+				return "Absorbs all enemy attacks on this side, taking the damage ON THIS LANE instead (If first hit kills this card, take direct damage after)";
 			case Modifiers.Vampiric:
 				return "When this card kills an enemy, gain two health. (This side only)";
 			default:
