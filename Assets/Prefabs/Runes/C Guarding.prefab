@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5022844605923144076}
   - component: {fileID: 5022844605923144079}
   m_Layer: 0
-  m_Name: Rune 4
+  m_Name: C Guarding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
