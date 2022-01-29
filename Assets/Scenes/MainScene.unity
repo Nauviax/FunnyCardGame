@@ -290,7 +290,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runeObj: {fileID: 5022844605923144078, guid: 8bb31c1b6b7cc494b99470858ac78a57, type: 3}
-  cards: []
   invertedScroll: 0
   lookingDown: 0
   firstUpdate: 1
@@ -896,15 +895,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1205222012}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 0, z: -17.68}
+  m_LocalRotation: {x: -0.61305726, y: -0.13589855, z: -0.108098574, w: 0.77071863}
+  m_LocalPosition: {x: 12, y: 0, z: -18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1340925390}
   - {fileID: 2073871217}
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -77, y: -20, z: 0}
 --- !u!1 &1340925389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,13 +1602,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073871216}
-  m_LocalRotation: {x: -0.61305726, y: -0.1358985, z: -0.1080986, w: 0.7707185}
-  m_LocalPosition: {x: 0.05, y: -0.11, z: 0.05}
-  m_LocalScale: {x: 2.5, y: 1, z: 0.76}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.5, y: 1, z: 0.75}
   m_Children: []
   m_Father: {fileID: 1205222013}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -77, y: -20, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &2073871218
 MeshCollider:
   m_ObjectHideFlags: 0

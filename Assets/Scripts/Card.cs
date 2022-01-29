@@ -11,6 +11,9 @@ public class Card : MonoBehaviour, IClickable
 	GameObject cardRune; // These hold prefabs, not ingame objects!
 	GameObject[] modifierRunes; // Single sided cards will just use front, or index 0
 	GameObject effectRune;
+	public GameObject cardRuneInstance; // These hold ingame objects, not prefabs!
+	public GameObject[] modifierRunesInstance;
+	public GameObject effectRuneInstance;
 	int dustCost; // Cost of this card
 	int dustValue; // Value of this card (This value is returned to the player on death)
 
@@ -20,7 +23,7 @@ public class Card : MonoBehaviour, IClickable
 	string fill = "         "; // Might make cleaner later idk
 
 	// Smooth movement code
-	float moveSpeed = 10f;
+	float moveSpeed = 100f;
 	Vector3 targetPosition;
 
 	void Start() // Blame Lachlan if this breaks
@@ -30,7 +33,7 @@ public class Card : MonoBehaviour, IClickable
 
     void Update() // Blame Lachlan if this breaks
 	{
-		transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
+		if (transform.parent !=null)transform.position = Vector3.MoveTowards(transform.position, transform.parent.transform.TransformPoint(targetPosition), Time.deltaTime * moveSpeed);
 	}
 
     public void SetStats(int[] stats, Modifiers[] modifiers, Effects effect, GameObject cardRune, GameObject[] modifierRunes, GameObject effectRune, PremadeCards premade)

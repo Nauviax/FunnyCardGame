@@ -72,7 +72,7 @@ public class Hand : MonoBehaviour
     }
 
     public void addCard(Card card) {
-        //card.CardRune = Instantiate(card.CardRune);
+        card.cardRuneInstance = Instantiate(card.CardRune);
 		updateHand();
     }
     public void removeCard(Card card) {
@@ -84,8 +84,9 @@ public class Hand : MonoBehaviour
         int pos = 0;
         foreach (Card card in cards) {
             Debug.Log("did a card");
-            card.transform.parent = hand.GetComponentsInChildren<GameObject>()[0].transform;
+            card.transform.parent = hand.transform;
             card.TargetPosition = new Vector3(-4 + (8/cards.Count)*pos, 0.2f, -2.25f);
+            Debug.Log(card.transform.position.ToString());
             pos++;
         }
     }
