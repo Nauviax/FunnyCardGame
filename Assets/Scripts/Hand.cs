@@ -87,7 +87,7 @@ public class Hand : MonoBehaviour
     public void addCard(Card card) {
         card.cardRuneInstance = Instantiate(card.CardRune);
         card.cardRuneInstance.transform.localScale = new Vector3(1.2f, 1.2f, 0.3f);
-        card.cardRuneInstance.transform.rotation = Quaternion.Euler(13, -20, 0);
+        card.SetRotation(13, -20, 0);
         updateHand();
     }
     public void removeCard(Card card) {

@@ -396,6 +396,7 @@ public class GameLogic : MonoBehaviour
 			}
 			board.upcomingRowFront[location] = card; // Place the card,
 			card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1] + verticalSpacing * 2, initialCoords[2]); // Put it in the correct spot
+			card.SetRotation(0, 0, 0); //Face it the right way
 			return true; // yay
 		}
 		else
@@ -417,6 +418,7 @@ public class GameLogic : MonoBehaviour
 				board.playerDust -= card.DustCost; // Subtract the COST of the card, not the value,
 				board.playerRow[location] = card; // Place the card,
 				card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1], initialCoords[2]); // Put it in the correct spot,
+				card.SetRotation(0, 0, 0); // Face it the right way,
 				RemoveCardFromHand(card); // And remove the card from the player's hand
 				return true; // yay
 			}
