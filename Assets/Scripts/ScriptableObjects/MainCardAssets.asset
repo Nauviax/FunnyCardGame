@@ -17,10 +17,10 @@ MonoBehaviour:
   CNone: {fileID: 0}
   CRandom: {fileID: 0}
   CFree: {fileID: 5022844605923144078, guid: c93d0cffb89375c499bf9a09e48b89fe, type: 3}
-  CBasic1: {fileID: 0}
+  CBasic1: {fileID: 5022844605923144078, guid: e650ac2ee98023047a2c36fabe597754, type: 3}
   CBasic2: {fileID: 5022844605923144078, guid: 0af2fbd2e2010234ead65ef63b97f704, type: 3}
   CBasic3: {fileID: 5022844605923144078, guid: 73854d02283dff346afe953f4794b56b, type: 3}
-  CBasic4: {fileID: 0}
+  CBasic4: {fileID: 5022844605923144078, guid: 5858f867030f90a4d889496779d3d0ec, type: 3}
   CBasic5: {fileID: 0}
   CVenomous: {fileID: 0}
   CFlying: {fileID: 5022844605923144078, guid: 026dcaefd4d19134f8efc079981ff3fb, type: 3}
@@ -32,18 +32,19 @@ MonoBehaviour:
   CMusical: {fileID: 0}
   CSyphoning: {fileID: 0}
   CGuarding: {fileID: 5022844605923144078, guid: d9112cac14f04724494d230d3aab660b, type: 3}
-  CVampiric: {fileID: 0}
+  CVampiricMove: {fileID: 0}
   CFlyingBrute: {fileID: 0}
   CEffect: {fileID: 0}
   MNone: {fileID: 0}
-  MFree: {fileID: 0}
+  MFree: {fileID: 5022844605923144078, guid: 4c5bb6a0958830e439c95ef38c2b5db8, type: 3}
   MVenomous: {fileID: 0}
-  MFlying: {fileID: 0}
+  MFlying: {fileID: 5022844605923144078, guid: e535fc89d5b441746a007c0985d4a541, type: 3}
   MDusty: {fileID: 0}
   MMovingL: {fileID: 5022844605923144078, guid: 05372bfdd07cc4946be0e12abd81ebd3, type: 3}
   MMovingR: {fileID: 5022844605923144078, guid: b22a6ffb90f938445a963f75371839ae, type: 3}
   MBrutish: {fileID: 0}
   MPronged: {fileID: 0}
+  MThorny: {fileID: 0}
   MMusical: {fileID: 0}
   MSyphoning: {fileID: 0}
   MGuarding: {fileID: 0}
