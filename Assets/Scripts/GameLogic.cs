@@ -32,7 +32,7 @@ public class GameLogic : MonoBehaviour
 	PremadeCards premade; // For creating new cards with non-random values (Optionaly not random anyway)
 	Hand uiHand; // Holds a reference to the Hand object that displays the hand
 
-	float[] initialCoords = new float[3] { 0, 0, 50 }; // This and next two lines used to position cards
+	float[] initialCoords = new float[3] { 0, 0, 51 }; // This and next two lines used to position cards
 	float verticalSpacing = 10;
 	float horisontalSpacing = 7;
 
@@ -80,8 +80,8 @@ public class GameLogic : MonoBehaviour
 	public void BeginGame() // Set initial values, deal starting hand, and generate AI cards for first round (Called from Hand.cs)
 	{
 		// Set initial values
-		board.playerDust = 50; // !!! Set much lower when finished debugging
-		board.opponentDust = 50;
+		board.playerDust = 9999; // !!! Set much lower when finished debugging
+		board.opponentDust = 9999;
 		board.playerTookFreeCard = false; // Player may take a free card on his/her first turn
 
 		board.gameHand = new List<Card>(); // Create empty hand
@@ -329,7 +329,7 @@ public class GameLogic : MonoBehaviour
 				else // This is the same code from inside the "If (ii == 0)" from above
 				{
 					board.playerRow[ii].Turn(); // Turn around
-					if (ii == 4) // If at far RIGHT of board,
+					if (ii == 3) // If at far RIGHT of board,
 					{
 						continue; // Nothing I can do
 					}
@@ -343,7 +343,7 @@ public class GameLogic : MonoBehaviour
 			}
 			if (board.playerRow[ii].CardModifiers[0] == Modifiers.MovingR || board.playerRow[ii].CardModifiers[1] == Modifiers.MovingR) // Ditto for right
 			{
-				if (ii == 4) // If at far RIGHT of board,
+				if (ii == 3) // If at far RIGHT of board,
 				{
 					board.playerRow[ii].Turn(); // Turn around
 					if (board.playerRow[ii - 1] == null) // If the card to the left is empty,
