@@ -514,7 +514,6 @@ public class GameLogic : MonoBehaviour
 					mesh.enabled = true;
 				}
 				card.GetComponentsInChildren<Collider>()[0].enabled = true; //re enable colliders for click detection
-				card.GetComponentsInChildren<Collider>()[1].enabled = true;
 				card.transform.parent = null;
 				board.playerDust -= card.DustCost; // Subtract the COST of the card, not the value,
 				board.playerRow[location] = card; // Place the card,

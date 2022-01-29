@@ -95,7 +95,6 @@ public class Hand : MonoBehaviour
         card.cardRuneInstance.GetComponent<RuneBehaviour>().inHand = true;
         card.cardRuneInstance.GetComponent<RuneBehaviour>().card = card;
         card.GetComponentsInChildren<Collider>()[0].enabled = false;
-        card.GetComponentsInChildren<Collider>()[1].enabled = false;
         card.SetRotation(13, -20, 0);
         updateHand();
     }
