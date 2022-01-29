@@ -19,7 +19,7 @@ public class RuneBehaviour : MonoBehaviour, IClickable {
     }
 
     void OnMouseEnter() {
-        if (inHand) {
+        if (inHand && !hand.placingCard) {
             hand.currentDisplay = card;
             hand.updateInfo();
         }
@@ -27,6 +27,13 @@ public class RuneBehaviour : MonoBehaviour, IClickable {
     }
 
     public void onClick() {
-        throw new System.NotImplementedException();
+        if (hand.placingCard && card == hand.currentDisplay) {
+            card.SetPos(card.TargetPosition.x, card.TargetPosition.y - 0.5f, card.TargetPosition.z);
+            hand.placingCard = false;
+        } else if (!hand.placingCard) {
+            card.SetPos(card.TargetPosition.x, card.TargetPosition.y + 0.5f, card.TargetPosition.z);
+            hand.placingCard = true;
+        }
+
     }
 }
