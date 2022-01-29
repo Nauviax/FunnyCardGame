@@ -21,7 +21,7 @@ MonoBehaviour:
   CBasic2: {fileID: 5022844605923144078, guid: 0af2fbd2e2010234ead65ef63b97f704, type: 3}
   CBasic3: {fileID: 5022844605923144078, guid: 73854d02283dff346afe953f4794b56b, type: 3}
   CBasic4: {fileID: 5022844605923144078, guid: 5858f867030f90a4d889496779d3d0ec, type: 3}
-  CBasic5: {fileID: 0}
+  CBasic5: {fileID: 5022844605923144078, guid: 5858f867030f90a4d889496779d3d0ec, type: 3}
   CVenomous: {fileID: 0}
   CFlying: {fileID: 5022844605923144078, guid: 026dcaefd4d19134f8efc079981ff3fb, type: 3}
   CDusty: {fileID: 0}
