@@ -32,7 +32,7 @@ public class Hand : MonoBehaviour {
     void Update() {
         if (firstUpdate) {
             cards = gameLogic.board.gameHand;
-            lookUp();
+            //lookUp(); (ClickForSTARTGAME now does this, and at the right time)
             firstUpdate = false;
         }
 
@@ -63,12 +63,12 @@ public class Hand : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Return)) {
             gameLogic.EndTurn();
-        }
-        if (Input.GetKeyDown(KeyCode.O)) // Game begins here
-        {
-            gameLogic.BeginGame();
-        }
-        if (Input.GetKeyDown(KeyCode.F)) // Game begins here
+		}
+		if (Input.GetKeyDown(KeyCode.O)) // Game begins here
+		{
+			gameLogic.BeginGame();
+		}
+        if (Input.GetKeyDown(KeyCode.F)) // Gets a free card without triggering card per turn limit
         {
             gameLogic.FreeCardGet(false);
         }
@@ -94,7 +94,6 @@ public class Hand : MonoBehaviour {
         card.cardRuneInstance.GetComponent<RuneBehaviour>().inHand = true;
         card.cardRuneInstance.GetComponent<RuneBehaviour>().card = card;
         card.GetComponentsInChildren<Collider>()[0].enabled = false;
-        card.GetComponentsInChildren<Collider>()[1].enabled = false;
         card.SetRotation(13, -20, 0);
         updateHand();
     }

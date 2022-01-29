@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: MainCardAssets
   m_EditorClassIdentifier: 
   CardObjDouble: {fileID: 8336702446030716482, guid: a42df796f748ee44899f321f22e9ce82, type: 3}
-  CardObjSingle: {fileID: 8336702446030716482, guid: f95fba6e132c5a54d8c7a1a72a4de055, type: 3}
-  CNone: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
-  CRandom: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  CardObjSingle: {fileID: 8336702446030716482, guid: 165c95261684f2843b2a34c1b9b59a1e, type: 3}
+  CNone: {fileID: 5022844605923144078, guid: 5dfd13375cbb0644b870071d2716ac67, type: 3}
+  CRandom: {fileID: 5022844605923144078, guid: 680c2dcd4f01e3b448662bf6ba09b53c, type: 3}
   CFree: {fileID: 5022844605923144078, guid: c93d0cffb89375c499bf9a09e48b89fe, type: 3}
   CBasic1: {fileID: 5022844605923144078, guid: e650ac2ee98023047a2c36fabe597754, type: 3}
   CBasic2: {fileID: 5022844605923144078, guid: 0af2fbd2e2010234ead65ef63b97f704, type: 3}
@@ -24,15 +24,15 @@ MonoBehaviour:
   CBasic5: {fileID: 5022844605923144078, guid: cb405c03c0ade344f9c4204d1531bdd1, type: 3}
   CVenomous: {fileID: 5022844605923144078, guid: 4b70e8f372c8ed14a82f51ac7787a25d, type: 3}
   CFlying: {fileID: 5022844605923144078, guid: 026dcaefd4d19134f8efc079981ff3fb, type: 3}
-  CDusty: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  CDusty: {fileID: 5022844605923144078, guid: 707944b97c013b5448fc3d435f0cbc89, type: 3}
   CMoving: {fileID: 5022844605923144078, guid: 8bb31c1b6b7cc494b99470858ac78a57, type: 3}
   CBrutish: {fileID: 5022844605923144078, guid: 2b24b32e6a7e0054fbc074f52788f05a, type: 3}
-  CPronged: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  CPronged: {fileID: 5022844605923144078, guid: 3cc22bbe62f41504b9f456cb7c6f725e, type: 3}
   CThorny: {fileID: 5022844605923144078, guid: b9738d066072f1f4a8c9a8293aedddaf, type: 3}
-  CMusical: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  CMusical: {fileID: 5022844605923144078, guid: e1662fb45e0d834468b2b63ff0e5c775, type: 3}
   CSyphoning: {fileID: 5022844605923144078, guid: ea4019b570a3e4f46850ec62d131767f, type: 3}
   CGuarding: {fileID: 5022844605923144078, guid: d9112cac14f04724494d230d3aab660b, type: 3}
-  CVampiricMove: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  CVampiricMove: {fileID: 5022844605923144078, guid: a42350658e12d264089614bfeedd792d, type: 3}
   CFlyingBrute: {fileID: 5022844605923144078, guid: 77aa17d16dcd7a444aaa63a044e4e557, type: 3}
   CEffect: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   MNone: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}

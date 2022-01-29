@@ -75,8 +75,8 @@ public class Card : MonoBehaviour, IClickable
 	}
 	void UpdateFace() // Update all runes/text on this card (!!! Implement updating runes somehow)
 	{
-		textFront.SetText((DamageFront != 0 ? DamageFront.ToString() : " ") + fill + HealthFront.ToString());
-		textBack.SetText((DamageFront != 0 ? DamageFront.ToString() : " ") + fill + HealthBack.ToString());
+		textFront.SetText((DamageFront != 0 ? DamageFront.ToString() : " ") + fill + (HealthFront != 0 ? HealthFront.ToString() : " "));
+		textBack.SetText((DamageFront != 0 ? DamageFront.ToString() : " ") + fill + (HealthBack != 0 ? HealthBack.ToString() : " "));
 	}
 	int CalculateDustValue() // Returns the calculated value of this card, the amount of dust returned when card dies
 	{
