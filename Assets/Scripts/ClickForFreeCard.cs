@@ -12,6 +12,14 @@ public class ClickForFreeCard : MonoBehaviour, IClickable
 
 	public void onClick()
 	{
-		gameLogic.FreeCardGet(); // Requests a free card (Will not give anything if card was taken this turn)
+		bool gotCard = gameLogic.FreeCardGet(); // Requests a free card (Will not give anything if card was taken this turn)
+		if (gotCard)
+		{
+			// Animate happy
+		}
+		else
+		{
+			// Animate sadly
+		}
 	}
 }

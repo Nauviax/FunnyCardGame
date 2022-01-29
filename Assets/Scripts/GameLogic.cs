@@ -417,13 +417,15 @@ public class GameLogic : MonoBehaviour
 		}
 		return false; // Something bad happened
 	}
-	public void FreeCardGet(bool oneOnly = true) // Called when player requests his/her free card of the turn. If oneOnly is false, then this card is not counted as the players "one per turn" card
+	public bool FreeCardGet(bool oneOnly = true) // Called when player requests his/her free card of the turn. If oneOnly is false, then this card is not counted as the players "one per turn" card
 	{
 		if (!board.playerTookFreeCard) // If player has not yet retrieved a free card
 		{
 			AddCardToHand(premade.GetCard(Cards.Free, true)); // Add new free card to player deck
 			board.playerTookFreeCard = oneOnly; // Player now has his/her free card, unless oneOnly is manually set to false (For giving player 2 free cards at the begining of the game)
+			return true; // Player got a free card
 		}
+		else return false; // Player did not get a free card
 	}
 	public bool[] DamageCard(Card attacker, Card victim, bool isFront, bool isPlayerAttacking) // Preforms attacking logic between two cards, returns true if card died (Victim can be null)
 	{
