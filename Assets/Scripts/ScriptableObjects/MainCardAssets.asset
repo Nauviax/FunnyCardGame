@@ -21,19 +21,19 @@ MonoBehaviour:
   CBasic2: {fileID: 5022844605923144078, guid: 0af2fbd2e2010234ead65ef63b97f704, type: 3}
   CBasic3: {fileID: 5022844605923144078, guid: 73854d02283dff346afe953f4794b56b, type: 3}
   CBasic4: {fileID: 5022844605923144078, guid: 5858f867030f90a4d889496779d3d0ec, type: 3}
-  CBasic5: {fileID: 0}
-  CVenomous: {fileID: 0}
+  CBasic5: {fileID: 5022844605923144078, guid: cb405c03c0ade344f9c4204d1531bdd1, type: 3}
+  CVenomous: {fileID: 5022844605923144078, guid: 4b70e8f372c8ed14a82f51ac7787a25d, type: 3}
   CFlying: {fileID: 5022844605923144078, guid: 026dcaefd4d19134f8efc079981ff3fb, type: 3}
   CDusty: {fileID: 0}
   CMoving: {fileID: 5022844605923144078, guid: 8bb31c1b6b7cc494b99470858ac78a57, type: 3}
-  CBrutish: {fileID: 0}
+  CBrutish: {fileID: 5022844605923144078, guid: 2b24b32e6a7e0054fbc074f52788f05a, type: 3}
   CPronged: {fileID: 0}
-  CThorny: {fileID: 0}
+  CThorny: {fileID: 5022844605923144078, guid: b9738d066072f1f4a8c9a8293aedddaf, type: 3}
   CMusical: {fileID: 0}
-  CSyphoning: {fileID: 0}
+  CSyphoning: {fileID: 5022844605923144078, guid: ea4019b570a3e4f46850ec62d131767f, type: 3}
   CGuarding: {fileID: 5022844605923144078, guid: d9112cac14f04724494d230d3aab660b, type: 3}
   CVampiricMove: {fileID: 0}
-  CFlyingBrute: {fileID: 0}
+  CFlyingBrute: {fileID: 5022844605923144078, guid: 77aa17d16dcd7a444aaa63a044e4e557, type: 3}
   CEffect: {fileID: 0}
   MNone: {fileID: 0}
   MFree: {fileID: 5022844605923144078, guid: 4c5bb6a0958830e439c95ef38c2b5db8, type: 3}
