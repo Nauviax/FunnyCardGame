@@ -8,9 +8,9 @@ public class Card : MonoBehaviour, IClickable
 	int[] stats; // Stores card stats, damage then health for front, then back
 	Modifiers[] modifiers; // Stores modifiers for both sides, front first
 	Effects effect;
-	GameObject cardRune; // These hold prefabs, not ingame objects!
-	GameObject[] modifierRunes; // Single sided cards will just use front, or index 0
-	GameObject effectRune;
+	public GameObject cardRune; // These hold prefabs, not ingame objects!
+	public GameObject[] modifierRunes; // Single sided cards will just use front, or index 0
+	public GameObject effectRune;
 	int dustCost; // Cost of this card
 	int dustValue; // Value of this card (This value is returned to the player on death)
 
@@ -19,7 +19,23 @@ public class Card : MonoBehaviour, IClickable
 	TextMeshPro textBack;
 	string fill = "         "; // Might make cleaner later idk
 
-	public void SetStats(int[] stats, Modifiers[] modifiers, Effects effect, GameObject cardRune, GameObject[] modifierRunes, GameObject effectRune)
+	//smooth movement code
+	float moveSpeed = 10f;
+	public Vector3 targetPosition;
+
+	//couldnt find a 
+	void Start() {
+		targetPosition = transform.position;
+		premade = gameObject.GetComponent<PremadeCards>();
+		if (premade == null) Debug.Log("premade is null!");
+		else Debug.Log("premade no null lol");
+	}
+
+    void Update() {
+		transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
+	}
+
+    public void SetStats(int[] stats, Modifiers[] modifiers, Effects effect, GameObject cardRune, GameObject[] modifierRunes, GameObject effectRune)
 	{
 		this.stats = stats;
 		this.modifiers = modifiers;
@@ -35,7 +51,9 @@ public class Card : MonoBehaviour, IClickable
 	}
 	public void SetPos(float xx, float yy, float zz)
 	{
-		transform.position = new Vector3(xx, yy, zz);
+		//hi it moves smoothly now
+		//transform.position = new Vector3(xx, yy, zz);
+		targetPosition = new Vector3(xx, yy, zz);
 	}
 	public void Destroy() // Called when card runs out of health
 	{
@@ -63,7 +81,8 @@ public class Card : MonoBehaviour, IClickable
 		}
 		else
 		{
-			int cost = value + premade.GetCostOfEffect(effect); ; // Player gets damage/health and modifier costs refunded, but NOT the cost of effects.
+			
+			int cost = value + premade.GetCostOfEffect(effect); // Player gets damage/health and modifier costs refunded, but NOT the cost of effects.
 			cost += (modifiers[0] == Modifiers.Dusty ? -5 : 0) + (modifiers[1] == Modifiers.Dusty ? -5 : 0); // The EXTRA value from the dusty modifier should not be counted towards the cost of the card.
 			return cost; // As effects are normally combined with a 0/0 statline, effect cards normally have a value of 0, and a non 0 cost
 		}

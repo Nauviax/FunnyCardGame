@@ -6,8 +6,9 @@ public class Hand : MonoBehaviour
 {
     [SerializeField] GameObject runeObj;
     //hand position is 12 0 17
+    //relative to plane, cards should be displayed at z = -2.25 and between x = -4 and x = 4
 
-    public List<Card> cards;
+    List<Card> cards;
     //TODO: include this if there ever is a setting page
     public bool invertedScroll = false;
     public bool lookingDown = false;
@@ -67,16 +68,21 @@ public class Hand : MonoBehaviour
     }
 
     public void addCard(Card card) {
-		//TODO: just put code for the rune type through here, may need to add another parameter
-		GameObject cardRunePrefab = card.CardRune;
-		// = Instantiate(runeObj);	// LACHLAN I BROKE YOUR SHIT !!! <--------  Each card (script) now has a reference to it's cardRune prefab, can the hand hold an instance of it? !!! LACHLAN LOOK
-        updateHand();
+        card.cardRune = Instantiate(card.cardRune);
+		updateHand();
     }
     public void removeCard(Card card) {
-        
         updateHand();
     }
     public void updateHand() {
-        //this is where jfkghnz.b
+        //this is where cards are told where to go and stuff
+        cards = gameLogic.board.gameHand;
+        int pos = 0;
+        foreach (Card card in cards) {
+            Debug.Log("did a card");
+            card.transform.parent = hand.GetComponentsInChildren<GameObject>()[0].transform;
+            card.targetPosition = new Vector3(-4 + (8/cards.Count)*pos, 0.2f, -2.25f);
+            pos++;
+        }
     }
 }
