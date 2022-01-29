@@ -397,6 +397,8 @@ public class GameLogic : MonoBehaviour
 			board.upcomingRowFront[location] = card; // Place the card,
 			card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1] + verticalSpacing * 2, initialCoords[2]); // Put it in the correct spot
 			card.SetRotation(0, 0, 0); //Face it the right way
+			card.GetComponentsInChildren<Collider>()[0].enabled = true; //re enable colliders for click detection
+			card.GetComponentsInChildren<Collider>()[1].enabled = true;
 			return true; // yay
 		}
 		else
@@ -414,6 +416,8 @@ public class GameLogic : MonoBehaviour
 				foreach (MeshRenderer mesh in card.transform.GetComponentsInChildren<MeshRenderer>()) {
 					mesh.enabled = true;
 				}
+				card.GetComponentsInChildren<Collider>()[0].enabled = true; //re enable colliders for click detection
+				card.GetComponentsInChildren<Collider>()[1].enabled = true;
 				card.transform.parent = null;
 				board.playerDust -= card.DustCost; // Subtract the COST of the card, not the value,
 				board.playerRow[location] = card; // Place the card,
