@@ -38,29 +38,16 @@ public class Hand : MonoBehaviour {
 
 
 
-        //TODO: add alternate ways to look at hand, ie 's', down arrow
-        if ((invertedScroll ? -1 : 1) * Input.mouseScrollDelta.y < 0 && !lookingDown) {
+        //Looking up and down
+        if (((invertedScroll ? -1 : 1) * Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !lookingDown) {
             lookDown();
-            Debug.Log("looked down");
+            //Debug.Log("looked down");
         }
-        if ((invertedScroll ? -1 : 1) * Input.mouseScrollDelta.y > 0 && lookingDown) {
+        if (((invertedScroll ? -1 : 1) * Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && lookingDown) {
             lookUp();
-            Debug.Log("looked up");
+            //Debug.Log("looked up");
         }
 
-
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            gameLogic.PlaceCard(cards[0], 0);
-        }
-        if (Input.GetKeyDown(KeyCode.W)) {
-            gameLogic.PlaceCard(cards[0], 1);
-        }
-        if (Input.GetKeyDown(KeyCode.E)) {
-            gameLogic.PlaceCard(cards[0], 2);
-        }
-        if (Input.GetKeyDown(KeyCode.R)) {
-            gameLogic.PlaceCard(cards[0], 3);
-        }
         if (Input.GetKeyDown(KeyCode.Return)) {
             gameLogic.EndTurn();
 		}
