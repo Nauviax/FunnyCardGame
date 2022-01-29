@@ -43,7 +43,7 @@ public enum Modifiers // Cost 5 each (TEMP!!! if $$$ then I have implemented cod
 	MovingR, // Like above, but to the right. MovingL becomes this card if blocked, and vice versa$$$
 	Brutish, // Takes one less damage on this side, possibly taking none$$$
 	Pronged, // Attacks to the left and right, rather than straight ahead$$$
-	Thorny, // Attackers take one point of damage when attacking this side
+	Thorny, // Attackers take one point of damage when attacking this side$$$
 	Musical, // Friendly cards gain one attack on this side of the board
 	Syphoning, // Gains one health after attacking, but takes one from the other side of this card
 	Guarding, // Absorbs all enemy attacks on this side, taking the damage itself instead
