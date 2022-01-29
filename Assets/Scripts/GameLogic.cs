@@ -465,7 +465,7 @@ public class GameLogic : MonoBehaviour
 			{
 				if (attacker.DamageFront != 0) // If attacker card can actually attack,
 				{
-					if (attacker.CardModifiers[0] == Modifiers.Venomous) // Check for venomous modifier
+					if (attacker.CardModifiers[0] == Modifiers.Venomous) // Check for venomous modifier (This also means it won't be, say, Vampiric)
 					{
 						victim.Destroy(); // Destroy that card 
 						return new bool[2] { true, false }; // And remove it from the board (Must be followed with a line similar to board.playerRow[ii] = null;)
@@ -489,6 +489,10 @@ public class GameLogic : MonoBehaviour
 							if (!isPlayerAttacking) board.playerDust += victim.DustValue; // Player gets a dust refund based on the cards value, if they are NOT the attacker
 							victim.Destroy(); // Destroy that card 
 							removeCards[0] = true; // And remove it from the board
+							if (attacker.CardModifiers[0] == Modifiers.Vampiric) // This card directly killed another, vampires absorb hp after kill
+							{
+								attacker.HealthFront += 2; // Gain two health
+							}
 						}
 						return removeCards; // Set in above two if statements
 					}
@@ -521,6 +525,10 @@ public class GameLogic : MonoBehaviour
 							if (!isPlayerAttacking) board.playerDust += victim.DustValue; // Player gets a dust refund based on the cards value, if they are NOT the attacker
 							victim.Destroy(); // Destroy that card 
 							removeCards[0] = true; // And remove it from the board
+							if (attacker.CardModifiers[1] == Modifiers.Vampiric) // This card directly killed another, vampires absorb hp after kill
+							{
+								attacker.HealthBack += 2; // Gain two health
+							}
 						}
 						return removeCards; // Set in above two if statements
 					}
