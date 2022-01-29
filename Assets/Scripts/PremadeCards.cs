@@ -63,9 +63,29 @@ public enum Effects // Normally put on 0/0 cards, Varying cost, not recovered: <
 public class PremadeCards : MonoBehaviour
 {
 	[SerializeField] CardAssets cardAssets; // Will store references to all GameObjects for rendering cards
-	public int GetCostOfEffect(Effects effect) // Returns the dust value of an effect !!!
+	public int GetCostOfEffect(Effects effect) // Returns the dust value of an effect
 	{
-		return 10;
+		switch (effect) // Edit/add costs of effects here
+		{
+			case Effects.None:
+				return 0;
+			case Effects.Buff:
+				return 10;
+			case Effects.Flip:
+				return 5;
+			case Effects.Nuke:
+				return 7;
+			case Effects.Kill:
+				return 10;
+			case Effects.Dust:
+				return 0;
+			case Effects.Skip:
+				return 12;
+			case Effects.Find:
+				return 8;
+			default:
+				return 999; // Something dumb to make it obvious something wasn't set
+		}
 	}
 	public Card GetCard(Cards template, bool isDouble) // Creates a card. Single sided cards will only use the front stats
 	{
