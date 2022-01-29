@@ -59,6 +59,12 @@ public class GameLogic : MonoBehaviour
 		board.ownedCards.Add(premade.GetCard(Cards.Basic4, true));
 		board.ownedCards.Add(premade.GetCard(Cards.Basic5, true));
     }
+	public void GenerateRandomPlayerCard() // For testing purposes, adds a random PREMADE card to the players HAND (Not owned cards or deck)
+	{
+		Cards[] listOfCards = (Cards[])Cards.GetValues(typeof(Cards)); // Returns an array of all possible premade card enums
+		Card randomCardEnum = premade.GetCard(listOfCards[Random.Range(0, listOfCards.Length)], true); // Gets a new card based on a random enum from the list
+		AddCardToHand(randomCardEnum); // Adds the card to the players current hand
+	}
 	public void GenerateAICards() // Called whenever the AI should create cards to play. These cards are currently completely random !!!
 	{
 		int cardNum = Random.Range(1, 3);
@@ -419,13 +425,15 @@ public class GameLogic : MonoBehaviour
 		}
 		return false; // Something bad happened
 	}
-	public void FreeCardGet(bool oneOnly = true) // Called when player requests his/her free card of the turn. If oneOnly is false, then this card is not counted as the players "one per turn" card
+	public bool FreeCardGet(bool oneOnly = true) // Called when player requests his/her free card of the turn. If oneOnly is false, then this card is not counted as the players "one per turn" card
 	{
 		if (!board.playerTookFreeCard) // If player has not yet retrieved a free card
 		{
 			AddCardToHand(premade.GetCard(Cards.Free, true)); // Add new free card to player deck
 			board.playerTookFreeCard = oneOnly; // Player now has his/her free card, unless oneOnly is manually set to false (For giving player 2 free cards at the begining of the game)
+			return true; // Player got a free card
 		}
+		else return false; // Player did not get a free card
 	}
 	public bool[] DamageCard(Card attacker, Card victim, bool isFront, bool isPlayerAttacking) // Preforms attacking logic between two cards, returns true if card died (Victim can be null)
 	{
@@ -459,7 +467,7 @@ public class GameLogic : MonoBehaviour
 			{
 				if (attacker.DamageFront != 0) // If attacker card can actually attack,
 				{
-					if (attacker.CardModifiers[0] == Modifiers.Venomous) // Check for venomous modifier
+					if (attacker.CardModifiers[0] == Modifiers.Venomous) // Check for venomous modifier (This also means it won't be, say, Vampiric)
 					{
 						victim.Destroy(); // Destroy that card 
 						return new bool[2] { true, false }; // And remove it from the board (Must be followed with a line similar to board.playerRow[ii] = null;)
@@ -483,6 +491,10 @@ public class GameLogic : MonoBehaviour
 							if (!isPlayerAttacking) board.playerDust += victim.DustValue; // Player gets a dust refund based on the cards value, if they are NOT the attacker
 							victim.Destroy(); // Destroy that card 
 							removeCards[0] = true; // And remove it from the board
+							if (attacker.CardModifiers[0] == Modifiers.Vampiric) // This card directly killed another, vampires absorb hp after kill
+							{
+								attacker.HealthFront += 2; // Gain two health
+							}
 						}
 						return removeCards; // Set in above two if statements
 					}
@@ -515,6 +527,10 @@ public class GameLogic : MonoBehaviour
 							if (!isPlayerAttacking) board.playerDust += victim.DustValue; // Player gets a dust refund based on the cards value, if they are NOT the attacker
 							victim.Destroy(); // Destroy that card 
 							removeCards[0] = true; // And remove it from the board
+							if (attacker.CardModifiers[1] == Modifiers.Vampiric) // This card directly killed another, vampires absorb hp after kill
+							{
+								attacker.HealthBack += 2; // Gain two health
+							}
 						}
 						return removeCards; // Set in above two if statements
 					}

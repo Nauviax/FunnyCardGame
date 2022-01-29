@@ -46,8 +46,8 @@ public enum Modifiers // Cost 5 each (TEMP!!! if $$$ then I have implemented cod
 	Thorny, // Attackers take one point of damage when attacking this side$$$
 	Musical, // Friendly cards gain one attack on this side of the board
 	Syphoning, // Gains one health after attacking, but takes one from the other side of this card
-	Guarding, // Absorbs all enemy attacks on this side, taking the damage itself instead
-	Vampiric, // When this card kills an enemy, gain two health. (This side only)
+	Guarding, // Absorbs all enemy attacks on this side, taking the damage itself instead (Even if first hit would kill it, it absorbs all hits)
+	Vampiric, // When this card kills an enemy, gain two health. (This side only)$$$
 }
 public enum Effects // Normally put on 0/0 cards, Varying cost, not recovered: < x >
 {

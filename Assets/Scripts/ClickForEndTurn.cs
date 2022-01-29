@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClickForFreeCard : MonoBehaviour, IClickable
+public class ClickForEndTurn : MonoBehaviour, IClickable
 {
 	GameLogic gameLogic;
     void Start()
@@ -12,14 +12,7 @@ public class ClickForFreeCard : MonoBehaviour, IClickable
 
 	public void onClick()
 	{
-		bool gotCard = gameLogic.FreeCardGet(); // Requests a free card (Will not give anything if card was taken this turn)
-		if (gotCard)
-		{
-			// Animate happy
-		}
-		else
-		{
-			// Animate sadly
-		}
+		gameLogic.EndTurn(); // Ends the turn
+		// Animate
 	}
 }
