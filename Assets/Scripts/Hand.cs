@@ -14,12 +14,17 @@ public class Hand : MonoBehaviour
     public bool lookingDown = false;
     GameLogic gameLogic;
     GameObject hand;
+    //the card being hovered in your hand
+    public Card currentDisplay;
+    //Stores prefabs in the info, all neatly lined up to be destroyed when needed.
+    public List<GameObject> infoDisplay = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         gameLogic = gameObject.GetComponent<GameLogic>();
         hand = GameObject.FindWithTag("Hand");
+        Physics.queriesHitTriggers = true;
     }
 
     public bool firstUpdate = true;
@@ -87,10 +92,15 @@ public class Hand : MonoBehaviour
     public void addCard(Card card) {
         card.cardRuneInstance = Instantiate(card.CardRune);
         card.cardRuneInstance.transform.localScale = new Vector3(1.2f, 1.2f, 0.3f);
+        card.cardRuneInstance.GetComponent<RuneBehaviour>().inHand = true;
+        card.cardRuneInstance.GetComponent<RuneBehaviour>().card = card;
+        card.GetComponentsInChildren<Collider>()[0].enabled = false;
+        card.GetComponentsInChildren<Collider>()[1].enabled = false;
         card.SetRotation(13, -20, 0);
         updateHand();
     }
     public void removeCard(Card card) {
+        card.cardRuneInstance.GetComponent<RuneBehaviour>().inHand = false;
         updateHand();
     }
     public void updateHand() {
@@ -107,5 +117,19 @@ public class Hand : MonoBehaviour
             Debug.Log(card.transform.position.ToString());
             pos++;
         }
+    }
+    public void updateInfo() {
+        //I feel powerful writing this bit
+        foreach(GameObject obj in infoDisplay) {
+            Destroy(obj);
+        }
+
+        GameObject mainRune = Instantiate(currentDisplay.CardRune);
+        Destroy(mainRune.GetComponent<RuneBehaviour>());
+        mainRune.transform.parent = hand.transform;
+        mainRune.transform.localPosition = new Vector3(-3.5f, 0.2f, 2);
+        mainRune.transform.rotation = Quaternion.Euler(13, -20, 0);
+        mainRune.transform.localScale = new Vector3(3, 3, 1);
+        infoDisplay.Add(mainRune);
     }
 }
