@@ -103,7 +103,7 @@ public class Hand : MonoBehaviour
                 mesh.enabled = false;
             }
             card.transform.parent = hand.transform;
-            card.TargetPosition = new Vector3((cards.Count<8?-8f:-10f) + ((cards.Count < 8 ? 16f : 20f) / (cards.Count-2))*pos, 0.2f, -2.25f);
+            card.TargetPosition = new Vector3((cards.Count<8?-8f:-10f) + ((cards.Count < 8 ? 16f : 20f) / (cards.Count-1))*pos, 0.2f, -2.25f);
             Debug.Log(card.transform.position.ToString());
             pos++;
         }

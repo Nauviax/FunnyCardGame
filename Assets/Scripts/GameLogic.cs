@@ -405,7 +405,7 @@ public class GameLogic : MonoBehaviour
 			if (board.gameHand.Contains(card)) // If I have the card in my hand, (I'ma idiot proof the fuck out of this)
 			{
 				foreach (MeshRenderer mesh in card.transform.GetComponentsInChildren<MeshRenderer>()) {
-					mesh.enabled = false;
+					mesh.enabled = true;
 				}
 				card.transform.parent = null;
 				board.playerDust -= card.DustCost; // Subtract the COST of the card, not the value,

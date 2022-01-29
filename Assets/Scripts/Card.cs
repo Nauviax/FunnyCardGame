@@ -63,6 +63,7 @@ public class Card : MonoBehaviour, IClickable
 	}
 	public void Destroy() // Called when card runs out of health
 	{
+		Destroy(this.cardRuneInstance);
 		Destroy(gameObject); // Fucking dies
 	}
 	void UpdateFace() // Update all runes/text on this card (!!! Implement updating runes somehow)
