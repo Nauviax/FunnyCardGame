@@ -32,16 +32,16 @@ public enum Cards // 2 cost per attack point, 1 per health
 	Skip,
 	Find,
 }
-public enum Modifiers // Cost 5 each
+public enum Modifiers // Cost 5 each (TEMP!!! if $$$ then I have implemented code for modifier)
 {
-	None, // Default modifier (Does not cost !!!)
-	Free, // Costs nothing to play (Does not cost !!!)
-	Venomous, // Instantly kill cards upon damaging them
-	Flying, // Will always attack opponent directly, over cards
-	Dusty, // Will give 5 extra dust on death, on top of normal drops
-	MovingL, // Moves to the left after all friendly cards have attacked
-	MovingR, // Like above, but to the right. MovingL becomes this card if blocked, and vice versa
-	Brutish, // Takes one less damage on this side, possibly taking none
+	None, // Default modifier (Does not cost !!!)$$$
+	Free, // Costs nothing to play (Does not cost !!!)$$$
+	Venomous, // Instantly kill cards upon damaging them$$$
+	Flying, // Will always attack opponent directly, over cards$$$
+	Dusty, // Will give 5 extra dust on death, on top of normal drops (This is implemented in Card.cs, not GameLogic.cs)$$$
+	MovingL, // Moves to the left after all friendly cards have attacked$$$
+	MovingR, // Like above, but to the right. MovingL becomes this card if blocked, and vice versa$$$
+	Brutish, // Takes one less damage on this side, possibly taking none$$$
 	Pronged, // Attacks to the left and right, rather than straight ahead
 	Thorny, // Attackers take one point of damage when attacking this side
 	Musical, // Friendly cards gain one attack on this side of the board
@@ -62,7 +62,7 @@ public enum Effects // Normally put on 0/0 cards, Varying cost, not recovered: <
 }
 public class PremadeCards : MonoBehaviour
 {
-	[SerializeField] CardAssets cardAssets; // Will store references to all GameObjects for rendering cards
+	[SerializeField] public CardAssets cardAssets; // Will store references to all GameObjects for rendering cards
 	public int GetCostOfEffect(Effects effect) // Returns the dust value of an effect
 	{
 		switch (effect) // Edit/add costs of effects here
@@ -248,9 +248,5 @@ public class PremadeCards : MonoBehaviour
 		// Effects 
 		newCard.SetPos(-50, -50, -50); // Effectively hides the card from player view
 		return newCard;
-	}
-	public void PreformModifier() // Placeholder until I decide someway to implement modifiers
-	{
-
 	}
 }

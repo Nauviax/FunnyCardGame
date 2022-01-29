@@ -102,31 +102,53 @@ public class GameLogic : MonoBehaviour
 			if (board.playerRow[ii] != null) // Empty spots do not attack
 			{
 				// Attack front cards
-				if (board.opponentRowFront[ii] == null) // If the card is unopposed,
+				if (board.opponentRowFront[ii] == null || board.playerRow[ii].CardModifiers[0] == Modifiers.Flying) // If the card is unopposed, or is flying
 				{
 					board.opponentDust -= board.playerRow[ii].DamageFront; // Deal damage directly
 				}
 				else
 				{
-					board.opponentRowFront[ii].HealthFront -= board.playerRow[ii].DamageFront; // Deal damage to card
-					if (board.opponentRowFront[ii].HealthFront <= 0) // If card is now dead,
+					if (board.playerRow[ii].DamageFront != 0) // If player card can actually attack,
 					{
-						board.opponentRowFront[ii].Destroy(); // Destroy that card 
-						board.opponentRowFront[ii] = null; // And remove it from the board
+						if (board.playerRow[ii].CardModifiers[0] == Modifiers.Venomous) // Check for venomous modifier
+						{
+							board.opponentRowFront[ii].Destroy(); // Destroy that card 
+							board.opponentRowFront[ii] = null; // And remove it from the board
+						}
+						else
+						{
+							board.opponentRowFront[ii].HealthFront -= board.playerRow[ii].DamageFront; // Deal damage to card
+							if (board.opponentRowFront[ii].HealthFront <= 0) // If card is now dead,
+							{
+								board.opponentRowFront[ii].Destroy(); // Destroy that card 
+								board.opponentRowFront[ii] = null; // And remove it from the board
+							}
+						}
 					}
 				}
 				// Attack back cards
-				if (board.opponentRowBack[ii] == null) // If the card is unopposed,
+				if (board.opponentRowBack[ii] == null || board.playerRow[ii].CardModifiers[1] == Modifiers.Flying) // If the card is unopposed, or is flying
 				{
 					board.opponentDust -= board.playerRow[ii].DamageBack; // Deal damage directly
 				}
 				else
 				{
-					board.opponentRowBack[ii].HealthBack -= board.playerRow[ii].DamageBack; // Deal damage to card
-					if (board.opponentRowBack[ii].HealthBack <= 0) // If card is now dead,
+					if (board.playerRow[ii].DamageBack != 0) // If player card can actually attack,
 					{
-						board.opponentRowBack[ii].Destroy(); // Destroy that card 
-						board.opponentRowBack[ii] = null; // And remove it from the board
+						if (board.playerRow[ii].CardModifiers[1] == Modifiers.Venomous) // Check for venomous modifier
+						{
+							board.opponentRowBack[ii].Destroy(); // Destroy that card 
+							board.opponentRowBack[ii] = null; // And remove it from the board
+						}
+						else
+						{
+							board.opponentRowBack[ii].HealthBack -= board.playerRow[ii].DamageBack; // Deal damage to card
+							if (board.opponentRowBack[ii].HealthBack <= 0) // If card is now dead,
+							{
+								board.opponentRowBack[ii].Destroy(); // Destroy that card 
+								board.opponentRowBack[ii] = null; // And remove it from the board
+							}
+						}
 					}
 				}
 			}
@@ -136,6 +158,71 @@ public class GameLogic : MonoBehaviour
 		{
 			GameEnd(true); // Player has won
 			return; // Stop game
+		}
+		// Preform midturn actions, such as moving cards
+		for (int ii = 0; ii < 4; ii++)
+		{
+			// Moving cards (There is SO MUCH repeated code here, but slightly different so I can't easily make it nicer)
+			if (board.playerRow[ii].CardModifiers[0] == Modifiers.MovingL || board.playerRow[ii].CardModifiers[1] == Modifiers.MovingL) // If a card wants to move left
+			{
+				if (ii == 0) // If at far left of board,
+				{
+					board.playerRow[ii].Turn(); // Turn around
+					if (board.playerRow[ii+1] == null) // If the card to the right is empty,
+					{
+						board.playerRow[ii + 1] = board.playerRow[ii]; // Move here
+						board.playerRow[ii + 1].SetPos(initialCoords[0] + (ii + 1) * horisontalSpacing, initialCoords[1], initialCoords[2]); // Update pos
+						board.playerRow[ii] = null; // I'm not here anymore
+					} // Else could be turn again, but no point as we know it's blocked
+					continue; // Next card (ignore next if)
+				}
+				if (board.playerRow[ii - 1] == null) // If the card to the left is empty,
+				{
+					board.playerRow[ii - 1] = board.playerRow[ii]; // Move here
+					board.playerRow[ii - 1].SetPos(initialCoords[0] + (ii - 1) * horisontalSpacing, initialCoords[1], initialCoords[2]); // Update pos
+					board.playerRow[ii] = null; // I'm not here anymore
+				}
+				else // This is the same code from inside the "If (ii == 0)" from above
+				{
+					board.playerRow[ii].Turn(); // Turn around
+					if (board.playerRow[ii + 1] == null) // If the card to the right is empty,
+					{
+						board.playerRow[ii + 1] = board.playerRow[ii]; // Move here
+						board.playerRow[ii + 1].SetPos(initialCoords[0] + (ii + 1) * horisontalSpacing, initialCoords[1], initialCoords[2]); // Update pos
+						board.playerRow[ii] = null; // I'm not here anymore
+					} // Else could be turn again, but no point as we know it's blocked
+				}
+			}
+			if (board.playerRow[ii].CardModifiers[0] == Modifiers.MovingR || board.playerRow[ii].CardModifiers[1] == Modifiers.MovingR) // Ditto for right
+			{
+				if (ii == 4) // If at far RIGHT of board,
+				{
+					board.playerRow[ii].Turn(); // Turn around
+					if (board.playerRow[ii - 1] == null) // If the card to the left is empty,
+					{
+						board.playerRow[ii - 1] = board.playerRow[ii]; // Move here
+						board.playerRow[ii - 1].SetPos(initialCoords[0] + (ii - 1) * horisontalSpacing, initialCoords[1], initialCoords[2]); // Update pos
+						board.playerRow[ii] = null; // I'm not here anymore
+					} // Else could be turn again, but no point as we know it's blocked
+					continue; // Next card (ignore next if)
+				}
+				if (board.playerRow[ii + 1] == null) // If the card to the right is empty,
+				{
+					board.playerRow[ii + 1] = board.playerRow[ii]; // Move here
+					board.playerRow[ii + 1].SetPos(initialCoords[0] + (ii + 1) * horisontalSpacing, initialCoords[1], initialCoords[2]); // Update pos
+					board.playerRow[ii] = null; // I'm not here anymore
+				}
+				else // This is the same code from inside the "If (ii == 4)" from above
+				{
+					board.playerRow[ii].Turn(); // Turn around
+					if (board.playerRow[ii - 1] == null) // If the card to the left is empty,
+					{
+						board.playerRow[ii - 1] = board.playerRow[ii]; // Move here
+						board.playerRow[ii - 1].SetPos(initialCoords[0] + (ii - 1) * horisontalSpacing, initialCoords[1], initialCoords[2]); // Update pos
+						board.playerRow[ii] = null; // I'm not here anymore
+					} // Else could be turn again, but no point as we know it's blocked
+				}
+			}
 		}
 		// Move cards down and preform enemy attacks
 		for (int ii = 0; ii < 4; ii++)
@@ -159,12 +246,15 @@ public class GameLogic : MonoBehaviour
 				}
 				else
 				{
-					board.playerRow[ii].HealthFront -= board.opponentRowFront[ii].DamageFront; // Deal damage to card
-					if (board.playerRow[ii].HealthFront <= 0) // If card is now dead,
+					if (board.opponentRowBack[ii].DamageFront != 0) // If enemy card can actually attack,
 					{
-						board.playerDust += board.playerRow[ii].DustValue; // Player gets a dust refund based on the cards value
-						board.playerRow[ii].Destroy(); // Destroy that card 
-						board.playerRow[ii] = null; // And remove it from the board
+						board.playerRow[ii].HealthFront -= board.opponentRowFront[ii].DamageFront - (board.playerRow[ii].CardModifiers[0] == Modifiers.Brutish ? 1 : 0); // Deal damage to card, but one less if player card is brutish
+						if (board.playerRow[ii].HealthFront <= 0) // If card is now dead,
+						{
+							board.playerDust += board.playerRow[ii].DustValue; // Player gets a dust refund based on the cards value
+							board.playerRow[ii].Destroy(); // Destroy that card 
+							board.playerRow[ii] = null; // And remove it from the board
+						}
 					}
 				}
 			}
@@ -177,14 +267,16 @@ public class GameLogic : MonoBehaviour
 				}
 				else
 				{
-					board.playerRow[ii].HealthBack -= board.opponentRowBack[ii].DamageBack; // Deal damage to card
-					if (board.playerRow[ii].HealthBack <= 0) // If card is now dead,
+					if (board.opponentRowBack[ii].DamageBack != 0) // If enemy card can actually attack,
 					{
-						board.playerDust += board.playerRow[ii].DustValue; // Player gets a dust refund based on the cards value
-						board.playerRow[ii].Destroy(); // Destroy that card 
-						board.playerRow[ii] = null; // And remove it from the board
+						board.playerRow[ii].HealthBack -= board.opponentRowFront[ii].DamageBack - (board.playerRow[ii].CardModifiers[1] == Modifiers.Brutish ? 1 : 0); // Deal damage to card, but one less if player card is brutish
+						if (board.playerRow[ii].HealthBack <= 0) // If card is now dead,
+						{
+							board.playerDust += board.playerRow[ii].DustValue; // Player gets a dust refund based on the cards value
+							board.playerRow[ii].Destroy(); // Destroy that card 
+							board.playerRow[ii] = null; // And remove it from the board
+						}
 					}
-
 				}
 			}
 		}

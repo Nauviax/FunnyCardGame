@@ -31,7 +31,7 @@ public class Card : MonoBehaviour, IClickable
 		dustCost = CalculateDustCost(dustValue); // Gets the decided cost of playing this card, taking into account effects and the free modifier
 		textFront = transform.GetChild(0).GetComponent<TextMeshPro>();
 		textBack = transform.GetChild(1).GetComponent<TextMeshPro>();
-		UpdateText();
+		UpdateFace();
 	}
 	public void SetPos(float xx, float yy, float zz)
 	{
@@ -41,7 +41,7 @@ public class Card : MonoBehaviour, IClickable
 	{
 		Destroy(gameObject); // Fucking dies
 	}
-	void UpdateText() // Update the statline on this card, displaying nothing for damage if it is 0
+	void UpdateFace() // Update all runes/text on this card (!!! Implement updating runes somehow)
 	{
 		textFront.SetText((DamageFront != 0 ? DamageFront.ToString() : " ") + fill + HealthFront.ToString());
 		textBack.SetText((DamageFront != 0 ? DamageFront.ToString() : " ") + fill + HealthBack.ToString());
@@ -68,25 +68,56 @@ public class Card : MonoBehaviour, IClickable
 			return cost; // As effects are normally combined with a 0/0 statline, effect cards normally have a value of 0, and a non 0 cost
 		}
 	}
+	public void Turn() // If this card has a moving sigil, flip that sigil (Will only flip front if both side have moving, so DON'T DO THAT)
+	{
+		if (modifiers[0] == Modifiers.MovingL)
+		{
+			modifiers[0] = Modifiers.MovingR;
+			modifierRunes[0] = premade.cardAssets.MMovingR;
+			UpdateFace();
+			return;
+		}
+		if (modifiers[0] == Modifiers.MovingR)
+		{
+			modifiers[0] = Modifiers.MovingL;
+			modifierRunes[0] = premade.cardAssets.MMovingL;
+			UpdateFace();
+			return;
+		}
+		if (modifiers[1] == Modifiers.MovingL)
+		{
+			modifiers[1] = Modifiers.MovingR;
+			modifierRunes[1] = premade.cardAssets.MMovingR;
+			UpdateFace();
+			return;
+		}
+		if (modifiers[1] == Modifiers.MovingR)
+		{
+			modifiers[1] = Modifiers.MovingL;
+			modifierRunes[1] = premade.cardAssets.MMovingL;
+			UpdateFace();
+			return;
+		}
+	}
 	public int DamageFront
 	{
 		get { return stats[0]; }
-		set { stats[0] = value; UpdateText(); }
+		set { stats[0] = value; UpdateFace(); }
 	}
 	public int HealthFront
 	{
 		get { return stats[1]; }
-		set { stats[1] = value; UpdateText(); }
+		set { stats[1] = value; UpdateFace(); }
 	}
 	public int DamageBack
 	{
 		get { return stats[2]; }
-		set { stats[2] = value; UpdateText(); }
+		set { stats[2] = value; UpdateFace(); }
 	}
 	public int HealthBack
 	{
 		get { return stats[3]; }
-		set { stats[3] = value; UpdateText(); }
+		set { stats[3] = value; UpdateFace(); }
 	}
 	public int DustValue
 	{
