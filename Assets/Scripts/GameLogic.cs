@@ -67,11 +67,15 @@ public class GameLogic : MonoBehaviour
 	}
 	public void GenerateAICards() // Called whenever the AI should create cards to play. These cards are currently completely random !!!
 	{
-		int cardNum = Random.Range(1, 3);
-		for (int ii = 0; ii < cardNum; ii++) // Creates 1-2 random cards and adds them to upcoming
-		{
-			PlaceCard(premade.GetCard(Cards.Random, true), Random.Range(0, 4), true); // Places on the enemy side
-		}
+		Card newEnemyCard = premade.GetCard(Cards.Random, false); // Get new enemy card
+		newEnemyCard.HealthBack = 0; // Wipe back stats
+		newEnemyCard.DamageBack = 0;
+		PlaceCard(newEnemyCard, Random.Range(0, 4), true, true); // Places on the enemy front side
+
+		newEnemyCard = premade.GetCard(Cards.Random, false); // Get new new enemy card
+		newEnemyCard.HealthFront = 0; // Wipe front stats
+		newEnemyCard.DamageFront = 0;
+		PlaceCard(newEnemyCard, Random.Range(0, 4), true, false); // Places on the enemy back side
 	}
 	public void BeginGame() // Set initial values, deal starting hand, and generate AI cards for first round (Called from Hand.cs)
 	{
@@ -325,6 +329,10 @@ public class GameLogic : MonoBehaviour
 				else // This is the same code from inside the "If (ii == 0)" from above
 				{
 					board.playerRow[ii].Turn(); // Turn around
+					if (ii == 4) // If at far RIGHT of board,
+					{
+						continue; // Nothing I can do
+					}
 					if (board.playerRow[ii + 1] == null) // If the card to the right is empty,
 					{
 						board.playerRow[ii + 1] = board.playerRow[ii]; // Move here
@@ -355,6 +363,10 @@ public class GameLogic : MonoBehaviour
 				else // This is the same code from inside the "If (ii == 4)" from above
 				{
 					board.playerRow[ii].Turn(); // Turn around
+					if (ii == 0) // If at far LEFT of board,
+					{
+						continue; // Nothing I can do
+					}
 					if (board.playerRow[ii - 1] == null) // If the card to the left is empty,
 					{
 						board.playerRow[ii - 1] = board.playerRow[ii]; // Move here
@@ -373,6 +385,10 @@ public class GameLogic : MonoBehaviour
 		// Check for guarding cards
 		for (int ii = 0; ii < 4; ii++)
 		{
+			if (board.playerRow[ii] == null) // Empty spots can't guard
+			{
+				continue;
+			}
 			if (board.playerRow[ii].CardModifiers[0] == Modifiers.Guarding)
 			{
 				guarding[0] = board.playerRow[ii];
@@ -391,7 +407,16 @@ public class GameLogic : MonoBehaviour
 				{
 					board.opponentRowFront[ii] = board.upcomingRowFront[ii]; // Move that card forwards
 					board.upcomingRowFront[ii] = null; // And remove it from upcoming
-					board.opponentRowFront[ii].SetPos(initialCoords[0] + ii * horisontalSpacing, initialCoords[1] + verticalSpacing, initialCoords[2]); // Move it to the correct location
+					board.opponentRowFront[ii].SetPos(initialCoords[0] + ii * horisontalSpacing, initialCoords[1] + verticalSpacing, initialCoords[2] - 0.5f); // Move it to the correct location
+				}
+			}
+			if (board.upcomingRowBack[ii] != null) // the same, but for back cards now
+			{
+				if (board.opponentRowBack[ii] == null) // And it is not being blocked,
+				{
+					board.opponentRowBack[ii] = board.upcomingRowBack[ii]; // Move that card forwards
+					board.upcomingRowBack[ii] = null; // And remove it from upcoming
+					board.opponentRowBack[ii].SetPos(initialCoords[0] + ii * horisontalSpacing, initialCoords[1] + verticalSpacing, initialCoords[2] + 0.5f); // Move it to the correct location
 				}
 			}
 
@@ -437,19 +462,30 @@ public class GameLogic : MonoBehaviour
 			}
 		}
 	}
-	public bool PlaceCard(Card card, int location, bool isEnemySide = false) // Will place the given card at a certian location on the board. Returns true if sucsessful, false if failed
+	public bool PlaceCard(Card card, int location, bool isEnemySide = false, bool isEnemyFront = true) // Will place the given card at a certian location on the board. Returns true if sucsessful, false if failed
 	{
 		if (isEnemySide) // Optional input determines if card should be placed on enemy side. Enemies require less checks if they can place a card, like no cost needed
 		{
-			if (board.upcomingRowFront[location] != null) // If location is taken, fail (!!! Uses front by default !!!)
+			if (isEnemyFront) // Placing on the front side?
 			{
-				return false;
+				if (board.upcomingRowFront[location] != null) // If location is taken, fail (!!! Uses front by default !!!)
+				{
+					return false;
+				}
+				board.upcomingRowFront[location] = card; // Place the card,
+				card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1] + verticalSpacing * 2, initialCoords[2] - 0.5f); // Put it in the correct spot
 			}
-			board.upcomingRowFront[location] = card; // Place the card,
-			card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1] + verticalSpacing * 2, initialCoords[2]); // Put it in the correct spot
+			else // Placing on the back
+			{
+				if (board.upcomingRowBack[location] != null) // If location is taken, fail (!!! Uses front by default !!!)
+				{
+					return false;
+				}
+				board.upcomingRowBack[location] = card; // Place the card,
+				card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1] + verticalSpacing * 2, initialCoords[2] + 0.5f); // This one is PLUS 0.5, not minus
+			}
 			card.SetRotation(0, 0, 0); //Face it the right way
 			card.GetComponentsInChildren<Collider>()[0].enabled = true; //re enable colliders for click detection
-			card.GetComponentsInChildren<Collider>()[1].enabled = true;
 			return true; // yay
 		}
 		else
