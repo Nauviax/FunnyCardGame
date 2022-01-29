@@ -19,11 +19,9 @@ public class RuneBehaviour : MonoBehaviour, IClickable {
     }
 
     void OnMouseEnter() {
-        Debug.Log("hi it me");
         if (inHand) {
             hand.currentDisplay = card;
             hand.updateInfo();
-            Debug.Log("hi it me but cooler");
         }
 
     }
