@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5022844605923144076}
   - component: {fileID: 5022844605923144079}
   m_Layer: 0
-  m_Name: Rune 3
+  m_Name: C Basic 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 576925aa861f12a4fae0a8cc15655acb, type: 2}
+  - {fileID: 2100000, guid: 508aaba7ea9290d4097a54b7c136292d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
