@@ -101,6 +101,7 @@ public class Hand : MonoBehaviour
     }
     public void removeCard(Card card) {
         card.cardRuneInstance.GetComponent<RuneBehaviour>().inHand = false;
+        card.cardRuneInstance.transform.localScale = new Vector3(3, 3, 1);
         updateHand();
     }
     public void updateHand() {

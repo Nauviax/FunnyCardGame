@@ -39,7 +39,7 @@ public class Card : MonoBehaviour, IClickable
 		else transform.position = Vector3.MoveTowards(transform.position, TargetPosition, Time.deltaTime * moveSpeed);
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * rotateSpeed);
 		if (cardRuneInstance != null){
-			cardRuneInstance.transform.position = transform.position;
+			cardRuneInstance.transform.position = transform.position + new Vector3(0, 0, -0.2f);
 			cardRuneInstance.transform.rotation = transform.rotation;
 		}
 	}
