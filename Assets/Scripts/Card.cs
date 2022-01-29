@@ -31,9 +31,12 @@ public class Card : MonoBehaviour, IClickable
 		targetPosition = transform.position;
 	}
 
-    void Update() // Blame Lachlan if this breaks
+	void Update() // Blame Lachlan if this breaks
 	{
-		if (transform.parent !=null)transform.position = Vector3.MoveTowards(transform.position, transform.parent.transform.TransformPoint(targetPosition), Time.deltaTime * moveSpeed);
+		if (transform.parent != null) transform.position = Vector3.MoveTowards(transform.position, transform.parent.transform.TransformPoint(targetPosition), Time.deltaTime * moveSpeed);
+		if (cardRuneInstance != null){
+			cardRuneInstance.transform.position = transform.position;
+		}
 	}
 
     public void SetStats(int[] stats, Modifiers[] modifiers, Effects effect, GameObject cardRune, GameObject[] modifierRunes, GameObject effectRune, PremadeCards premade)
