@@ -24,7 +24,9 @@ public class Card : MonoBehaviour, IClickable
 
 	// Smooth movement code
 	float moveSpeed = 100f;
+	float rotateSpeed = 180f;
 	Vector3 targetPosition;
+	Quaternion targetRotation;
 
 	void Start() // Blame Lachlan if this breaks
 	{
@@ -35,8 +37,10 @@ public class Card : MonoBehaviour, IClickable
 	{
 		if (transform.parent != null) transform.position = Vector3.MoveTowards(transform.position, transform.parent.transform.TransformPoint(TargetPosition), Time.deltaTime * moveSpeed);
 		else transform.position = Vector3.MoveTowards(transform.position, TargetPosition, Time.deltaTime * moveSpeed);
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * rotateSpeed);
 		if (cardRuneInstance != null){
 			cardRuneInstance.transform.position = transform.position;
+			cardRuneInstance.transform.rotation = transform.rotation;
 		}
 	}
 
@@ -61,6 +65,9 @@ public class Card : MonoBehaviour, IClickable
 		//transform.position = new Vector3(xx, yy, zz);
 		TargetPosition = new Vector3(xx, yy, zz);
 	}
+	public void SetRotation(float xx, float yy, float zz) {
+		targetRotation = Quaternion.Euler(xx, yy, zz);
+    }
 	public void Destroy() // Called when card runs out of health
 	{
 		Destroy(this.cardRuneInstance);
