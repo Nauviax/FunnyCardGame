@@ -50,8 +50,12 @@ public class Hand : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Return)) {
             gameLogic.EndTurn();
-        }
-    }
+		}
+		if (Input.GetKeyDown(KeyCode.O)) // Game begins here
+		{
+			gameLogic.BeginGame();
+		}
+	}
     
     public void lookDown() {
         gameObject.GetComponent<CameraController>().targetPosition = new Vector3(18.2f, 7, -32);
@@ -68,7 +72,7 @@ public class Hand : MonoBehaviour
     }
 
     public void addCard(Card card) {
-        card.cardRune = Instantiate(card.cardRune);
+        //card.CardRune = Instantiate(card.CardRune);
 		updateHand();
     }
     public void removeCard(Card card) {
@@ -81,7 +85,7 @@ public class Hand : MonoBehaviour
         foreach (Card card in cards) {
             Debug.Log("did a card");
             card.transform.parent = hand.GetComponentsInChildren<GameObject>()[0].transform;
-            card.targetPosition = new Vector3(-4 + (8/cards.Count)*pos, 0.2f, -2.25f);
+            card.TargetPosition = new Vector3(-4 + (8/cards.Count)*pos, 0.2f, -2.25f);
             pos++;
         }
     }

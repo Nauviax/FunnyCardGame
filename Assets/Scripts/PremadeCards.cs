@@ -243,9 +243,7 @@ public class PremadeCards : MonoBehaviour
 				break;
 		}
 		Card newCard = Instantiate(isDouble ? cardAssets.CardObjDouble : cardAssets.CardObjSingle).GetComponent<Card>(); // Create a new card with blank values
-		newCard.SetStats(stats, modifiers, effect, cardRune, modifierRune, effectRune); // Set the cards stats, modifiers etc and runes
-		// Modifiers (!!! Not implemented !!!)
-		// Effects 
+		newCard.SetStats(stats, modifiers, effect, cardRune, modifierRune, effectRune, this); // Set the cards stats, modifiers etc and runes, and gives it a reference to this script
 		newCard.SetPos(-50, -50, -50); // Effectively hides the card from player view
 		return newCard;
 	}

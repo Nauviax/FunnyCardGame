@@ -540,7 +540,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4396236977989373838}
   - component: {fileID: 3176484766747620806}
-  - component: {fileID: 2996218542434182538}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -582,16 +581,3 @@ MonoBehaviour:
   modifierRunes: []
   effectRune: {fileID: 0}
   targetPosition: {x: 0, y: 0, z: 0}
---- !u!114 &2996218542434182538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8336702446030716482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd87888ef794e82499ed7cf9ff7bdfa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardAssets: {fileID: 11400000, guid: 17b0aa694b211f043a2bf70da8535068, type: 2}

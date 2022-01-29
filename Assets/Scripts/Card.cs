@@ -8,34 +8,32 @@ public class Card : MonoBehaviour, IClickable
 	int[] stats; // Stores card stats, damage then health for front, then back
 	Modifiers[] modifiers; // Stores modifiers for both sides, front first
 	Effects effect;
-	public GameObject cardRune; // These hold prefabs, not ingame objects!
-	public GameObject[] modifierRunes; // Single sided cards will just use front, or index 0
-	public GameObject effectRune;
+	GameObject cardRune; // These hold prefabs, not ingame objects!
+	GameObject[] modifierRunes; // Single sided cards will just use front, or index 0
+	GameObject effectRune;
 	int dustCost; // Cost of this card
 	int dustValue; // Value of this card (This value is returned to the player on death)
 
-	PremadeCards premade; // Mainly used for getting dust values of effects
+	PremadeCards premade; // Mainly used for getting dust values of effects, retrieved from GameLogic
 	TextMeshPro textFront;
 	TextMeshPro textBack;
 	string fill = "         "; // Might make cleaner later idk
 
-	//smooth movement code
+	// Smooth movement code
 	float moveSpeed = 10f;
-	public Vector3 targetPosition;
+	Vector3 targetPosition;
 
-	//couldnt find a 
-	void Start() {
+	void Start() // Blame Lachlan if this breaks
+	{
 		targetPosition = transform.position;
-		premade = gameObject.GetComponent<PremadeCards>();
-		if (premade == null) Debug.Log("premade is null!");
-		else Debug.Log("premade no null lol");
 	}
 
-    void Update() {
+    void Update() // Blame Lachlan if this breaks
+	{
 		transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
 	}
 
-    public void SetStats(int[] stats, Modifiers[] modifiers, Effects effect, GameObject cardRune, GameObject[] modifierRunes, GameObject effectRune)
+    public void SetStats(int[] stats, Modifiers[] modifiers, Effects effect, GameObject cardRune, GameObject[] modifierRunes, GameObject effectRune, PremadeCards premade)
 	{
 		this.stats = stats;
 		this.modifiers = modifiers;
@@ -43,6 +41,7 @@ public class Card : MonoBehaviour, IClickable
 		this.cardRune = cardRune;
 		this.modifierRunes = modifierRunes;
 		this.effectRune = effectRune;
+		this.premade = premade; // Should be passed in from GameLogic
 		dustValue = CalculateDustValue(); // Gets the value of this card, taking into account it's stats and modifiers
 		dustCost = CalculateDustCost(dustValue); // Gets the decided cost of playing this card, taking into account effects and the free modifier
 		textFront = transform.GetChild(0).GetComponent<TextMeshPro>();
@@ -145,6 +144,11 @@ public class Card : MonoBehaviour, IClickable
 	public int DustCost
 	{
 		get { return dustCost; }
+	}
+	public Vector3 TargetPosition
+	{
+		get { return targetPosition; }
+		set { targetPosition = value; }
 	}
 	public Modifiers[] CardModifiers // If you want to change or remove a modifier, try doing so by making a public method in this card class, and also update it's runes! (eg: MovingR -> MovingL) !!!
 	{

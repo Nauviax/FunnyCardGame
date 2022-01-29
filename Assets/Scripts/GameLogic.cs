@@ -58,7 +58,6 @@ public class GameLogic : MonoBehaviour
 		board.ownedCards.Add(premade.GetCard(Cards.Basic3, true));
 		board.ownedCards.Add(premade.GetCard(Cards.Basic4, true));
 		board.ownedCards.Add(premade.GetCard(Cards.Basic5, true));
-		BeginGame();
     }
 	public void GenerateAICards() // Called whenever the AI should create cards to play. These cards are currently completely random !!!
 	{
@@ -68,7 +67,7 @@ public class GameLogic : MonoBehaviour
 			PlaceCard(premade.GetCard(Cards.Random, true), Random.Range(0, 4), true); // Places on the enemy side
 		}
 	}
-	public void BeginGame() // Set initial values, deal starting hand, and generate AI cards for first round
+	public void BeginGame() // Set initial values, deal starting hand, and generate AI cards for first round (Called from Hand.cs)
 	{
 		// Set initial values
 		board.playerDust = 50; // !!! Set much lower when finished debugging
