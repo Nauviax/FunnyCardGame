@@ -28,7 +28,7 @@ public class CardAssets : ScriptableObject
 	public GameObject CMusical;
 	public GameObject CSyphoning;
 	public GameObject CGuarding;
-	public GameObject CVampiric;
+	public GameObject CVampiricMove;
 	public GameObject CFlyingBrute;
 	// A special card rune, all effect cards will use the same card rune as they can be identified anyway by the Effect rune
 	public GameObject CEffect;
@@ -43,6 +43,7 @@ public class CardAssets : ScriptableObject
 	public GameObject MMovingR;
 	public GameObject MBrutish;
 	public GameObject MPronged;
+	public GameObject MThorny;
 	public GameObject MMusical;
 	public GameObject MSyphoning;
 	public GameObject MGuarding;

@@ -21,8 +21,8 @@ public enum Cards // 2 cost per attack point, 1 per health
 	Musical,
 	Syphoning,
 	Guarding,
-	Vampiric,
-	FlyingBrute, // This card has two modifiers. Otherwise acts the same
+	VampiricMove, // This card has two modifiers. Otherwise acts the same
+	FlyingBrute, // Ditto
 	// The rest of these cards are effect cards. The statline is always 0/0 and they are planned to all have the same card rune
 	Buff,
 	Flip,
@@ -99,6 +99,7 @@ public class PremadeCards : MonoBehaviour
 		// Then adjust values based on card requested:
 		switch (template) // These values are subject to change, but they'll do for now
 		{
+			// Basic cards begin here
 			case Cards.Random:
 				stats = new int[4] { Random.Range(0, 3), Random.Range(0, 3), Random.Range(1, 5), Random.Range(1, 5) };
 				cardRune = cardAssets.CNone;
@@ -129,6 +130,7 @@ public class PremadeCards : MonoBehaviour
 				stats = new int[4] { 2, 1, 0, 4 };
 				cardRune = cardAssets.CBasic5;
 				break;
+		// Modifier cards begin here
 			case Cards.Venomous:
 				stats = new int[4] { 1, 2, 0, 1 };
 				modifiers = new Modifiers[2] { Modifiers.Venomous, Modifiers.None };
@@ -159,7 +161,85 @@ public class PremadeCards : MonoBehaviour
 				cardRune = cardAssets.CBrutish;
 				modifierRune = new GameObject[2] { cardAssets.MBrutish, cardAssets.MNone };
 				break;
-			default: // Shouldn't happen
+			case Cards.Pronged:
+				stats = new int[4] { 1, 1, 1, 1 };
+				modifiers = new Modifiers[2] { Modifiers.Pronged, Modifiers.None };
+				cardRune = cardAssets.CPronged;
+				modifierRune = new GameObject[2] { cardAssets.MPronged, cardAssets.MNone };
+				break;
+			case Cards.Thorny:
+				stats = new int[4] { 0, 3, 0, 2 };
+				modifiers = new Modifiers[2] { Modifiers.Thorny, Modifiers.None };
+				cardRune = cardAssets.CThorny;
+				modifierRune = new GameObject[2] { cardAssets.MThorny, cardAssets.MNone };
+				break;
+			case Cards.Musical:
+				stats = new int[4] { 1, 2, 2, 1 };
+				modifiers = new Modifiers[2] { Modifiers.Musical, Modifiers.None };
+				cardRune = cardAssets.CMusical;
+				modifierRune = new GameObject[2] { cardAssets.MMusical, cardAssets.MNone };
+				break;
+			case Cards.Syphoning:
+				stats = new int[4] { 2, 1, 0, 8 };
+				modifiers = new Modifiers[2] { Modifiers.Syphoning, Modifiers.None };
+				cardRune = cardAssets.CSyphoning;
+				modifierRune = new GameObject[2] { cardAssets.MSyphoning, cardAssets.MNone };
+				break;
+			case Cards.Guarding:
+				stats = new int[4] { 0, 5, 0, 5 };
+				modifiers = new Modifiers[2] { Modifiers.Guarding, Modifiers.None };
+				cardRune = cardAssets.CGuarding;
+				modifierRune = new GameObject[2] { cardAssets.MGuarding, cardAssets.MNone };
+				break;
+			case Cards.VampiricMove:
+				stats = new int[4] { 2, 2, 0, 3 };
+				modifiers = new Modifiers[2] { Modifiers.Vampiric, Modifiers.MovingR };
+				cardRune = cardAssets.CVampiricMove;
+				modifierRune = new GameObject[2] { cardAssets.MVampiric, cardAssets.MMovingR };
+				break;
+			case Cards.FlyingBrute:
+				stats = new int[4] { 1, 2, 2, 2 };
+				modifiers = new Modifiers[2] { Modifiers.Flying, Modifiers.Brutish };
+				cardRune = cardAssets.CFlyingBrute;
+				modifierRune = new GameObject[2] { cardAssets.MFlying, cardAssets.MBrutish };
+				break;
+			// Effect cards begin here
+			case Cards.Buff:
+				effect = Effects.Buff;
+				cardRune = cardAssets.CEffect;
+				effectRune = cardAssets.EBuff;
+				break;
+			case Cards.Flip:
+				effect = Effects.Flip;
+				cardRune = cardAssets.CEffect;
+				effectRune = cardAssets.EFlip;
+				break;
+			case Cards.Nuke:
+				effect = Effects.Nuke;
+				cardRune = cardAssets.CEffect;
+				effectRune = cardAssets.ENuke;
+				break;
+			case Cards.Kill:
+				effect = Effects.Kill;
+				cardRune = cardAssets.CEffect;
+				effectRune = cardAssets.EKill;
+				break;
+			case Cards.Dust:
+				effect = Effects.Dust;
+				cardRune = cardAssets.CEffect;
+				effectRune = cardAssets.EDust;
+				break;
+			case Cards.Skip:
+				effect = Effects.Skip;
+				cardRune = cardAssets.CEffect;
+				effectRune = cardAssets.ESkip;
+				break;
+			case Cards.Find:
+				effect = Effects.Find;
+				cardRune = cardAssets.CEffect;
+				effectRune = cardAssets.EFind;
+				break;
+			default: // Shouldn't happen, will return a placeholder card (0,0,0,0 etc)
 				break;
 		}
 		Card newCard = Instantiate(isDouble ? cardAssets.CardObjDouble : cardAssets.CardObjSingle).GetComponent<Card>(); // Create a new card with blank values
