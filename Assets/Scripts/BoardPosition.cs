@@ -20,9 +20,10 @@ public class BoardPosition : MonoBehaviour, IClickable
     }
 
     public void onClick() {
-        if (hand.placingCard) {
-            GameObject.FindWithTag("GameLogic").GetComponent<GameLogic>().PlaceCard(hand.currentDisplay, position);
-            hand.currentDisplay = null;
+		if (hand.placingCard)
+		{
+			GameObject.FindWithTag("GameLogic").GetComponent<GameLogic>().PlaceCard(hand.currentDisplay, position);
+			hand.currentDisplay = null;
             hand.updateInfo();
         }
     }

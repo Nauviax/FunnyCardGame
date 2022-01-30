@@ -13,5 +13,6 @@ public class MagicClickForCards : MonoBehaviour, IClickable
 	public void onClick()
 	{
 		gameLogic.GenerateRandomPlayerCard(); // Will get a random premade card and add it to the players hand
+		gameLogic.board.playerDust += 1000; // Give player dust
 	}
 }

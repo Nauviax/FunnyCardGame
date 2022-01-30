@@ -26,10 +26,11 @@ public class RuneBehaviour : MonoBehaviour, IClickable {
 
     }
 
-    public void onClick() {
-        if (hand.placingCard && card == hand.currentDisplay) {
+    public void onClick()
+	{
+		if (hand.placingCard && card == hand.currentDisplay) {
             card.SetPos(card.TargetPosition.x, card.TargetPosition.y - 0.5f, card.TargetPosition.z);
-            hand.placingCard = false;
+			hand.placingCard = false;
         } else if (!hand.placingCard) {
             card.SetPos(card.TargetPosition.x, card.TargetPosition.y + 0.5f, card.TargetPosition.z);
             hand.placingCard = true;

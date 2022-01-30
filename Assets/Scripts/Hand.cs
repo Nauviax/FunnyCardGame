@@ -84,11 +84,13 @@ public class Hand : MonoBehaviour {
         card.cardRuneInstance.GetComponent<RuneBehaviour>().card = card;
         card.GetComponentsInChildren<Collider>()[0].enabled = false;
         card.SetRotation(13, -20, 0);
-
-        int i = 0;
-        foreach (GameObject modRune in card.ModifierRunes) {
-            card.modifierRunesInstance[i] = Instantiate(modRune);
-            modRune.transform.localScale = new Vector3(1.2f, 1.2f, 0.3f);
+        if (card.ModifierRunes.Length>0) {
+            int i = 0;
+            foreach (GameObject modRune in card.ModifierRunes) {
+                card.modifierRunesInstance[i] = Instantiate(modRune);
+                modRune.transform.localScale = new Vector3(1.2f, 1.2f, 0.3f);
+                i++;
+            }
         }
         updateHand();
     }
@@ -112,6 +114,11 @@ public class Hand : MonoBehaviour {
             pos++;
         }
     }
+	public void clearHand()
+	{
+		cards.Clear(); // Do last!
+	}
+
     public void updateInfo() {
         //I feel powerful writing this bit
         foreach (GameObject obj in infoDisplay) {
