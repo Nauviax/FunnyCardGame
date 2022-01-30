@@ -71,7 +71,10 @@ public class GameLogic : MonoBehaviour
 		board.ownedCards.Add(premade.GetCard(Cards.Basic3, true));
 		board.ownedCards.Add(premade.GetCard(Cards.Basic4, true));
 		board.ownedCards.Add(premade.GetCard(Cards.Basic5, true));
-    }
+		GenerateRandomPlayerCard(); // Generate some extra, fancy cards for starter deck
+		GenerateRandomPlayerCard();
+		GenerateRandomPlayerCard();
+	}
 	public void GenerateRandomPlayerCard() // Adds a random new PREMADE card to owned cards (Victory reward)
 	{
 		Cards[] listOfCards = (Cards[])Cards.GetValues(typeof(Cards)); // Returns an array of all possible premade card enums
