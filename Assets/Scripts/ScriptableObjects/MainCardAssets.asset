@@ -35,7 +35,7 @@ MonoBehaviour:
   CVampiricMove: {fileID: 5022844605923144078, guid: a42350658e12d264089614bfeedd792d, type: 3}
   CFlyingBrute: {fileID: 5022844605923144078, guid: 77aa17d16dcd7a444aaa63a044e4e557, type: 3}
   CEffect: {fileID: 0}
-  MNone: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MNone: {fileID: 7080054365220903246, guid: 93c7cbbcc438ba64191a97a18836566f, type: 3}
   MFree: {fileID: 5022844605923144078, guid: 4c5bb6a0958830e439c95ef38c2b5db8, type: 3}
   MVenomous: {fileID: 5022844605923144078, guid: 1f756fc3229169a41b93fc9d257b593b, type: 3}
   MFlying: {fileID: 5022844605923144078, guid: e535fc89d5b441746a007c0985d4a541, type: 3}

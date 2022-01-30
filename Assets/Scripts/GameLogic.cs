@@ -110,7 +110,7 @@ public class GameLogic : MonoBehaviour
 		// Set initial values, show objects
 		board.playerDust = playerStartingDust; // Can set in inspector
 		board.opponentDust = opponentStartingDust;
-		dustText.SetText("Player dust: " + board.playerDust.ToString() + ", Opponent dust: " + board.opponentDust.ToString());
+		dustText.SetText("Player dust: " + board.playerDust.ToString() + ",\n Opponent dust: " + board.opponentDust.ToString());
 		board.playerTookFreeCard = false; // Player may take a free card on his/her first turn
 
 		board.upcomingRowFront = new Card[4]; // Perhaps a little messy, but it works
@@ -182,7 +182,7 @@ public class GameLogic : MonoBehaviour
 		// Set up for next turn
 		board.playerTookFreeCard = false; // Player may retrieve a new free card
 		if (freeCardCube.transform.position[1] < 0) AnimateShow(freeCardCube, true); // Only show free card cube if it is hidden
-		dustText.SetText("Player dust: " + board.playerDust.ToString() + ", Opponent dust: " + board.opponentDust.ToString()); // Update dust count
+		dustText.SetText("Player dust: " + board.playerDust.ToString() + ",\n Opponent dust: " + board.opponentDust.ToString()); // Update dust count
 
 		// Draw card from deck
 		if (board.gameDeck.Count > 0) // If there are cards still in the deck,
@@ -572,7 +572,7 @@ public class GameLogic : MonoBehaviour
 				card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1], initialCoords[2]); // Put it in the correct spot,
 				card.SetRotation(0, 0, 0); // Face it the right way,
 				RemoveCardFromHand(card); // And remove the card from the player's hand
-				dustText.SetText("Player dust: " + board.playerDust.ToString() + ", Opponent dust: " + board.opponentDust.ToString()); // Update dust text
+				dustText.SetText("Player dust: " + board.playerDust.ToString() + ",\n Opponent dust: " + board.opponentDust.ToString()); // Update dust text
 				return true; // yay
 			}
 		}
