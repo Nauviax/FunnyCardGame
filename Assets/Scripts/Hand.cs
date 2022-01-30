@@ -86,8 +86,9 @@ public class Hand : MonoBehaviour {
         card.SetRotation(13, -20, 0);
         if (card.ModifierRunes.Length>0) {
             int i = 0;
-            foreach (GameObject modRune in card.ModifierRunes) {
-                card.modifierRunesInstance[i] = Instantiate(modRune);
+            foreach (GameObject modRune in card.ModifierRunes)
+			{
+				card.modifierRunesInstance[i] = Instantiate(modRune);
                 modRune.transform.localScale = new Vector3(1.2f, 1.2f, 0.3f);
                 i++;
             }
