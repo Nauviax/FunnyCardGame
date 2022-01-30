@@ -41,6 +41,10 @@ public class Card : MonoBehaviour, IClickable
 		if (cardRuneInstance != null){
 			cardRuneInstance.transform.position = transform.position + new Vector3(0, 0, -0.2f);
 			cardRuneInstance.transform.rotation = transform.rotation;
+            foreach (GameObject modRune in modifierRunesInstance) {
+				modRune.transform.position = transform.position + new Vector3(0, -2.5f, -0.2f);
+				modRune.transform.rotation = transform.rotation;
+            }
 		}
 	}
 	public void Clone(Card cloneMe) // Creates this card to be a copy of the given card
