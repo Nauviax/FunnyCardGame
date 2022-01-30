@@ -40,6 +40,8 @@ public class GameLogic : MonoBehaviour
 	[SerializeField] GameObject mirror;
 
 	[SerializeField] GameObject notEnoughDustPrefab; // lol ( Created when there is not enough dust to place a card )
+	[SerializeField] GameObject damageFriendly; // Spawns when player deals damage directly
+	[SerializeField] GameObject damageBad; // Spawns when player TAKES damage directly
 
 	float[] initialCoords = new float[3] { 0, 3, 55 }; // This and next two lines used to position cards
 	float verticalSpacing = 10;
@@ -583,24 +585,40 @@ public class GameLogic : MonoBehaviour
 		bool[] removeCards = new bool[2]; // First index is for the victim card, second is for attacker as well
 		if (victim == null || attacker.CardModifiers[0] == Modifiers.Flying) // If the card is unopposed, or is flying
 		{
+			int damageDealt; // Damage delt by this card
 			if (isPlayerAttacking) // Figure out who to damage,
 			{
-				if (isFront) // And how much by,
+				if (isFront) // And how much by, (What side of card stats)
 				{
 					board.opponentDust -= attacker.DamageFront; // Deal damage directly
+					damageDealt = attacker.DamageFront;
 				}
 				else
 				{
 					board.opponentDust -= attacker.DamageBack;
+					damageDealt = attacker.DamageBack;
 				}
+				for (int ii = 0; ii < damageDealt; ii++)
+				{
+					GameObject indicator = Instantiate(damageFriendly); // Drop a friendly point
+					indicator.transform.position = new Vector3(attacker.transform.position[0], attacker.transform.position[1] + horisontalSpacing, attacker.transform.position[2]); // Put it where the player card attacked
+				}
+
 			}
 			else if (isFront) // And how much by,
 			{
 				board.playerDust -= attacker.DamageFront; // Deal damage directly
+				damageDealt = attacker.DamageFront;
 			}
 			else
 			{
 				board.playerDust -= attacker.DamageBack;
+				damageDealt = attacker.DamageBack;
+			}
+			for (int ii = 0; ii < damageDealt; ii++)
+			{
+				GameObject indicator = Instantiate(damageBad); // Drop a friendly point
+				indicator.transform.position = new Vector3(attacker.transform.position[0], attacker.transform.position[1] - horisontalSpacing, attacker.transform.position[2]); // Put it where the enemy card attacked
 			}
 			return new bool[2] {false, false}; // No card died
 		}

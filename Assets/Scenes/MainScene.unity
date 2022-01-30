@@ -272,6 +272,8 @@ MonoBehaviour:
   boardPositions: {fileID: 429784877}
   mirror: {fileID: 1376749254}
   notEnoughDustPrefab: {fileID: 1119224099560451849, guid: 470901a9b0cb9714a8246eb57be860c8, type: 3}
+  damageFriendly: {fileID: 2393999478520216255, guid: ab3f30311d06bd140b6b4f98a51a78cd, type: 3}
+  damageBad: {fileID: 2393999478520216255, guid: 47a8539e0aa9f2e45be478b88f8adfb0, type: 3}
 --- !u!114 &88899654
 MonoBehaviour:
   m_ObjectHideFlags: 0
