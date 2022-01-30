@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum Cards // 2 cost per attack point, 1 per health
 {
-	None, // Will return a card with no stats, used for cloning cards
 	Random, // Will return a card with attack 0-2 and health 1-4 inclusive, NOT a random premade card (Use as placeholder cards, but never in final game)
 	Free, // The free card drawn from the free card pile
 	Basic1, // Basic cards have no modifiers, just interesting stat combinations. These also double as starter cards / common cards
