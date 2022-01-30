@@ -133,7 +133,7 @@ public class GameLogic : MonoBehaviour
 		board.gameDeck = new List<Card>(); // Set the deck to all owned cards
 		foreach (Card card in board.ownedCards) // Need to pass in a copy of owned card, as it is lost when it dies/game ends
 		{
-			Card newCard = premade.GetCard(Cards.None, true); // Create a new blank card
+			Card newCard = premade.GetCard(Cards.Free, true); // Create a new blank card (Not actually blank)
 			newCard.Clone(card); // Clone it gooood
 			board.gameDeck.Add(newCard); // Add the clone to this game's deck
 		}
