@@ -133,30 +133,33 @@ public class Hand : MonoBehaviour {
             mainRune.transform.rotation = Quaternion.Euler(13, -20, 0);
             mainRune.transform.localScale = new Vector3(3, 3, 1);
             infoDisplay.Add(mainRune);
-            TextMeshPro healthFront = Instantiate(InfoText).GetComponent<TextMeshPro>();
-            healthFront.text = ""+currentDisplay.HealthFront;
-            healthFront.transform.parent = hand.transform;
-            healthFront.transform.localPosition = new Vector3(-6.65f, 0.2f, 2.3f);
-            healthFront.transform.rotation = Quaternion.Euler(13, -20, 0);
-            infoDisplay.Add(healthFront.transform.gameObject);
+
             TextMeshPro damageFront = Instantiate(InfoText).GetComponent<TextMeshPro>();
             damageFront.text = "" + currentDisplay.DamageFront;
             damageFront.transform.parent = hand.transform;
-            damageFront.transform.localPosition = new Vector3(-5f, 0.2f, 2.3f);
+            damageFront.transform.localPosition = new Vector3(-6.65f, 0.2f, 2.3f);
             damageFront.transform.rotation = Quaternion.Euler(13, -20, 0);
             infoDisplay.Add(damageFront.transform.gameObject);
-            TextMeshPro healthBack = Instantiate(InfoText).GetComponent<TextMeshPro>();
-            healthBack.text = "" + currentDisplay.HealthBack;
-            healthBack.transform.parent = hand.transform;
-            healthBack.transform.localPosition = new Vector3(-6.65f, 0.2f, 0.75f);
-            healthBack.transform.rotation = Quaternion.Euler(13, -20, 0);
-            infoDisplay.Add(healthBack.transform.gameObject);
+            TextMeshPro healthFront = Instantiate(InfoText).GetComponent<TextMeshPro>();
+            healthFront.text = ""+currentDisplay.HealthFront;
+            healthFront.transform.parent = hand.transform;
+            healthFront.transform.localPosition = new Vector3(-5f, 0.2f, 2.3f );
+            healthFront.transform.rotation = Quaternion.Euler(13, -20, 0);
+            infoDisplay.Add(healthFront.transform.gameObject);
+            
             TextMeshPro damageBack = Instantiate(InfoText).GetComponent<TextMeshPro>();
             damageBack.text = "" + currentDisplay.DamageBack;
             damageBack.transform.parent = hand.transform;
-            damageBack.transform.localPosition = new Vector3(-5f, 0.2f, 0.75f);
+            damageBack.transform.localPosition = new Vector3(-6.65f, 0.2f, 0.75f);
             damageBack.transform.rotation = Quaternion.Euler(13, -20, 0);
             infoDisplay.Add(damageBack.transform.gameObject);
+            TextMeshPro healthBack = Instantiate(InfoText).GetComponent<TextMeshPro>();
+            healthBack.text = "" + currentDisplay.HealthBack;
+            healthBack.transform.parent = hand.transform;
+            healthBack.transform.localPosition = new Vector3(-5f, 0.2f, 0.75f );
+            healthBack.transform.rotation = Quaternion.Euler(13, -20, 0);
+            infoDisplay.Add(healthBack.transform.gameObject);
+            
             TextMeshPro modifierInfoFront = Instantiate(InfoText).GetComponent<TextMeshPro>();
             modifierInfoFront.text = "" + gameObject.GetComponent<PremadeCards>().GetModDesc(currentDisplay.CardModifiers[0]);
             modifierInfoFront.fontSize = 6;
