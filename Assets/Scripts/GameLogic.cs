@@ -521,7 +521,7 @@ public class GameLogic : MonoBehaviour
 		{
 			if (isEnemyFront) // Placing on the front side?
 			{
-				if (board.upcomingRowFront[location] != null) // If location is taken, fail (!!! Uses front by default !!!)
+				if (board.upcomingRowFront[location] != null) // If location is taken, fail
 				{
 					return false;
 				}
@@ -530,7 +530,7 @@ public class GameLogic : MonoBehaviour
 			}
 			else // Placing on the back
 			{
-				if (board.upcomingRowBack[location] != null) // If location is taken, fail (!!! Uses front by default !!!)
+				if (board.upcomingRowBack[location] != null) // If location is taken, fail
 				{
 					return false;
 				}

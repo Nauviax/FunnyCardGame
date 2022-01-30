@@ -167,10 +167,10 @@ public class PremadeCards : MonoBehaviour
 				int attack = 999; // If you see this number, something went wrong
 				switch (Random.Range(0, 10)) // Weighted attack
 				{
-					case 0: case 1: case 2:
+					case 0:
 						attack = 0;
 						break;
-					case 3: case 4: case 5: case 6: case 7:
+					case 1: case 2: case 3: case 4: case 5: case 6: case 7:
 						attack = 1;
 						break;
 					case 8: case 9:
