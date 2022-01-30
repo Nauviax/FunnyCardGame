@@ -28,11 +28,6 @@ public class Card : MonoBehaviour, IClickable
 	Vector3 targetPosition;
 	Quaternion targetRotation;
 
-	void Start() // Blame Lachlan if this breaks
-	{
-		//TargetPosition = transform.position;
-	}
-
 	void Update() // Blame Lachlan if this breaks
 	{
 		if (transform.parent != null) transform.position = Vector3.MoveTowards(transform.position, transform.parent.transform.TransformPoint(TargetPosition), Time.deltaTime * moveSpeed);
@@ -66,6 +61,7 @@ public class Card : MonoBehaviour, IClickable
 		textFront = transform.GetChild(0).GetComponent<TextMeshPro>();
 		textBack = transform.GetChild(1).GetComponent<TextMeshPro>();
 		UpdateFace();
+		modifierRunesInstance = new GameObject[2]; // For Lachlan's shit
 	}
 	public void SetPos(float xx, float yy, float zz)
 	{
