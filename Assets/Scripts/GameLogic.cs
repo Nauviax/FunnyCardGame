@@ -132,7 +132,7 @@ public class GameLogic : MonoBehaviour
 		beginGameCube.transform.position = new Vector3(-20, -80, 100); // Hidden / under the table (So also moves from being large and outside) (Ready for y += 100)
 		beginGameCube.transform.localScale = new Vector3(5, 5, 5); // Permanently make smol (This runs when starting second game, but ehhhh)
 		AnimateShow(endTurnCube, true);
-		if (freeCardCube.transform.position[1] < 0) AnimateShow(freeCardCube, true); // Only show free card cube if it is hidden
+		if (freeCardCube.transform.position[1] < -10) AnimateShow(freeCardCube, true); // Only show free card cube if it is hidden
 		AnimateShow(boardPositions, true);
 		AnimateShow(mirror, true);
 
@@ -181,7 +181,7 @@ public class GameLogic : MonoBehaviour
 
 		// Set up for next turn
 		board.playerTookFreeCard = false; // Player may retrieve a new free card
-		if (freeCardCube.transform.position[1] < 0) AnimateShow(freeCardCube, true); // Only show free card cube if it is hidden
+		if (freeCardCube.transform.position[1] < -10) AnimateShow(freeCardCube, true); // Only show free card cube if it is hidden
 		dustText.SetText("Player dust: " + board.playerDust.ToString() + ",\n Opponent dust: " + board.opponentDust.ToString()); // Update dust count
 
 		// Draw card from deck
@@ -584,7 +584,7 @@ public class GameLogic : MonoBehaviour
 		{
 			AddCardToHand(premade.GetCard(Cards.Free, true)); // Add new free card to player deck
 			board.playerTookFreeCard = oneOnly; // Player now has his/her free card, unless oneOnly is manually set to false (For giving player 2 free cards at the begining of the game)
-			if (freeCardCube.transform.position[1] > 0) AnimateShow(freeCardCube, false); // Only hide free card cube if it is shown (Can already be hidden if player used it)
+			if (oneOnly && freeCardCube.transform.position[1] > -10) AnimateShow(freeCardCube, false); // Only hide free card cube if it is shown (Can already be hidden if player used it)
 			return true; // Player got a free card
 		}
 		else return false; // Player did not get a free card
@@ -713,7 +713,7 @@ public class GameLogic : MonoBehaviour
 	{
 		AnimateShow(beginGameCube, true); // So the player can start a new round
 		AnimateShow(endTurnCube, false);
-		if (freeCardCube.transform.position[1] > 0) AnimateShow(freeCardCube, false); // Only hide free card cube if it is shown (Can already be hidden if player used it)
+		if (freeCardCube.transform.position[1] > -10) AnimateShow(freeCardCube, false); // Only hide free card cube if it is shown (Can already be hidden if player used it)
 		AnimateShow(boardPositions, false);
 		AnimateShow(mirror, false);
 
