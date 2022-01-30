@@ -37,6 +37,7 @@ public class Card : MonoBehaviour, IClickable
 			cardRuneInstance.transform.position = transform.position + new Vector3(0, 0, -0.2f);
 			cardRuneInstance.transform.rotation = transform.rotation;
             foreach (GameObject modRune in modifierRunesInstance) {
+				modRune.transform.localScale = new Vector3(1, 1, 1);
 				modRune.transform.position = transform.position + new Vector3(0, -2.5f, -0.2f);
 				modRune.transform.rotation = transform.rotation;
             }
@@ -75,6 +76,9 @@ public class Card : MonoBehaviour, IClickable
 	public void Destroy() // Called when card runs out of health
 	{
 		Destroy(this.cardRuneInstance);
+        foreach (GameObject modRune in modifierRunesInstance) {
+			Destroy(modRune);
+        }
 		Destroy(gameObject); // Fucking dies
 	}
 	void UpdateFace() // Update all runes/text on this card (!!! Implement updating runes somehow)

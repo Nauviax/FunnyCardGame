@@ -171,6 +171,13 @@ public class Hand : MonoBehaviour {
             modifierInfoBack.transform.localPosition = new Vector3(3.5f, 0.2f, 0.75f);
             modifierInfoBack.transform.rotation = Quaternion.Euler(13, -20, 0);
             infoDisplay.Add(modifierInfoBack.transform.gameObject);
+            TextMeshPro cost = Instantiate(InfoText).GetComponent<TextMeshPro>();
+            cost.text = "Costs " + currentDisplay.DustCost + " dust";
+            cost.fontSize = 6;
+            cost.transform.parent = hand.transform;
+            cost.transform.localPosition = new Vector3(-10f, 0.2f, -0.85f);
+            cost.transform.rotation = Quaternion.Euler(13, -20, 0);
+            infoDisplay.Add(cost.transform.gameObject);
         } else placingCard = false;
     }
 }
