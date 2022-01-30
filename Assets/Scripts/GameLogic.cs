@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro; // For editing the text
 
 public struct Board // Stores the locations of all cards and variables during a game, and also the players deck outside of a game
 {
@@ -35,9 +36,10 @@ public class GameLogic : MonoBehaviour
 	[SerializeField] GameObject beginGameCube; // These references are for moving ingame objects when rounds start/end
 	[SerializeField] GameObject endTurnCube;
 	[SerializeField] GameObject freeCardCube;
-	[SerializeField] GameObject bartCube;
 	[SerializeField] GameObject boardPositions;
 	[SerializeField] GameObject mirror;
+	[SerializeField] GameObject dustCounter; // Not moved, but text changed
+	TextMeshPro dustText;
 
 	[SerializeField] GameObject notEnoughDustPrefab; // lol ( Created when there is not enough dust to place a card )
 	[SerializeField] GameObject damageFriendly; // Spawns when player deals damage directly
@@ -47,11 +49,16 @@ public class GameLogic : MonoBehaviour
 	float verticalSpacing = 10;
 	float horisontalSpacing = 7;
 
+	[SerializeField] int playerStartingDust = 10;
+	[SerializeField] int opponentStartingDust = 10;
+
+
 	void Start()
     {
 		board = new Board(); // This variable will be referenced *extensively*
 		premade = GetComponent<PremadeCards>(); // Grab this for getting cards later
 		uiHand = gameObject.GetComponent<Hand>(); // Wee woo wee woo lachlan added a line here :o
+		dustText = dustCounter.GetComponent<TextMeshPro>(); // For editing the text
 		board.ownedCards = new List<Card>(); // Will hold all cards the player owns. Starting cards should be set here !!!
 
 		// Testing lines below here
@@ -65,11 +72,11 @@ public class GameLogic : MonoBehaviour
 		board.ownedCards.Add(premade.GetCard(Cards.Basic4, true));
 		board.ownedCards.Add(premade.GetCard(Cards.Basic5, true));
     }
-	public void GenerateRandomPlayerCard() // For testing purposes, adds a random PREMADE card to the players HAND (Not owned cards or deck)
+	public void GenerateRandomPlayerCard() // Adds a random new PREMADE card to owned cards (Victory reward)
 	{
 		Cards[] listOfCards = (Cards[])Cards.GetValues(typeof(Cards)); // Returns an array of all possible premade card enums
-		Card randomCardEnum = premade.GetCard(listOfCards[Random.Range(0, listOfCards.Length)], true); // Gets a new card based on a random enum from the list
-		AddCardToHand(randomCardEnum); // Adds the card to the players current hand
+		Card randomCard = premade.GetCard(listOfCards[Random.Range(0, listOfCards.Length)], true); // Gets a new card based on a random enum from the list
+		board.ownedCards.Add(randomCard); // Adds the card to the players current hand
 	}
 	public void GenerateAICards() // Called whenever the AI should create cards to play. These cards are currently completely random !!!
 	{
@@ -101,8 +108,9 @@ public class GameLogic : MonoBehaviour
 	public void BeginGame() // Set initial values, deal starting hand, and generate AI cards for first round (Called from Hand.cs)
 	{
 		// Set initial values, show objects
-		board.playerDust = 10; // Bart cube will give more if wanted
-		board.opponentDust = 10;
+		board.playerDust = playerStartingDust; // Can set in inspector
+		board.opponentDust = opponentStartingDust;
+		dustText.SetText("Player dust: " + board.playerDust.ToString() + ", Opponent dust: " + board.opponentDust.ToString());
 		board.playerTookFreeCard = false; // Player may take a free card on his/her first turn
 
 		board.upcomingRowFront = new Card[4]; // Perhaps a little messy, but it works
@@ -125,7 +133,6 @@ public class GameLogic : MonoBehaviour
 		beginGameCube.transform.localScale = new Vector3(5, 5, 5); // Permanently make smol (This runs when starting second game, but ehhhh)
 		AnimateShow(endTurnCube, true);
 		if (freeCardCube.transform.position[1] < 0) AnimateShow(freeCardCube, true); // Only show free card cube if it is hidden
-		AnimateShow(bartCube, true);
 		AnimateShow(boardPositions, true);
 		AnimateShow(mirror, true);
 
@@ -175,6 +182,7 @@ public class GameLogic : MonoBehaviour
 		// Set up for next turn
 		board.playerTookFreeCard = false; // Player may retrieve a new free card
 		if (freeCardCube.transform.position[1] < 0) AnimateShow(freeCardCube, true); // Only show free card cube if it is hidden
+		dustText.SetText("Player dust: " + board.playerDust.ToString() + ", Opponent dust: " + board.opponentDust.ToString()); // Update dust count
 
 		// Draw card from deck
 		if (board.gameDeck.Count > 0) // If there are cards still in the deck,
@@ -564,6 +572,7 @@ public class GameLogic : MonoBehaviour
 				card.SetPos(initialCoords[0] + location * horisontalSpacing, initialCoords[1], initialCoords[2]); // Put it in the correct spot,
 				card.SetRotation(0, 0, 0); // Face it the right way,
 				RemoveCardFromHand(card); // And remove the card from the player's hand
+				dustText.SetText("Player dust: " + board.playerDust.ToString() + ", Opponent dust: " + board.opponentDust.ToString()); // Update dust text
 				return true; // yay
 			}
 		}
@@ -705,9 +714,18 @@ public class GameLogic : MonoBehaviour
 		AnimateShow(beginGameCube, true); // So the player can start a new round
 		AnimateShow(endTurnCube, false);
 		if (freeCardCube.transform.position[1] > 0) AnimateShow(freeCardCube, false); // Only hide free card cube if it is shown (Can already be hidden if player used it)
-		AnimateShow(bartCube, false);
 		AnimateShow(boardPositions, false);
 		AnimateShow(mirror, false);
+
+		if (playerWon)
+		{
+			dustText.SetText("You won! A new card has been added to your deck");
+			GenerateRandomPlayerCard(); // Adds a premade card to board.ownedCards
+		}
+		else
+		{
+			dustText.SetText("You ran out of dust.");
+		}
 
 		// Card cleanup
 		foreach (Card card in board.gameDeck)
