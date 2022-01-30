@@ -34,21 +34,21 @@ MonoBehaviour:
   CGuarding: {fileID: 5022844605923144078, guid: d9112cac14f04724494d230d3aab660b, type: 3}
   CVampiricMove: {fileID: 5022844605923144078, guid: a42350658e12d264089614bfeedd792d, type: 3}
   CFlyingBrute: {fileID: 5022844605923144078, guid: 77aa17d16dcd7a444aaa63a044e4e557, type: 3}
-  CEffect: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  CEffect: {fileID: 0}
   MNone: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   MFree: {fileID: 5022844605923144078, guid: 4c5bb6a0958830e439c95ef38c2b5db8, type: 3}
-  MVenomous: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MVenomous: {fileID: 5022844605923144078, guid: 1f756fc3229169a41b93fc9d257b593b, type: 3}
   MFlying: {fileID: 5022844605923144078, guid: e535fc89d5b441746a007c0985d4a541, type: 3}
-  MDusty: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MDusty: {fileID: 5022844605923144078, guid: 0facd992a452834418a93863d804c728, type: 3}
   MMovingL: {fileID: 5022844605923144078, guid: 05372bfdd07cc4946be0e12abd81ebd3, type: 3}
   MMovingR: {fileID: 5022844605923144078, guid: b22a6ffb90f938445a963f75371839ae, type: 3}
-  MBrutish: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
-  MPronged: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
-  MThorny: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
-  MMusical: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
-  MSyphoning: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
-  MGuarding: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
-  MVampiric: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
+  MBrutish: {fileID: 5022844605923144078, guid: 2467aa8eb0e77c643b2e3d589c3bcce1, type: 3}
+  MPronged: {fileID: 5022844605923144078, guid: 0ab65e3b416ae76428378a4ddd01883b, type: 3}
+  MThorny: {fileID: 5022844605923144078, guid: 6db4a941dd967cf4484ec34cf3a0b18b, type: 3}
+  MMusical: {fileID: 5022844605923144078, guid: 7024efb69881ed24c9962e18dd2e1c01, type: 3}
+  MSyphoning: {fileID: 5022844605923144078, guid: 8fee8b07753b59c4a972cc432066898e, type: 3}
+  MGuarding: {fileID: 5022844605923144078, guid: bbcdc8bb1d4d5d840a556469e0baa4ab, type: 3}
+  MVampiric: {fileID: 5022844605923144078, guid: 09b4201932344e247ad50a395f106171, type: 3}
   ENone: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   EBuff: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}
   EFlip: {fileID: 5022844605923144078, guid: b19a929daf1192f46b513626dd8b0e9f, type: 3}

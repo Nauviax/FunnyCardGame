@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Hand : MonoBehaviour {
     [SerializeField] GameObject runeObj;
+    [SerializeField] GameObject InfoText;
     //hand position is 12 0 17
     //relative to plane, cards should be displayed at z = -2.25 and between x = -4 and x = 4
 
@@ -118,10 +120,48 @@ public class Hand : MonoBehaviour {
             GameObject mainRune = Instantiate(currentDisplay.CardRune);
             Destroy(mainRune.GetComponent<RuneBehaviour>());
             mainRune.transform.parent = hand.transform;
-            mainRune.transform.localPosition = new Vector3(-3.5f, 0.2f, 2);
+            mainRune.transform.localPosition = new Vector3(-10f, 0.2f, 1.5f);
             mainRune.transform.rotation = Quaternion.Euler(13, -20, 0);
             mainRune.transform.localScale = new Vector3(3, 3, 1);
             infoDisplay.Add(mainRune);
+            TextMeshPro healthFront = Instantiate(InfoText).GetComponent<TextMeshPro>();
+            healthFront.text = ""+currentDisplay.HealthFront;
+            healthFront.transform.parent = hand.transform;
+            healthFront.transform.localPosition = new Vector3(-6.65f, 0.2f, 2.3f);
+            healthFront.transform.rotation = Quaternion.Euler(13, -20, 0);
+            infoDisplay.Add(healthFront.transform.gameObject);
+            TextMeshPro damageFront = Instantiate(InfoText).GetComponent<TextMeshPro>();
+            damageFront.text = "" + currentDisplay.DamageFront;
+            damageFront.transform.parent = hand.transform;
+            damageFront.transform.localPosition = new Vector3(-5f, 0.2f, 2.3f);
+            damageFront.transform.rotation = Quaternion.Euler(13, -20, 0);
+            infoDisplay.Add(damageFront.transform.gameObject);
+            TextMeshPro healthBack = Instantiate(InfoText).GetComponent<TextMeshPro>();
+            healthBack.text = "" + currentDisplay.HealthBack;
+            healthBack.transform.parent = hand.transform;
+            healthBack.transform.localPosition = new Vector3(-6.65f, 0.2f, 0.75f);
+            healthBack.transform.rotation = Quaternion.Euler(13, -20, 0);
+            infoDisplay.Add(healthBack.transform.gameObject);
+            TextMeshPro damageBack = Instantiate(InfoText).GetComponent<TextMeshPro>();
+            damageBack.text = "" + currentDisplay.DamageBack;
+            damageBack.transform.parent = hand.transform;
+            damageBack.transform.localPosition = new Vector3(-5f, 0.2f, 0.75f);
+            damageBack.transform.rotation = Quaternion.Euler(13, -20, 0);
+            infoDisplay.Add(damageBack.transform.gameObject);
+            TextMeshPro modifierInfoFront = Instantiate(InfoText).GetComponent<TextMeshPro>();
+            modifierInfoFront.text = "" + gameObject.GetComponent<PremadeCards>().GetModDesc(currentDisplay.CardModifiers[0]);
+            modifierInfoFront.fontSize = 6;
+            modifierInfoFront.transform.parent = hand.transform;
+            modifierInfoFront.transform.localPosition = new Vector3(3.5f, 0.2f, 2.3f);
+            modifierInfoFront.transform.rotation = Quaternion.Euler(13, -20, 0);
+            infoDisplay.Add(modifierInfoFront.transform.gameObject);
+            TextMeshPro modifierInfoBack = Instantiate(InfoText).GetComponent<TextMeshPro>();
+            modifierInfoBack.text = "" + gameObject.GetComponent<PremadeCards>().GetModDesc(currentDisplay.CardModifiers[1]);
+            modifierInfoBack.fontSize = 6;
+            modifierInfoBack.transform.parent = hand.transform;
+            modifierInfoBack.transform.localPosition = new Vector3(3.5f, 0.2f, 0.75f);
+            modifierInfoBack.transform.rotation = Quaternion.Euler(13, -20, 0);
+            infoDisplay.Add(modifierInfoBack.transform.gameObject);
         } else placingCard = false;
     }
 }
