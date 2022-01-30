@@ -242,7 +242,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sample text
+  m_text: 'Game not started
+
+    Do that lol'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -362,17 +364,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84977428}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 105.3}
+  m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: 0, y: 0, z: 99.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 18}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 54.5, y: 48.5}
+  m_SizeDelta: {x: 40, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &88899650
 GameObject:
@@ -440,7 +442,7 @@ MonoBehaviour:
   freeCardCube: {fileID: 1209917214}
   boardPositions: {fileID: 429784877}
   mirror: {fileID: 1376749254}
-  dustCounter: {fileID: 0}
+  dustCounter: {fileID: 84977428}
   notEnoughDustPrefab: {fileID: 1119224099560451849, guid: 470901a9b0cb9714a8246eb57be860c8, type: 3}
   damageFriendly: {fileID: 2393999478520216255, guid: ab3f30311d06bd140b6b4f98a51a78cd, type: 3}
   damageBad: {fileID: 2393999478520216255, guid: 47a8539e0aa9f2e45be478b88f8adfb0, type: 3}
