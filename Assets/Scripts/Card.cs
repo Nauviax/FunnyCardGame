@@ -5,17 +5,17 @@ using TMPro; // For editing the text
 
 public class Card : MonoBehaviour, IClickable
 {
-	int[] stats; // Stores card stats, damage then health for front, then back
-	Modifiers[] modifiers; // Stores modifiers for both sides, front first
-	Effects effect;
+	[SerializeField] int[] stats; // Stores card stats, damage then health for front, then back
+	[SerializeField] Modifiers[] modifiers; // Stores modifiers for both sides, front first
+	Effects effect; // Unused
 	GameObject cardRune; // These hold prefabs, not ingame objects!
 	GameObject[] modifierRunes; // Single sided cards will just use front, or index 0
 	GameObject effectRune;
 	public GameObject cardRuneInstance; // These hold ingame objects, not prefabs!
 	public GameObject[] modifierRunesInstance;
 	public GameObject effectRuneInstance;
-	int dustCost; // Cost of this card
-	int dustValue; // Value of this card (This value is returned to the player on death)
+	[SerializeField] int dustCost; // Cost of this card
+	[SerializeField] int dustValue; // Value of this card (This value is returned to the player on death)
 
 	PremadeCards premade; // Mainly used for getting dust values of effects, retrieved from GameLogic
 	TextMeshPro textFront;
@@ -76,7 +76,7 @@ public class Card : MonoBehaviour, IClickable
 	void UpdateFace() // Update all runes/text on this card (!!! Implement updating runes somehow)
 	{
 		textFront.SetText((DamageFront != 0 ? DamageFront.ToString() : " ") + fill + (HealthFront != 0 ? HealthFront.ToString() : " "));
-		textBack.SetText((DamageFront != 0 ? DamageFront.ToString() : " ") + fill + (HealthBack != 0 ? HealthBack.ToString() : " "));
+		textBack.SetText((DamageBack != 0 ? DamageBack.ToString() : " ") + fill + (HealthBack != 0 ? HealthBack.ToString() : " "));
 	}
 	int CalculateDustValue() // Returns the calculated value of this card, the amount of dust returned when card dies
 	{

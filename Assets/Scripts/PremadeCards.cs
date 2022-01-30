@@ -93,33 +93,33 @@ public class PremadeCards : MonoBehaviour
 		switch (input)
 		{
 			case Modifiers.None:
-				return "No modifier rune";
+				return "No modifier rune.";
 			case Modifiers.Free:
-				return "A card with this rune costs nothing to play, but still returns its full value on death";
+				return "A card with this rune costs nothing to play, but still returns its full value on death.";
 			case Modifiers.Venomous:
-				return "Instantly kill any card upon damaging them";
+				return "Instantly kill any card upon damaging them.";
 			case Modifiers.Flying:
-				return "Will always attack opponent directly, over cards";
+				return "Will always attack opponent directly, over cards.";
 			case Modifiers.Dusty:
-				return "Will give 5 extra dust on death, on top of normal drops";
+				return "Will give 5 extra dust on death, on top of normal drops.";
 			case Modifiers.MovingL:
-				return "Moves to the left after all friendly cards have attacked";
+				return "Moves to the left after all friendly cards have attacked.";
 			case Modifiers.MovingR:
-				return "Moves to the right after all friendly cards have attacked";
+				return "Moves to the right after all friendly cards have attacked.";
 			case Modifiers.Brutish:
-				return "Takes one less damage on this side, potentially taking none";
+				return "Takes one less damage on this side - potentially taking none.";
 			case Modifiers.Pronged:
-				return "Attacks to the left and right, rather than straight ahead";
+				return "Attacks to the left and right, rather than straight ahead.";
 			case Modifiers.Thorny:
-				return "Attackers take one point of damage when attacking this side";
+				return "Attackers take one point of damage when attacking this side.";
 			case Modifiers.Musical:
-				return "Other friendly cards currently played on this side permanently gain one attack";
+				return "Other friendly cards currently played on this side permanently gain one attack.";
 			case Modifiers.Syphoning://potentially rename to parasitic? would make description more intuitive. currently sounds like lifesteal
-				return "Gains one health after attacking, but takes one from the other side of this card";
+				return "Gains one health after attacking, but the other side of this card takes one damage.";
 			case Modifiers.Guarding:
-				return "All enemy attacks on this side are redirected to this lane instead. If this card dies during enemy move, take direct damage from further attacks";
+				return "All enemy attacks on this side are redirected to this lane instead. If this card dies during enemy move, take direct damage from further attacks.";
 			case Modifiers.Vampiric:
-				return "When this card kills an enemy, this side gains two health";
+				return "When this card kills an enemy, this side gains two health.";
 			default:
 				return "This modifier has no description. (This is a BUG!)";
 		}
@@ -162,8 +162,37 @@ public class PremadeCards : MonoBehaviour
 		switch (template) // These values are subject to change, but they'll do for now
 		{
 			// Basic cards begin here
-			case Cards.Random:
-				stats = new int[4] { Random.Range(0, 3), Random.Range(1, 5), Random.Range(0, 3), Random.Range(1, 5) };
+			case Cards.Random: // Generates random, weighted stats
+				int attack = 999; // If you see this number, something went wrong
+				switch (Random.Range(0, 10)) // Weighted attack
+				{
+					case 0: case 1: case 2:
+						attack = 0;
+						break;
+					case 3: case 4: case 5: case 6: case 7:
+						attack = 1;
+						break;
+					case 8: case 9:
+						attack = 2;
+						break;
+				}
+				int health = 999; // If you see this number, something went wrong
+				switch (Random.Range(0, 10)) // Weighted health
+				{
+					case 0: case 1: case 2:
+						health = 1;
+						break;
+					case 3: case 4: case 5: case 6:
+						health = 2;
+						break;
+					case 7: case 8:
+						health = 3;
+						break;
+					case 9:
+						health = 4;
+						break;
+				}
+				stats = new int[4] { attack, health, attack, health }; // Only one side will be used
 				cardRune = cardAssets.CNone;
 				break;
 			case Cards.Free:
