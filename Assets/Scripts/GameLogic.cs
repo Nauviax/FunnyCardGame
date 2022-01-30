@@ -83,22 +83,29 @@ public class GameLogic : MonoBehaviour
 	}
 	public void GenerateAICards() // Called whenever the AI should create cards to play. These cards are currently completely random !!!
 	{
-		Card newEnemyCard = premade.GetCard(Cards.Random, false); // Get new enemy card
-		newEnemyCard.HealthBack = 0; // Wipe back stats
-		newEnemyCard.DamageBack = 0;
-		bool sucsess = PlaceCard(newEnemyCard, Random.Range(0, 4), true, true); // Places on the enemy front side
-		if (!sucsess) // If card wasn't placed
+		Card newEnemyCard;
+		bool success;
+		if (Random.Range(0, 2) == 0) // 50% chance for front
 		{
-			newEnemyCard.Destroy(); // Cleanup
+			newEnemyCard = premade.GetCard(Cards.Random, false); // Get new enemy card
+			newEnemyCard.HealthBack = 0; // Wipe back stats
+			newEnemyCard.DamageBack = 0;
+			success = PlaceCard(newEnemyCard, Random.Range(0, 4), true, true); // Places on the enemy front side
+			if (!success) // If card wasn't placed
+			{
+				newEnemyCard.Destroy(); // Cleanup
+			}
 		}
-
-		newEnemyCard = premade.GetCard(Cards.Random, false); // Get new new enemy card
-		newEnemyCard.HealthFront = 0; // Wipe front stats
-		newEnemyCard.DamageFront = 0;
-		sucsess = PlaceCard(newEnemyCard, Random.Range(0, 4), true, false); // Places on the enemy back side
-		if (!sucsess) // If card wasn't placed
+		if (Random.Range(0, 2) == 0) // 50% chance again for back
 		{
-			newEnemyCard.Destroy(); // Cleanup
+			newEnemyCard = premade.GetCard(Cards.Random, false); // Get new new enemy card
+			newEnemyCard.HealthFront = 0; // Wipe front stats
+			newEnemyCard.DamageFront = 0;
+			success = PlaceCard(newEnemyCard, Random.Range(0, 4), true, false); // Places on the enemy back side
+			if (!success) // If card wasn't placed
+			{
+				newEnemyCard.Destroy(); // Cleanup
+			}
 		}
 	}
 	public void AnimateShow(GameObject thing, bool show) // Just makes the object move away
