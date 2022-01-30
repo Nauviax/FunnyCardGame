@@ -32,6 +32,15 @@ public class GameLogic : MonoBehaviour
 	PremadeCards premade; // For creating new cards with non-random values (Optionaly not random anyway)
 	Hand uiHand; // Holds a reference to the Hand object that displays the hand
 
+	[SerializeField] GameObject beginGameCube; // These references are for moving ingame objects when rounds start/end
+	[SerializeField] GameObject endTurnCube;
+	[SerializeField] GameObject freeCardCube;
+	[SerializeField] GameObject bartCube;
+	[SerializeField] GameObject boardPositions;
+	[SerializeField] GameObject mirror;
+
+	[SerializeField] GameObject notEnoughDustPrefab; // lol ( Created when there is not enough dust to place a card )
+
 	float[] initialCoords = new float[3] { 0, 3, 55 }; // This and next two lines used to position cards
 	float verticalSpacing = 10;
 	float horisontalSpacing = 7;
@@ -41,11 +50,6 @@ public class GameLogic : MonoBehaviour
 		board = new Board(); // This variable will be referenced *extensively*
 		premade = GetComponent<PremadeCards>(); // Grab this for getting cards later
 		uiHand = gameObject.GetComponent<Hand>(); // Wee woo wee woo lachlan added a line here :o
-		board.upcomingRowFront = new Card[4]; // Perhaps a little messy, but it works
-		board.opponentRowFront = new Card[4];
-		board.upcomingRowBack = new Card[4];
-		board.opponentRowBack = new Card[4];
-		board.playerRow = new Card[4];
 		board.ownedCards = new List<Card>(); // Will hold all cards the player owns. Starting cards should be set here !!!
 
 		// Testing lines below here
@@ -70,23 +74,58 @@ public class GameLogic : MonoBehaviour
 		Card newEnemyCard = premade.GetCard(Cards.Random, false); // Get new enemy card
 		newEnemyCard.HealthBack = 0; // Wipe back stats
 		newEnemyCard.DamageBack = 0;
-		PlaceCard(newEnemyCard, Random.Range(0, 4), true, true); // Places on the enemy front side
+		bool sucsess = PlaceCard(newEnemyCard, Random.Range(0, 4), true, true); // Places on the enemy front side
+		if (!sucsess) // If card wasn't placed
+		{
+			newEnemyCard.Destroy(); // Cleanup
+		}
 
 		newEnemyCard = premade.GetCard(Cards.Random, false); // Get new new enemy card
 		newEnemyCard.HealthFront = 0; // Wipe front stats
 		newEnemyCard.DamageFront = 0;
-		PlaceCard(newEnemyCard, Random.Range(0, 4), true, false); // Places on the enemy back side
+		sucsess = PlaceCard(newEnemyCard, Random.Range(0, 4), true, false); // Places on the enemy back side
+		if (!sucsess) // If card wasn't placed
+		{
+			newEnemyCard.Destroy(); // Cleanup
+		}
+	}
+	public void AnimateShow(GameObject thing, bool show) // Just makes the object move away
+	{
+		int yDist;
+		if (show) yDist = 100; // Go up
+		else yDist = -100; // Go down
+		thing.transform.position = new Vector3(thing.transform.position[0], thing.transform.position[1] + yDist, thing.transform.position[2]); // Teleport to position (For now)
 	}
 	public void BeginGame() // Set initial values, deal starting hand, and generate AI cards for first round (Called from Hand.cs)
 	{
-		// Set initial values
-		board.playerDust = 9999; // !!! Set much lower when finished debugging
-		board.opponentDust = 9999;
+		// Set initial values, show objects
+		board.playerDust = 10; // Bart cube will give more if wanted
+		board.opponentDust = 10;
 		board.playerTookFreeCard = false; // Player may take a free card on his/her first turn
 
+		board.upcomingRowFront = new Card[4]; // Perhaps a little messy, but it works
+		board.opponentRowFront = new Card[4];
+		board.upcomingRowBack = new Card[4];
+		board.opponentRowBack = new Card[4];
+		board.playerRow = new Card[4];
+
 		board.gameHand = new List<Card>(); // Create empty hand
-		board.gameDeck = new List<Card>(board.ownedCards); // Set the deck to all owned cards
+		board.gameDeck = new List<Card>(); // Set the deck to all owned cards
+		foreach (Card card in board.ownedCards) // Need to pass in a copy of owned card, as it is lost when it dies/game ends
+		{
+			Card newCard = premade.GetCard(Cards.None, true); // Create a new blank card
+			newCard.Clone(card); // Clone it gooood
+			board.gameDeck.Add(newCard); // Add the clone to this game's deck
+		}
 		board.gameDeck = board.gameDeck.OrderBy(a => Random.Range(0f, 100f)).ToList(); // Randomly shuffles the deck, using random floats to reduce ties
+
+		beginGameCube.transform.position = new Vector3(-20, -80, 100); // Hidden / under the table (So also moves from being large and outside) (Ready for y += 100)
+		beginGameCube.transform.localScale = new Vector3(5, 5, 5); // Permanently make smol (This runs when starting second game, but ehhhh)
+		AnimateShow(endTurnCube, true);
+		if (freeCardCube.transform.position[1] < 0) AnimateShow(freeCardCube, true); // Only show free card cube if it is hidden
+		AnimateShow(bartCube, true);
+		AnimateShow(boardPositions, true);
+		AnimateShow(mirror, true);
 
 		// Deal starting hand
 		for (int ii = 0; ii < 3; ii++) // 3 starting cards, for now
@@ -133,6 +172,7 @@ public class GameLogic : MonoBehaviour
 
 		// Set up for next turn
 		board.playerTookFreeCard = false; // Player may retrieve a new free card
+		if (freeCardCube.transform.position[1] < 0) AnimateShow(freeCardCube, true); // Only show free card cube if it is hidden
 
 		// Draw card from deck
 		if (board.gameDeck.Count > 0) // If there are cards still in the deck,
@@ -496,6 +536,8 @@ public class GameLogic : MonoBehaviour
 			}
 			if (card.DustCost > board.playerDust) // If I can't afford to place this card, and will die because of it, fail
 			{
+				GameObject indicator = Instantiate(notEnoughDustPrefab); // lol
+				indicator.transform.position = new Vector3(initialCoords[0] + location * horisontalSpacing, initialCoords[1], initialCoords[2]); // Put it where user tried to place
 				return false;
 			}
 			if (board.gameHand.Contains(card)) // If I have the card in my hand, (I'ma idiot proof the fuck out of this)
@@ -531,6 +573,7 @@ public class GameLogic : MonoBehaviour
 		{
 			AddCardToHand(premade.GetCard(Cards.Free, true)); // Add new free card to player deck
 			board.playerTookFreeCard = oneOnly; // Player now has his/her free card, unless oneOnly is manually set to false (For giving player 2 free cards at the begining of the game)
+			if (freeCardCube.transform.position[1] > 0) AnimateShow(freeCardCube, false); // Only hide free card cube if it is shown (Can already be hidden if player used it)
 			return true; // Player got a free card
 		}
 		else return false; // Player did not get a free card
@@ -641,7 +684,59 @@ public class GameLogic : MonoBehaviour
 	}
 	public void GameEnd(bool playerWon) // Called when the game ends
 	{
+		AnimateShow(beginGameCube, true); // So the player can start a new round
+		AnimateShow(endTurnCube, false);
+		if (freeCardCube.transform.position[1] > 0) AnimateShow(freeCardCube, false); // Only hide free card cube if it is shown (Can already be hidden if player used it)
+		AnimateShow(bartCube, false);
+		AnimateShow(boardPositions, false);
+		AnimateShow(mirror, false);
 
+		// Card cleanup
+		foreach (Card card in board.gameDeck)
+		{
+			if (card == null) continue;
+			card.Destroy(); // Remove card
+		}
+		board.gameDeck.Clear(); // Wipe deck
+		foreach (Card card in board.gameHand)
+		{
+			if (card == null) continue;
+			card.Destroy(); // Remove card
+		}
+		board.gameHand.Clear(); // Wipe hand
+
+		uiHand.clearHand(); // Reset hand cards
+
+		foreach (Card card in board.upcomingRowFront)
+		{
+			if (card == null) continue;
+			card.Destroy(); // Remove card
+		}
+		board.upcomingRowFront = null; // Wipe row
+		foreach (Card card in board.upcomingRowBack)
+		{
+			if (card == null) continue;
+			card.Destroy(); // Remove card
+		}
+		board.upcomingRowBack = null; // Wipe row
+		foreach (Card card in board.opponentRowFront)
+		{
+			if (card == null) continue;
+			card.Destroy(); // Remove card
+		}
+		board.opponentRowFront = null; // Wipe row
+		foreach (Card card in board.opponentRowBack)
+		{
+			if (card == null) continue;
+			card.Destroy(); // Remove card
+		}
+		board.opponentRowBack = null; // Wipe row
+		foreach (Card card in board.playerRow)
+		{
+			if (card == null) continue;
+			card.Destroy(); // Remove card
+		}
+		board.playerRow = null; // Wipe row
 	}
 	// Lachlan's hooks, use where appropriate
 	public void AddCardToHand(Card card) {

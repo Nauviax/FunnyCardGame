@@ -104,6 +104,11 @@ public class Hand : MonoBehaviour {
             pos++;
         }
     }
+	public void clearHand()
+	{
+		cards.Clear(); // Do last!
+	}
+
     public void updateInfo() {
         //I feel powerful writing this bit
         foreach (GameObject obj in infoDisplay) {

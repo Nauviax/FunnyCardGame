@@ -43,7 +43,11 @@ public class Card : MonoBehaviour, IClickable
 			cardRuneInstance.transform.rotation = transform.rotation;
 		}
 	}
-
+	public void Clone(Card cloneMe) // Creates this card to be a copy of the given card
+	{
+		SetStats(new int[4] { cloneMe.stats[0], cloneMe.stats[1], cloneMe.stats[2], cloneMe.stats[3], }, cloneMe.CardModifiers, cloneMe.CardEffect, cloneMe.cardRune, cloneMe.modifierRunes, cloneMe.effectRune, cloneMe.premade); // Copies all info regarding card
+		SetPos(cloneMe.transform.position[0], cloneMe.transform.position[1], cloneMe.transform.position[2]); // Will be moved later anyway (This pos is likely -50,-50,-50 if coming from gameLocic.cs)
+	}
     public void SetStats(int[] stats, Modifiers[] modifiers, Effects effect, GameObject cardRune, GameObject[] modifierRunes, GameObject effectRune, PremadeCards premade)
 	{
 		this.stats = stats;
