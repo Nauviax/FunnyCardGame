@@ -290,6 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runeObj: {fileID: 5022844605923144078, guid: 8bb31c1b6b7cc494b99470858ac78a57, type: 3}
+  InfoText: {fileID: 5325149747735979378, guid: 49a8d5ca5e96be040a32ee934fd90901, type: 3}
   invertedScroll: 0
   lookingDown: 0
   currentDisplay: {fileID: 0}
@@ -2663,14 +2664,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073871216}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 1, z: -0.00000011920926, w: 0.0000003874301}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.5, y: 1, z: 0.75}
   m_Children:
   - {fileID: 1576150120}
   m_Father: {fileID: 1205222013}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!64 &2073871218
 MeshCollider:
   m_ObjectHideFlags: 0

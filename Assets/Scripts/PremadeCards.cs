@@ -95,7 +95,7 @@ public class PremadeCards : MonoBehaviour
 			case Modifiers.None:
 				return "No modifier rune";
 			case Modifiers.Free:
-				return "A card with this rune costs nothing to play, but still returns it's full value on death";
+				return "A card with this rune costs nothing to play, but still returns its full value on death";
 			case Modifiers.Venomous:
 				return "Instantly kill any card upon damaging them";
 			case Modifiers.Flying:
@@ -103,22 +103,23 @@ public class PremadeCards : MonoBehaviour
 			case Modifiers.Dusty:
 				return "Will give 5 extra dust on death, on top of normal drops";
 			case Modifiers.MovingL:
+				return "Moves to the left after all friendly cards have attacked";
 			case Modifiers.MovingR:
-				return "Moves to the left (or right) after all friendly cards have attacked";
+				return "Moves to the right after all friendly cards have attacked";
 			case Modifiers.Brutish:
-				return "Takes one less damage on this side, possibly taking none";
+				return "Takes one less damage on this side, potentially taking none";
 			case Modifiers.Pronged:
 				return "Attacks to the left and right, rather than straight ahead";
 			case Modifiers.Thorny:
 				return "Attackers take one point of damage when attacking this side";
 			case Modifiers.Musical:
 				return "Other friendly cards currently played on this side permanently gain one attack";
-			case Modifiers.Syphoning:
+			case Modifiers.Syphoning://potentially rename to parasitic? would make description more intuitive. currently sounds like lifesteal
 				return "Gains one health after attacking, but takes one from the other side of this card";
 			case Modifiers.Guarding:
-				return "Absorbs all enemy attacks on this side, taking the damage ON THIS LANE instead (If first hit kills this card, take direct damage after)";
+				return "All enemy attacks on this side are redirected to this lane instead. If this card dies during enemy move, take direct damage from further attacks";
 			case Modifiers.Vampiric:
-				return "When this card kills an enemy, gain two health. (This side only)";
+				return "When this card kills an enemy, this side gains two health";
 			default:
 				return "This modifier has no description. (This is a BUG!)";
 		}
